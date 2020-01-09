@@ -38,6 +38,10 @@ interface ESLint {
   extends?: string[];
 }
 
+interface PackageJSON {
+  eslintConfig?: ESLint;
+}
+
 function findConfig(files: string[]): string | null {
 
   for (const file in files) {
@@ -173,14 +177,22 @@ function enableESLintStrict() {
   const eslintReactPlugin = 'react-app';
   const eslintTypeScriptParser = '@typescript-eslint/parser';
 
-  // TODO: manage other eslint configs files
-  const file = findConfig(['.eslintrc.json', '.eslintrc.yaml']);
+  let config: ESLint | null = null;
+  let packageJSONConfig: PackageJSON | null = null;
 
+  // TODO: manage .eslintrc.js
+  const file = findConfig(['.eslintrc.json', '.eslintrc.yaml', 'package.json']);
   if (!file) {
     return false;
   }
 
-  const config = getConfig<ESLint>(file);
+  if (file === 'package.json') {
+    packageJSONConfig = getConfig<PackageJSON>(file);
+    config = packageJSONConfig?.eslintConfig ?? {};
+  } else {
+    config = getConfig<ESLint>(file);
+  }
+
   if (!config) {
     return false;
   }
@@ -212,7 +224,12 @@ function enableESLintStrict() {
   // TODO: check options
   config.rules['@typescript-eslint/explicit-function-return-type'] = ['error'];
 
-  return saveConfig(file, config);
+  if (packageJSONConfig) {
+    packageJSONConfig.eslintConfig = config;
+    return saveConfig(file, packageJSONConfig);
+  } else {
+    return saveConfig(file, config);
+  }
 
 }
 
