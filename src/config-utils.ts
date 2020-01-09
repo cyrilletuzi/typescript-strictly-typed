@@ -5,7 +5,7 @@ import * as yaml from 'js-yaml';
 
 export function findConfig(files: string[]): string | null {
 
-  for (const file in files) {
+  for (const file of files) {
 
     const filePath = path.join(__dirname, file);
 
