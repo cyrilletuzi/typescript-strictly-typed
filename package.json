@@ -3,6 +3,10 @@
   "version": "0.0.1",
   "description": "Work in progress",
   "main": "dist/index.js",
+  "engines": {
+    "node": ">=10.13.0",
+    "npm": ">=6.4.1"
+  },
   "scripts": {
     "build": "tsc",
     "lint": "eslint src/**",
