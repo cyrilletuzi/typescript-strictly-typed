@@ -9,6 +9,13 @@ interface TSConfig {
   };
 }
 
+interface TSLint {
+  rules?: {
+    "no-any"?: boolean;
+    typedef?: boolean | [true, ...string[]];
+  };
+}
+
 function checkConfig(file: string): boolean {
 
   const filePath = path.join(__dirname, file);
@@ -27,7 +34,7 @@ function getConfig<T>(file: string): T | null {
   try {
     configParsed = json5.parse(configRaw) as T;
   } catch {
-    console.log(`Can't parse ${file}.`);
+    console.log(`Can't parse ${file}. Check the file syntax is valid.`);
   }
 
   return configParsed;
@@ -58,25 +65,54 @@ function enableTypeScriptStrict({ strictPropertyInitialization = true } = {}): b
     return false;
   }
 
-  const tsConfig = getConfig<TSConfig>(file);
-
-  if (!tsConfig) {
-    console.log(`Can't parse ${file}. Check the file syntax is valid.`);
+  const config = getConfig<TSConfig>(file);
+  if (!config) {
     return false;
   }
 
-  if (!tsConfig.compilerOptions) {
-    console.log(`"compilerOptions" is missing in ${file}.`);
-    return false;
+  if (!config.compilerOptions) {
+    config.compilerOptions = {};
   }
 
-  tsConfig.compilerOptions.strict = true;
+  config.compilerOptions.strict = true;
 
   if (strictPropertyInitialization === false) {
-    tsConfig.compilerOptions.strictPropertyInitialization = false;
+    config.compilerOptions.strictPropertyInitialization = false;
   }
 
-  saveConfig(file, tsConfig);
+  saveConfig(file, config);
+
+  return true;
+
+}
+
+function enableTSLintStrict() {
+
+  const file = 'tslint.json';
+
+  if (!checkConfig(file)) {
+    console.log(`Can't find ${file} file. Did you install and configure tslint?`);
+    return false;
+  }
+
+  const config = getConfig<TSLint>(file);
+  if (!config) {
+    return false;
+  }
+
+  if (!config.rules) {
+    config.rules = {};
+  }
+
+  config.rules['no-any'] = true;
+
+  if (config.rules.typedef && Array.isArray(config.rules.typedef) && !config.rules.typedef.includes('call-signature')) {
+    config.rules.typedef.push('call-signature');
+  } else {
+    config.rules.typedef = [true, 'call-signature'];
+  }
+
+  saveConfig(file, config);
 
   return true;
 
