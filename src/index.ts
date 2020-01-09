@@ -74,6 +74,8 @@ function getConfig<T>(file: string): T | null {
       configParsed = json5.parse(configRaw) as T;
     } else if (fileType === '.yaml') {
       configParsed = yaml.safeLoad(configRaw) as T;
+    } else if (fileType === '.js') {
+      configParsed = require(filePath) as T;
     }
   } catch {
     console.log(`Can't parse ${file}. Check the file syntax is valid.`);
@@ -180,8 +182,7 @@ function enableESLintStrict() {
   let config: ESLint | null = null;
   let packageJSONConfig: PackageJSON | null = null;
 
-  // TODO: manage .eslintrc.js
-  const file = findConfig(['.eslintrc.json', '.eslintrc.yaml', 'package.json']);
+  const file = findConfig(['.eslintrc.json', '.eslintrc.yaml', '.eslintrc.js', 'package.json']);
   if (!file) {
     return false;
   }
@@ -227,6 +228,9 @@ function enableESLintStrict() {
   if (packageJSONConfig) {
     packageJSONConfig.eslintConfig = config;
     return saveConfig(file, packageJSONConfig);
+  } else if (file === '.eslintrc.js') {
+    console.log(`You're using the advanced .eslintrc.js format for your ESLint config, and it can't be overwrited directly, as it could mess up with advanced configuration. So the new strict configuration was saved in .eslintrc.json. As .eslintrc.js has precedence over .eslintrc.json, you need to manually copy the new options from the new .eslintrc.json to your preexisting .eslintrc.js. If you know a way to automate this, please open a PR.`);
+    return saveConfig('.eslintrc.json', config);
   } else {
     return saveConfig(file, config);
   }
