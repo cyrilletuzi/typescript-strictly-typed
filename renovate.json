@@ -5,7 +5,8 @@
   "packageRules": [
     {
       "packageNames": ["@types/node"],
-      "allowedVersions": "<13"
+      "allowedVersions": "<13",
+      "automerge": true
     }
   ],
   "schedule": ["after 9am and before 12am on friday"],

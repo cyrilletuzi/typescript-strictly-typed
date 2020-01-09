@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/cyrilletuzi/typescript-strictly-strict/issues"
   },
-  "homepage": "https://github.com/cyrilletuzi/typescript-strictly-strict#readme"
+  "homepage": "https://github.com/cyrilletuzi/typescript-strictly-strict#readme",
+  "devDependencies": {
+    "@types/node": "^12.12.24"
+  }
 }
