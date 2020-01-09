@@ -5,3 +5,4 @@ typings/
 Thumbs.db
 .eslintcache
 *.tgz
+dist/
