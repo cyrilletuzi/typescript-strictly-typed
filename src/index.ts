@@ -1,6 +1,7 @@
 import * as path from 'path';
 import * as fs from 'fs';
 import * as json5 from 'json5';
+import * as yaml from 'js-yaml';
 
 interface TSConfig {
   compilerOptions?: {
@@ -37,16 +38,21 @@ interface ESLint {
   extends?: string[];
 }
 
-const eslintTypeScriptPlugin = '@typescript-eslint';
-const eslintVuePlugin = '@vue/typescript';
-const eslintReactPlugin = 'react-app';
-const eslintTypeScriptParser = '@typescript-eslint/parser';
+function findConfig(files: string[]): string | null {
 
-function checkConfig(file: string): boolean {
+  for (const file in files) {
 
-  const filePath = path.join(__dirname, file);
+    const filePath = path.join(__dirname, file);
 
-  return fs.existsSync(filePath);
+    if (fs.existsSync(filePath)) {
+      return file;
+    }
+
+  }
+
+  console.log(`Can't find ${files.join(' or ')} file. Are you invoking the command from the correct directory?`);
+
+  return null;
 
 }
 
@@ -56,9 +62,15 @@ function getConfig<T>(file: string): T | null {
 
   const configRaw = fs.readFileSync(filePath, { encoding: 'utf8' });
 
+  const fileType = path.extname(file);
+
   let configParsed = null;
   try {
-    configParsed = json5.parse(configRaw) as T;
+    if (fileType === '.json') {
+      configParsed = json5.parse(configRaw) as T;
+    } else if (fileType === '.yaml') {
+      configParsed = yaml.safeLoad(configRaw) as T;
+    }
   } catch {
     console.log(`Can't parse ${file}. Check the file syntax is valid.`);
   }
@@ -70,9 +82,27 @@ function getConfig<T>(file: string): T | null {
 function saveConfig(file: string, config: unknown): boolean {
 
   const filePath = path.join(__dirname, file);
+  const fileType = path.extname(file);
 
-  // TODO: manage indentation
-  const configStringified = json5.stringify(config, null, 2);
+  let configStringified: string | null = null;
+  try {
+
+    // TODO: manage indentation
+    if (fileType === '.json') {
+      configStringified = json5.stringify(config, null, 2);
+    } else if (fileType === '.yaml') {
+      configStringified = yaml.safeDump(config, { indent: 2 });
+    }
+
+  } catch {
+    console.log(`Can't save ${file} config.`);
+    return false;
+  }
+
+  if (!configStringified) {
+    console.log(`Can't save ${file} config.`);
+    return false;
+  }
 
   try {
     fs.writeFileSync(filePath, configStringified);
@@ -86,10 +116,9 @@ function saveConfig(file: string, config: unknown): boolean {
 
 function enableTypeScriptStrict(): boolean {
 
-  const file = 'tsconfig.json';
+  const file = findConfig(['tsconfig.json']);
 
-  if (!checkConfig(file)) {
-    console.log(`Can't find ${file} file. Are you invoking the command from the correct directory?`);
+  if (!file) {
     return false;
   }
 
@@ -110,11 +139,9 @@ function enableTypeScriptStrict(): boolean {
 
 function enableTSLintStrict() {
 
-  // TODO: manage tslint.yaml format
-  const file = 'tslint.json';
+  const file = findConfig(['tslint.json', 'tslint.yaml']);
 
-  if (!checkConfig(file)) {
-    console.log(`Can't find ${file} file. Skipping tslint configuration.`);
+  if (!file) {
     return false;
   }
 
@@ -141,11 +168,15 @@ function enableTSLintStrict() {
 
 function enableESLintStrict() {
 
-  // TODO: manage other eslint configs files
-  const file = '.eslintrc.json';
+  const eslintTypeScriptPlugin = '@typescript-eslint';
+  const eslintVuePlugin = '@vue/typescript';
+  const eslintReactPlugin = 'react-app';
+  const eslintTypeScriptParser = '@typescript-eslint/parser';
 
-  if (!checkConfig(file)) {
-    console.log(`Can't find ${file} file. Skipping eslint configuration.`);
+  // TODO: manage other eslint configs files
+  const file = findConfig(['.eslintrc.json', '.eslintrc.yaml']);
+
+  if (!file) {
     return false;
   }
 
@@ -187,7 +218,11 @@ function enableESLintStrict() {
 
 function enableAngularStrict({ strictPropertyInitialization = false } = {}): boolean {
 
-  const file = 'tsconfig.json';
+  const file = findConfig(['tsconfig.json']);
+
+  if (!file) {
+    return false;
+  }
 
   const config = getConfig<TSConfigAngular>(file);
   if (!config) {
