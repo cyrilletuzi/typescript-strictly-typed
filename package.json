@@ -25,6 +25,7 @@
     "json5": "2.1.1"
   },
   "devDependencies": {
+    "@types/json5": "0.0.30",
     "@types/node": "12.12.24",
     "typescript": "3.7.4"
   }
