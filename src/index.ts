@@ -16,6 +16,13 @@ interface TSLint {
   };
 }
 
+interface ESLint {
+  rules?: {
+    "@typescript-eslint/no-explicit-any"?: ['error'];
+    "@typescript-eslint/explicit-function-return-type"?: ['error'];
+  };
+}
+
 function checkConfig(file: string): boolean {
 
   const filePath = path.join(__dirname, file);
@@ -88,10 +95,11 @@ function enableTypeScriptStrict({ strictPropertyInitialization = true } = {}): b
 
 function enableTSLintStrict() {
 
+  // TODO: manage tslint.yaml format
   const file = 'tslint.json';
 
   if (!checkConfig(file)) {
-    console.log(`Can't find ${file} file. Did you install and configure tslint?`);
+    console.log(`Can't find ${file} file. Skipping tslint configuration.`);
     return false;
   }
 
@@ -111,6 +119,38 @@ function enableTSLintStrict() {
   } else {
     config.rules.typedef = [true, 'call-signature'];
   }
+
+  saveConfig(file, config);
+
+  return true;
+
+}
+
+function enableESLintStrict() {
+
+  // TODO: manage other eslint configs files
+  const file = '.eslintrc.json';
+
+  if (!checkConfig(file)) {
+    console.log(`Can't find ${file} file. Skipping eslint configuration.`);
+    return false;
+  }
+
+  const config = getConfig<ESLint>(file);
+  if (!config) {
+    return false;
+  }
+
+  // TODO: check @typescript-eslint is installed and configured
+
+  if (!config.rules) {
+    config.rules = {};
+  }
+
+  config.rules['@typescript-eslint/no-explicit-any'] = ['error'];
+
+  // TODO: check options
+  config.rules['@typescript-eslint/explicit-function-return-type'] = ['error'];
 
   saveConfig(file, config);
 
