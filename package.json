@@ -2,7 +2,7 @@
   "name": "typescript-strictly-strict",
   "version": "0.0.1",
   "description": "Work in progress",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
     "lint": "eslint src/**",
