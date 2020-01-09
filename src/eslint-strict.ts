@@ -2,8 +2,8 @@ import { findConfig, getConfig, saveConfig } from './config-utils';
 
 interface ESLint {
   rules?: {
-    "@typescript-eslint/no-explicit-any"?: string[];
-    "@typescript-eslint/explicit-function-return-type"?: string[];
+    '@typescript-eslint/no-explicit-any'?: string | string[];
+    '@typescript-eslint/explicit-function-return-type'?: string | string[];
   };
   parser?: string;
   parserOptions?: {
@@ -17,7 +17,7 @@ interface PackageJSON {
   eslintConfig?: ESLint;
 }
 
-export default function enableESLintStrict() {
+export default function enableESLintStrict(): boolean {
 
   const eslintTypeScriptPlugin = '@typescript-eslint';
   const eslintVuePlugin = '@vue/typescript';
@@ -65,10 +65,10 @@ export default function enableESLintStrict() {
     config.rules = {};
   }
 
-  config.rules['@typescript-eslint/no-explicit-any'] = ['error'];
+  config.rules['@typescript-eslint/no-explicit-any'] = 'error';
 
   // TODO: check options
-  config.rules['@typescript-eslint/explicit-function-return-type'] = ['error'];
+  config.rules['@typescript-eslint/explicit-function-return-type'] = 'error';
 
   if (packageJSONConfig) {
     packageJSONConfig.eslintConfig = config;

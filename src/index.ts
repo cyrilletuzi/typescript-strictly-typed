@@ -4,23 +4,23 @@ import enableESLintStrict from './eslint-strict';
 import enableTSLintStrict from './tslint-strict';
 import enableAngularStrict from './angular-strict';
 
-export default function main() {
+export default function main(): void {
 
   const success: string[] = [];
 
-  if (enableTypeScriptStrict()) {
+  if (enableTypeScriptStrict()) {
     success.push('TypeScript');
   }
 
-  if (enableESLintStrict()) {
+  if (enableESLintStrict()) {
     success.push('ESLint');
   }
 
-  if (enableTSLintStrict()) {
+  if (enableTSLintStrict()) {
     success.push('TSLint');
   }
 
-  if (findConfig(['angular.json']) && enableAngularStrict()) {
+  if (findConfig(['angular.json']) && enableAngularStrict()) {
     success.push('Angular');
   }
 

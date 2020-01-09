@@ -2,12 +2,12 @@ import { findConfig, getConfig, saveConfig } from './config-utils';
 
 interface TSLint {
   rules?: {
-    "no-any"?: boolean;
+    'no-any'?: boolean;
     typedef?: boolean | [true, ...string[]];
   };
 }
 
-export default function enableTSLintStrict() {
+export default function enableTSLintStrict(): boolean {
 
   const file = findConfig(['tslint.json', 'tslint.yaml']);
 
