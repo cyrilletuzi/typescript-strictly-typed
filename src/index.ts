@@ -9,6 +9,14 @@ interface TSConfig {
   };
 }
 
+interface TSConfigAngular extends TSConfig {
+  angularCompilerOptions?: {
+    fullTemplateTypeCheck?: boolean;
+    strictInjectionParameters?: boolean;
+    strictTemplates?: boolean;
+  };
+}
+
 interface TSLint {
   rules?: {
     "no-any"?: boolean;
@@ -48,7 +56,7 @@ function getConfig<T>(file: string): T | null {
 
 }
 
-function saveConfig(file: string, config: unknown): void {
+function saveConfig(file: string, config: unknown): boolean {
 
   const filePath = path.join(__dirname, file);
 
@@ -57,13 +65,15 @@ function saveConfig(file: string, config: unknown): void {
 
   try {
     fs.writeFileSync(filePath, configStringified);
+    return true;
   } catch {
     console.log(`Can't write ${file} file. Maybe a permission issue?`);
+    return false;
   }
 
 }
 
-function enableTypeScriptStrict({ strictPropertyInitialization = true } = {}): boolean {
+function enableTypeScriptStrict(): boolean {
 
   const file = 'tsconfig.json';
 
@@ -83,13 +93,7 @@ function enableTypeScriptStrict({ strictPropertyInitialization = true } = {}): b
 
   config.compilerOptions.strict = true;
 
-  if (strictPropertyInitialization === false) {
-    config.compilerOptions.strictPropertyInitialization = false;
-  }
-
-  saveConfig(file, config);
-
-  return true;
+  return saveConfig(file, config);
 
 }
 
@@ -120,9 +124,7 @@ function enableTSLintStrict() {
     config.rules.typedef = [true, 'call-signature'];
   }
 
-  saveConfig(file, config);
-
-  return true;
+  return saveConfig(file, config);
 
 }
 
@@ -152,8 +154,42 @@ function enableESLintStrict() {
   // TODO: check options
   config.rules['@typescript-eslint/explicit-function-return-type'] = ['error'];
 
-  saveConfig(file, config);
+  return saveConfig(file, config);
 
-  return true;
+}
+
+function enableAngularStrict({ strictPropertyInitialization = false } = {}): boolean {
+
+  const file = 'tsconfig.json';
+
+  const config = getConfig<TSConfigAngular>(file);
+  if (!config) {
+    return false;
+  }
+
+  if (!config.compilerOptions) {
+    config.compilerOptions = {};
+  }
+
+  /* Strict property initialization check is an issue in Angular projects,
+   * as most properties are initiliazed in `ngOnInit()` instead of `constructor()`
+   * or via decorators (mainly via `@Input()`).
+   */
+  if (strictPropertyInitialization !== true) {
+    config.compilerOptions.strictPropertyInitialization = false;
+  }
+
+  if (!config.angularCompilerOptions) {
+    config.angularCompilerOptions = {};
+  }
+
+  /* Available in Angular >= 5 */
+  config.angularCompilerOptions.fullTemplateTypeCheck = true;
+  /* Available in Angular >= 5 */
+  config.angularCompilerOptions.strictInjectionParameters = true;
+  /* Available in Angular >= 9 */
+  config.angularCompilerOptions.strictTemplates = true;
+
+  return saveConfig(file, config);
 
 }
