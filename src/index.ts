@@ -174,6 +174,7 @@ function enableAngularStrict({ strictPropertyInitialization = false } = {}): boo
   /* Strict property initialization check is an issue in Angular projects,
    * as most properties are initiliazed in `ngOnInit()` instead of `constructor()`
    * or via decorators (mainly via `@Input()`).
+   * So we disable it, except if requested.
    */
   if (strictPropertyInitialization !== true) {
     config.compilerOptions.strictPropertyInitialization = false;
