@@ -15,7 +15,7 @@ export function findConfig(files: string[]): string | null {
 
   }
 
-  console.log(`Can't find ${files.join(' or ')} file. Are you invoking the command from the correct directory?`);
+  console.log(`Can't find ${files.join(' or ')} file. Skipping this configuration.`);
 
   return null;
 

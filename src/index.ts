@@ -6,11 +6,24 @@ import enableAngularStrict from './angular-strict';
 
 export default function main() {
 
-  enableTypeScriptStrict();
-  enableESLintStrict();
-  enableTSLintStrict();
-  if (findConfig(['angular.json'])) {
-    enableAngularStrict();
+  const success: string[] = [];
+
+  if (enableTypeScriptStrict()) {
+    success.push('TypeScript');
   }
+
+  if (enableESLintStrict()) {
+    success.push('ESLint');
+  }
+
+  if (enableTSLintStrict()) {
+    success.push('TSLint');
+  }
+
+  if (findConfig(['angular.json']) && enableAngularStrict()) {
+    success.push('Angular');
+  }
+
+  console.log(`Configuration finished. It succeeded for: ${success.join(', ')}.`);
 
 }
