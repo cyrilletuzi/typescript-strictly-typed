@@ -26,8 +26,8 @@ interface TSLint {
 
 interface ESLint {
   rules?: {
-    "@typescript-eslint/no-explicit-any"?: ['error'];
-    "@typescript-eslint/explicit-function-return-type"?: ['error'];
+    "@typescript-eslint/no-explicit-any"?: string[];
+    "@typescript-eslint/explicit-function-return-type"?: string[];
   };
   parser?: string;
   parserOptions?: {
@@ -36,6 +36,11 @@ interface ESLint {
   plugins?: string[];
   extends?: string[];
 }
+
+const eslintTypeScriptPlugin = '@typescript-eslint';
+const eslintVuePlugin = '@vue/typescript';
+const eslintReactPlugin = 'react-app';
+const eslintTypeScriptParser = '@typescript-eslint/parser';
 
 function checkConfig(file: string): boolean {
 
@@ -67,7 +72,7 @@ function saveConfig(file: string, config: unknown): boolean {
   const filePath = path.join(__dirname, file);
 
   // TODO: manage indentation
-  const configStringified = json5.stringify(config);
+  const configStringified = json5.stringify(config, null, 2);
 
   try {
     fs.writeFileSync(filePath, configStringified);
@@ -151,20 +156,20 @@ function enableESLintStrict() {
 
   if (
     (!config.parser && !config.parserOptions) ||
-    (config.parser !== '@typescript-eslint/parser') ||
-    (config.parserOptions && (config.parserOptions.parser !== '@typescript-eslint/parser'))
+    (config.parser !== eslintTypeScriptParser) ||
+    (config.parserOptions && (config.parserOptions.parser !== eslintTypeScriptParser))
   ) {
-    console.log(`${file} "parser" must be configured with "@typescript-eslint/parser", otherwise rules won't be checked.`);
+    console.log(`${file} "parser" must be configured with "${eslintTypeScriptParser}", otherwise rules won't be checked.`);
   }
 
   // TODO: for react-app, by adding the config in default location (ie. in package.json),
   // it will make the lint work in VS Code, but not during react-app compilation
   if (
     (!config.plugins && !config.extends) ||
-    (config.plugins && Array.isArray(config.plugins) && !config.plugins.includes('@typescript-eslint')) ||
-    (config.extends && Array.isArray(config.extends) && !config.extends.includes('@vue/typescript') && !config.extends.includes('react-app'))
+    (config.plugins && Array.isArray(config.plugins) && !config.plugins.includes(eslintTypeScriptPlugin)) ||
+    (config.extends && Array.isArray(config.extends) && !config.extends.includes(eslintVuePlugin) && !config.extends.includes(eslintReactPlugin))
   ) {
-    console.log(`Your ${file} must include eitheir "plugins": ["@typescript-eslint"] (or an equivalent like "extends": ["@vue/typescript"] or "extends": ["react-app"]), otherwise rules won't be checked.`);
+    console.log(`Your ${file} must include eitheir "plugins": ["${eslintTypeScriptPlugin}"] (or an equivalent like "extends": ["${eslintVuePlugin}"] or "extends": ["${eslintReactPlugin}"]), otherwise rules won't be checked.`);
   }
 
   if (!config.rules) {
