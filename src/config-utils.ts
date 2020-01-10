@@ -86,7 +86,6 @@ export function saveConfig(cwd: string, file: string, config: unknown): boolean 
   let configStringified: string | null = null;
   try {
 
-    // TODO: manage indentation
     switch (fileType) {
       case '.json':
         configStringified = JSON.stringify(config, null, 2);

@@ -68,7 +68,6 @@ export default function enableESLintStrict(cwd: string): boolean {
 
   config.rules['@typescript-eslint/no-explicit-any'] = 'error';
 
-  // TODO: check options
   config.rules['@typescript-eslint/explicit-function-return-type'] = 'error';
 
   if (packageJSONConfig) {
