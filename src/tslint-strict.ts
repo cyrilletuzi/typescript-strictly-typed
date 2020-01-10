@@ -13,18 +13,20 @@ interface TSLint {
  * - `typedef` with `call-signature` option
  * {@link https://palantir.github.io/tslint/rules/}
  *
+ * @param cwd Working directory path
+ *
  * @returns A boolean for success or failure
  *
  */
-export default function enableTSLintStrict(): boolean {
+export default function enableTSLintStrict(cwd: string): boolean {
 
-  const file = findConfig(['tslint.json', 'tslint.yaml', 'tslint.yml']);
+  const file = findConfig(cwd, ['tslint.json', 'tslint.yaml', 'tslint.yml']);
 
   if (!file) {
     return false;
   }
 
-  const config = getConfig<TSLint>(file);
+  const config = getConfig<TSLint>(cwd, file);
   if (!config) {
     return false;
   }
@@ -44,6 +46,6 @@ export default function enableTSLintStrict(): boolean {
     config.rules.typedef = [true, 'call-signature'];
   }
 
-  return saveConfig(file, config);
+  return saveConfig(cwd, file, config);
 
 }

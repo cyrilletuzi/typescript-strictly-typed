@@ -5,14 +5,17 @@ import * as yaml from 'js-yaml';
 
 /**
  * Search the config file of a tool
+ *
+ * @param cwd Working directory path
  * @param files List of possible config file names
+ *
  * @returns The first config file found, or `null`
  */
-export function findConfig(files: string[]): string | null {
+export function findConfig(cwd: string, files: string[]): string | null {
 
   for (const file of files) {
 
-    const filePath = path.join(__dirname, file);
+    const filePath = path.join(cwd, file);
 
     if (fs.existsSync(filePath)) {
       return file;
@@ -28,12 +31,15 @@ export function findConfig(files: string[]): string | null {
 
 /**
  * Get and parse the config of a tool
+ *
+ * @param cwd Working directory path
  * @param file Config file name. Allowed format: `.json`, `.yaml`/`.yml` and `.js`
+ *
  * @returns The parsed config, or `null`
  */
-export function getConfig<T>(file: string): T | null {
+export function getConfig<T>(cwd: string, file: string): T | null {
 
-  const filePath = path.join(__dirname, file);
+  const filePath = path.join(cwd, file);
 
   const configRaw = fs.readFileSync(filePath, { encoding: 'utf8' });
 
@@ -66,14 +72,15 @@ export function getConfig<T>(file: string): T | null {
 /**
  * Write config file on disk
  *
+ * @param cwd Working directory path
  * @param file Config file name. Allowed format: `.json` and `.yaml`/`.yml`
  * @param config The file content
  *
  * @returns A boolean for success or failure
  */
-export function saveConfig(file: string, config: unknown): boolean {
+export function saveConfig(cwd: string, file: string, config: unknown): boolean {
 
-  const filePath = path.join(__dirname, file);
+  const filePath = path.join(cwd, file);
   const fileType = path.extname(file);
 
   let configStringified: string | null = null;

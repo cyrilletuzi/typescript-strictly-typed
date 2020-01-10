@@ -16,6 +16,7 @@ interface TSConfigAngular extends TSConfig {
  * - `strictTemplates` (Angular >=9)
  * {@link https://angular.io/guide/angular-compiler-options}
  *
+ * @param cwd Working directory path
  * @param options Object of options:
  * - `strictPropertyInitialization`: Strict property initialization check is an issue in Angular projects,
  * as most properties are initiliazed in `ngOnInit()` instead of `constructor()`
@@ -24,15 +25,15 @@ interface TSConfigAngular extends TSConfig {
  *
  * @returns A boolean for success or failure
  */
-export default function enableAngularStrict({ strictPropertyInitialization = false } = {}): boolean {
+export default function enableAngularStrict(cwd: string, { strictPropertyInitialization = false } = {}): boolean {
 
-  const file = findConfig(['tsconfig.json']);
+  const file = findConfig(cwd, ['tsconfig.json']);
 
   if (!file) {
     return false;
   }
 
-  const config = getConfig<TSConfigAngular>(file);
+  const config = getConfig<TSConfigAngular>(cwd, file);
   if (!config) {
     return false;
   }
@@ -53,6 +54,6 @@ export default function enableAngularStrict({ strictPropertyInitialization = fal
   config.angularCompilerOptions.strictInjectionParameters = true;
   config.angularCompilerOptions.strictTemplates = true;
 
-  return saveConfig(file, config);
+  return saveConfig(cwd, file, config);
 
 }
