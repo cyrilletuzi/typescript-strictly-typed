@@ -89,7 +89,7 @@ export function saveConfig(cwd: string, file: string, config: unknown): boolean 
     // TODO: manage indentation
     switch (fileType) {
       case '.json':
-        configStringified = json5.stringify(config, null, 2);
+        configStringified = JSON.stringify(config, null, 2);
         break;
       case '.yaml':
       case '.yml':

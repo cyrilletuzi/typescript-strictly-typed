@@ -6,9 +6,6 @@ interface ESLint {
     '@typescript-eslint/explicit-function-return-type'?: string | string[];
   };
   parser?: string;
-  parserOptions?: {
-    parser?: string;
-  };
   plugins?: string[];
   extends?: string[];
 }
@@ -48,7 +45,7 @@ export default function enableESLintStrict(cwd: string): boolean {
     if (!packageJSONConfig) {
       return false;
     }
-    config = packageJSONConfig.eslintConfig ?? {};
+    config = packageJSONConfig.eslintConfig ?? null;
   } else {
     config = getConfig<ESLint>(cwd, file);
   }
@@ -57,22 +54,11 @@ export default function enableESLintStrict(cwd: string): boolean {
     return false;
   }
 
-  if (
-    (!config.parser && !config.parserOptions) ||
-    (config.parser !== eslintTypeScriptParser) ||
-    (config.parserOptions && (config.parserOptions.parser !== eslintTypeScriptParser))
-  ) {
-    console.log(`${file} "parser" must be configured with "${eslintTypeScriptParser}", otherwise rules won't be checked.`);
-  }
-
-  // TODO: for react-app, by adding the config in default location (ie. in package.json),
-  // it will make the lint work in VS Code, but not during react-app compilation
-  if (
-    (!config.plugins && !config.extends) ||
-    (config.plugins && Array.isArray(config.plugins) && !config.plugins.includes(eslintTypeScriptPlugin)) ||
-    (config.extends && Array.isArray(config.extends) && !config.extends.includes(eslintVuePlugin) && !config.extends.includes(eslintReactPlugin))
-  ) {
-    console.log(`Your ${file} must include eitheir "plugins": ["${eslintTypeScriptPlugin}"] (or an equivalent like "extends": ["${eslintVuePlugin}"] or "extends": ["${eslintReactPlugin}"]), otherwise rules won't be checked.`);
+  if (!(
+    (config.parser === eslintTypeScriptParser && Array.isArray(config.plugins) && config.plugins.includes(eslintTypeScriptPlugin)) ||
+    (config.extends && Array.isArray(config.extends) && (config.extends.includes(eslintVuePlugin) || config.extends.includes(eslintReactPlugin)))
+  )) {
+    console.log(`${file} must be configured with "parser": "${eslintTypeScriptParser}" and "plugins": ["${eslintTypeScriptPlugin}"] (or an equivalent like "extends": ["${eslintVuePlugin}"] or "extends": ["${eslintReactPlugin}"]), otherwise rules won't be checked.`);
   }
 
   if (!config.rules) {
