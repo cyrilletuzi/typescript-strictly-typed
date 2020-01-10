@@ -1,8 +1,9 @@
 # TypeScript Strictly Strict
 
+Enable configurations for strictly typed TypeScript, ESLint or TSLint, and optionally Angular.
 Because strict mode is not enough.
 
-Blog post coming soon to explain the why of this lib.
+Blog post coming soon to explain the why and details of this lib.
 
 ## Getting started
 

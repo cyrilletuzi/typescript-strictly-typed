@@ -1,7 +1,7 @@
 {
   "name": "typescript-strictly-strict",
-  "version": "0.0.1",
-  "description": "Enable strict configurations for TypeScript, ESLint or TSLint, and optionally Angular.",
+  "version": "1.0.0",
+  "description": "Enable configurations for strictly typed TypeScript, ESLint or TSLint, and optionally Angular.",
   "main": "index.js",
   "bin": "bin/cli",
   "type": "commonjs",
