@@ -1,15 +1,15 @@
-# TypeScript Strictly Strict
+# TypeScript Strictly Typed
 
 Enable configurations for strictly typed TypeScript, ESLint or TSLint, and optionally Angular.
-Because strict mode is not enough.
+Because TypeScript `strict` mode is not enough.
 
-Blog post coming soon to explain the why and details of this lib.
+Blog post coming soon to explain the motivation and details of this lib.
 
 ## Getting started
 
 ```bash
 cd path/to/my-project
-npx typescript-strictly-strict
+npx typescript-strictly-typed
 ```
 
 ## What does it do?
@@ -52,7 +52,7 @@ ie. where your configuration files (like `tsconfig.json`) are located.
 
 ### TypeScript
 
-Strict mode is available in TypeScript >= 2.3.
+`strict` mode is available in TypeScript >= 2.3.
 
 ### ESLint
 
@@ -80,7 +80,7 @@ as recommended by the Angular team.
 
 If you're feeling adventurous and want to enable it:
 ```bash
-npx typescript-strictly-strict --strictPropertyInitialization
+npx typescript-strictly-typed --strictPropertyInitialization
 ```
 
 ## Known limitations
@@ -102,7 +102,7 @@ it will work out of the box:
 But it won't be taken into account at React compilation (ie. on `npm start`),
 because React does custom things.
 
-See [issue #2](https://github.com/cyrilletuzi/typescript-strictly-strict/issues/2)
+See [issue #2](https://github.com/cyrilletuzi/typescript-strictly-typed/issues/2)
 if you want to help.
 
 ### Apps using `.eslintrc.js` (including Vue)
@@ -119,7 +119,7 @@ it will work out of the box if you chose one of the following Vue options:
 But if you chose ESLint with *a dedicated config file*,
 Vue will create a `.eslintrc`*`.js`* file and so you'll have to do the above step.
 
-See [issue #3](https://github.com/cyrilletuzi/typescript-strictly-strict/issues/3)
+See [issue #3](https://github.com/cyrilletuzi/typescript-strictly-typed/issues/3)
 if you want to help.
 
 ## License

@@ -1,5 +1,5 @@
 {
-  "name": "typescript-strictly-strict",
+  "name": "typescript-strictly-typed",
   "version": "1.0.0",
   "description": "Enable configurations for strictly typed TypeScript, ESLint or TSLint, and optionally Angular.",
   "main": "index.js",
@@ -17,23 +17,25 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cyrilletuzi/typescript-strictly-strict.git"
+    "url": "git+https://github.com/cyrilletuzi/typescript-strictly-typed.git"
   },
   "keywords": [
     "typescript",
     "strict",
-    "typescript strict",
+    "javascript",
     "eslint",
     "tslint",
+    "lint",
     "angular",
-    "angular strict"
+    "angular strict",
+    "compiler"
   ],
   "author": "Cyrille Tuzi",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/cyrilletuzi/typescript-strictly-strict/issues"
+    "url": "https://github.com/cyrilletuzi/typescript-strictly-typed/issues"
   },
-  "homepage": "https://github.com/cyrilletuzi/typescript-strictly-strict",
+  "homepage": "https://github.com/cyrilletuzi/typescript-strictly-typed",
   "dependencies": {
     "js-yaml": "3.13.1",
     "json5": "2.1.1",

@@ -1,9 +1,8 @@
 import { findConfig, getConfig, saveConfig } from './config-utils';
 
-export interface TSConfig {
+interface TSConfig {
   compilerOptions?: {
     strict?: boolean;
-    strictPropertyInitialization?: boolean;
   };
 }
 

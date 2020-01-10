@@ -4,12 +4,12 @@ import enableESLintStrict from './eslint-strict';
 import enableTSLintStrict from './tslint-strict';
 import enableAngularStrict from './angular-strict';
 
-interface TypescriptStrictlyStrictOptions {
+interface TypescriptStrictlyTypedOptions {
   strictPropertyInitialization?: boolean;
 }
 
 /**
- * Enable strict configurations for:
+ * Enable strictly typed configurations for:
  * - TypeScript compiler
  * - ESLint or TSLint rules
  * - Angular compiler (if `angular.json` is detected)
@@ -21,7 +21,7 @@ interface TypescriptStrictlyStrictOptions {
  * or via decorators (mainly via `@Input()`). So it's disabled by default in Angular projects, as recommanded by Angular team.
  * Set this option to `true` to manually enable it.
  */
-export default function typescriptStrictlyStrict(cwd: string, { strictPropertyInitialization }: TypescriptStrictlyStrictOptions = {}): void {
+export default function typescriptStrictlyTyped(cwd: string, { strictPropertyInitialization }: TypescriptStrictlyTypedOptions = {}): void {
 
   const success: string[] = [];
 
