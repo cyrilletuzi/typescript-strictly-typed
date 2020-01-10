@@ -75,7 +75,7 @@ export default function enableESLintStrict(cwd: string): boolean {
     packageJSONConfig.eslintConfig = config;
     return saveConfig(cwd, file, packageJSONConfig);
   } else if (file === '.eslintrc.js') {
-    console.log(`You're using the advanced .eslintrc.js format for your ESLint config, and it can't be overwrited directly, as it could mess up with advanced configuration. So the new strict configuration was saved in .eslintrc.json. As .eslintrc.js has precedence over .eslintrc.json, you need to manually copy the new options from the new .eslintrc.json to your preexisting .eslintrc.js. If you know a way to automate this, please open a PR.`);
+    console.log(`Your project is using the advanced .eslintrc.js format for ESLint config, and it can't be overwrited directly, as it could mess up with advanced configuration. So the new strict configuration was saved in .eslintrc.json. As .eslintrc.js has precedence over .eslintrc.json, you need to manually copy the new options from the new .eslintrc.json to your preexisting .eslintrc.js. If you know a way to automate this, please open a PR.`);
     return saveConfig(cwd, '.eslintrc.json', config);
   } else {
     return saveConfig(cwd, file, config);

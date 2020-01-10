@@ -20,7 +20,7 @@ interface TSConfigAngular extends TSConfig {
  * @param options Object of options:
  * - `strictPropertyInitialization`: Strict property initialization check is an issue in Angular projects,
  * as most properties are initiliazed in `ngOnInit()` instead of `constructor()`
- * or via decorators (mainly via `@Input()`). So we disable it by default, as recommanded by Angular team.
+ * or via decorators (mainly via `@Input()`). So it's disabled it by default, as recommanded by Angular team.
  * Set this option to `true` to manually enable it.
  *
  * @returns A boolean for success or failure
