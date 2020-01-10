@@ -7,7 +7,7 @@ interface ESLint {
   };
   parser?: string;
   plugins?: string[];
-  extends?: string[];
+  extends?: string | string[];
 }
 
 interface PackageJSON {
@@ -56,9 +56,10 @@ export default function enableESLintStrict(cwd: string): boolean {
 
   if (!(
     (config.parser === eslintTypeScriptParser && Array.isArray(config.plugins) && config.plugins.includes(eslintTypeScriptPlugin)) ||
-    (config.extends && Array.isArray(config.extends) && (config.extends.includes(eslintVuePlugin) || config.extends.includes(eslintReactPlugin)))
+    (config.extends === eslintReactPlugin) ||
+    (Array.isArray(config.extends) && config.extends.includes(eslintVuePlugin))
   )) {
-    console.log(`${file} must be configured with "parser": "${eslintTypeScriptParser}" and "plugins": ["${eslintTypeScriptPlugin}"] (or an equivalent like "extends": ["${eslintVuePlugin}"] or "extends": ["${eslintReactPlugin}"]), otherwise rules won't be checked.`);
+    console.log(`${file} must be configured with "parser": "${eslintTypeScriptParser}" and "plugins": ["${eslintTypeScriptPlugin}"] (or an equivalent like "extends": ["${eslintVuePlugin}"] or "extends": "${eslintReactPlugin}"), otherwise rules won't be checked.`);
   }
 
   if (!config.rules) {
