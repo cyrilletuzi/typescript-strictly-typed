@@ -66,9 +66,13 @@ export default function enableESLintStrict(cwd: string): boolean {
     config.rules = {};
   }
 
-  config.rules['@typescript-eslint/no-explicit-any'] = 'error';
+  if (!config.rules['@typescript-eslint/no-explicit-any']) {
+    config.rules['@typescript-eslint/no-explicit-any'] = 'error';
+  }
 
-  config.rules['@typescript-eslint/explicit-function-return-type'] = 'error';
+  if (!config.rules['@typescript-eslint/explicit-function-return-type']) {
+    config.rules['@typescript-eslint/explicit-function-return-type'] = 'error';
+  }
 
   if (packageJSONConfig) {
     packageJSONConfig.eslintConfig = config;
