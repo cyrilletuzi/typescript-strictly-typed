@@ -7,7 +7,14 @@ export interface TSConfig {
   };
 }
 
-export default function enableTypeScriptStrict(): boolean {
+/**
+ * Enable the following TypeScript compiler options:
+ * - `strict`
+ * {@link https://www.typescriptlang.org/docs/handbook/compiler-options.html}
+ *
+ * @returns A boolean for success or failure
+ */
+export default function enableTypescriptStrict(): boolean {
 
   const file = findConfig(['tsconfig.json']);
 

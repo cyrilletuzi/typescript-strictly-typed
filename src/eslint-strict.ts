@@ -17,8 +17,17 @@ interface PackageJSON {
   eslintConfig?: ESLint;
 }
 
+/**
+ * Enable the following ESLint rules:
+ * - `@typescript-eslint/no-explicit-any`
+ * - `@typescript-eslint/explicit-function-return-type`
+ * {@link https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin}
+ *
+ * @returns A boolean for success or failure
+ */
 export default function enableESLintStrict(): boolean {
 
+  const possibleConfigFiles = ['.eslintrc.json', '.eslintrc.yaml', '.eslintrc.js', 'package.json'];
   const eslintTypeScriptPlugin = '@typescript-eslint';
   const eslintVuePlugin = '@vue/typescript';
   const eslintReactPlugin = 'react-app';
@@ -27,14 +36,17 @@ export default function enableESLintStrict(): boolean {
   let config: ESLint | null = null;
   let packageJSONConfig: PackageJSON | null = null;
 
-  const file = findConfig(['.eslintrc.json', '.eslintrc.yaml', '.eslintrc.js', 'package.json']);
+  const file = findConfig(possibleConfigFiles);
   if (!file) {
     return false;
   }
 
   if (file === 'package.json') {
     packageJSONConfig = getConfig<PackageJSON>(file);
-    config = packageJSONConfig?.eslintConfig ?? {};
+    if (!packageJSONConfig) {
+      return false;
+    }
+    config = packageJSONConfig.eslintConfig ?? {};
   } else {
     config = getConfig<ESLint>(file);
   }

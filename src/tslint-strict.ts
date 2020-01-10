@@ -7,6 +7,15 @@ interface TSLint {
   };
 }
 
+/**
+ * Enable the following TSLint rules:
+ * - `no-any`
+ * - `typedef` with `call-signature` option
+ * {@link https://palantir.github.io/tslint/rules/}
+ *
+ * @returns A boolean for success or failure
+ *
+ */
 export default function enableTSLintStrict(): boolean {
 
   const file = findConfig(['tslint.json', 'tslint.yaml']);
@@ -26,8 +35,11 @@ export default function enableTSLintStrict(): boolean {
 
   config.rules['no-any'] = true;
 
-  if (config.rules.typedef && Array.isArray(config.rules.typedef) && !config.rules.typedef.includes('call-signature')) {
-    config.rules.typedef.push('call-signature');
+  /* `typedef` has multiple options, existing ones must not be deleted */
+  if (config.rules.typedef && Array.isArray(config.rules.typedef)) {
+    if (!config.rules.typedef.includes('call-signature')) {
+      config.rules.typedef.push('call-signature');
+    }
   } else {
     config.rules.typedef = [true, 'call-signature'];
   }

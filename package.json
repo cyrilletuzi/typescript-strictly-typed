@@ -2,7 +2,8 @@
   "name": "typescript-strictly-strict",
   "version": "0.0.1",
   "description": "Work in progress",
-  "main": "dist/index.js",
+  "main": "index.js",
+  "bin": "bin/cli",
   "engines": {
     "node": ">=10.13.0",
     "npm": ">=6.4.1"
@@ -29,11 +30,13 @@
   "homepage": "https://github.com/cyrilletuzi/typescript-strictly-strict#readme",
   "dependencies": {
     "js-yaml": "3.13.1",
-    "json5": "2.1.1"
+    "json5": "2.1.1",
+    "minimist": "1.2.0"
   },
   "devDependencies": {
     "@types/js-yaml": "3.12.1",
     "@types/json5": "0.0.30",
+    "@types/minimist": "1.2.0",
     "@types/node": "12.12.24",
     "@typescript-eslint/eslint-plugin": "2.15.0",
     "@typescript-eslint/parser": "2.15.0",
