@@ -1,9 +1,10 @@
 {
   "name": "typescript-strictly-strict",
   "version": "0.0.1",
-  "description": "Work in progress",
+  "description": "Enable strict configurations for TypeScript, ESLint or TSLint, and optionally Angular.",
   "main": "index.js",
   "bin": "bin/cli",
+  "type": "commonjs",
   "engines": {
     "node": ">=10.13.0",
     "npm": ">=6.4.1"
@@ -11,7 +12,8 @@
   "scripts": {
     "build": "rimraf dist && tsc && copyfiles package.json LICENSE README.md bin/cli dist",
     "lint": "eslint src/**",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "publish": "npm run build && npm publish dist"
   },
   "repository": {
     "type": "git",
@@ -20,14 +22,18 @@
   "keywords": [
     "typescript",
     "strict",
-    "typescript strict"
+    "typescript strict",
+    "eslint",
+    "tslint",
+    "angular",
+    "angular strict"
   ],
   "author": "Cyrille Tuzi",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/cyrilletuzi/typescript-strictly-strict/issues"
   },
-  "homepage": "https://github.com/cyrilletuzi/typescript-strictly-strict#readme",
+  "homepage": "https://github.com/cyrilletuzi/typescript-strictly-strict",
   "dependencies": {
     "js-yaml": "3.13.1",
     "json5": "2.1.1",
