@@ -27,7 +27,7 @@ interface PackageJSON {
  */
 export default function enableESLintStrict(): boolean {
 
-  const possibleConfigFiles = ['.eslintrc.json', '.eslintrc.yaml', '.eslintrc.js', 'package.json'];
+  const possibleConfigFiles = ['.eslintrc.json', '.eslintrc.yaml', '.eslintrc.yml', '.eslintrc.js', 'package.json'];
   const eslintTypeScriptPlugin = '@typescript-eslint';
   const eslintVuePlugin = '@vue/typescript';
   const eslintReactPlugin = 'react-app';

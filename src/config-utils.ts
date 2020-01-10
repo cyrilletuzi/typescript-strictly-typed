@@ -28,7 +28,7 @@ export function findConfig(files: string[]): string | null {
 
 /**
  * Get and parse the config of a tool
- * @param file Config file name. Allowed format: `.json`, `.yaml` and `.js`
+ * @param file Config file name. Allowed format: `.json`, `.yaml`/`.yml` and `.js`
  * @returns The parsed config, or `null`
  */
 export function getConfig<T>(file: string): T | null {
@@ -47,6 +47,7 @@ export function getConfig<T>(file: string): T | null {
         configParsed = json5.parse(configRaw) as T;
         break;
       case '.yaml':
+      case '.yml':
         configParsed = yaml.safeLoad(configRaw) as T;
         break;
       case '.js':
@@ -65,7 +66,7 @@ export function getConfig<T>(file: string): T | null {
 /**
  * Write config file on disk
  *
- * @param file Config file name. Allowed format: `.json` and `.yaml`
+ * @param file Config file name. Allowed format: `.json` and `.yaml`/`.yml`
  * @param config The file content
  *
  * @returns A boolean for success or failure
@@ -84,6 +85,7 @@ export function saveConfig(file: string, config: unknown): boolean {
         configStringified = json5.stringify(config, null, 2);
         break;
       case '.yaml':
+      case '.yml':
         configStringified = yaml.safeDump(config, { indent: 2 });
         break;
     }

@@ -18,7 +18,7 @@ interface TSLint {
  */
 export default function enableTSLintStrict(): boolean {
 
-  const file = findConfig(['tslint.json', 'tslint.yaml']);
+  const file = findConfig(['tslint.json', 'tslint.yaml', 'tslint.yml']);
 
   if (!file) {
     return false;
