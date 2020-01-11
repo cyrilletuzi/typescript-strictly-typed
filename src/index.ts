@@ -1,4 +1,5 @@
 import { findConfig } from './config-utils';
+import { logInfo, logError, logSuccess } from './log-utils';
 import enableTypescriptStrict from './typescript-strict';
 import enableESLintStrict from './eslint-strict';
 import enableTSLintStrict from './tslint-strict';
@@ -30,7 +31,7 @@ export default function typescriptStrictlyTyped(cwd: string, { strictPropertyIni
   }
 
   if (enableESLintStrict(cwd)) {
-    console.log(`\nSkipping TSLint configuration as ESLint has been found and configured.`)
+    logInfo(`Skipping TSLint configuration as ESLint has been found and configured.`)
     success.push('ESLint');
   } else if (enableTSLintStrict(cwd)) {
     success.push('TSLint');
@@ -42,9 +43,9 @@ export default function typescriptStrictlyTyped(cwd: string, { strictPropertyIni
   }
 
   if (success.length === 0) {
-    console.log(`\nConfiguration failed. Please fix the issues and run the command again.\n`);
+    logError(`Configuration failed. Please fix the issues and run the command again.\n`);
   } else {
-    console.log(`\nConfiguration finished. It succeeded for: ${success.join(', ')}.\n`);
+    logSuccess(`Configuration finished. It succeeded for: ${success.join(', ')}.\n`);
   }
 
 }
