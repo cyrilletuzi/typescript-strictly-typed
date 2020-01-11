@@ -4,6 +4,10 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "target": "es2018",
-    "strict": true
+    "strict": true,
+    "noUnusedParameters": true,
+    "noUnusedLocals": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true
   }
 }
