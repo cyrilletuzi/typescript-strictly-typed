@@ -23,7 +23,7 @@ export function findConfig(cwd: string, files: string[]): string | null {
 
   }
 
-  console.log(`Can't find ${files.join(' or ')} file. Skipping this configuration.`);
+  console.log(`\nCan't find ${path.basename(files[0], '.json')} config file. Skipping this configuration.`);
 
   return null;
 
@@ -62,7 +62,7 @@ export function getConfig<T>(cwd: string, file: string): T | null {
     }
 
   } catch {
-    console.log(`Can't parse ${file}. Check the file syntax is valid.`);
+    console.log(`\nCan't parse ${file}. Check the file syntax is valid.`);
   }
 
   return configParsed;
@@ -97,12 +97,12 @@ export function saveConfig(cwd: string, file: string, config: unknown): boolean 
     }
 
   } catch {
-    console.log(`Can't save ${file} config.`);
+    console.log(`\nCan't save ${file} config.`);
     return false;
   }
 
   if (!configStringified) {
-    console.log(`Can't save ${file} config.`);
+    console.log(`\nCan't save ${file} config.`);
     return false;
   }
 
@@ -110,7 +110,7 @@ export function saveConfig(cwd: string, file: string, config: unknown): boolean 
     fs.writeFileSync(filePath, configStringified);
     return true;
   } catch {
-    console.log(`Can't write ${file} file. Maybe a permission issue?`);
+    console.log(`\nCan't write ${file} file. Maybe a permission issue?`);
     return false;
   }
 

@@ -30,7 +30,7 @@ export default function typescriptStrictlyTyped(cwd: string, { strictPropertyIni
   }
 
   if (enableESLintStrict(cwd)) {
-    console.log(`Skipping TSLint configuration as ESLint has been found and configured.`)
+    console.log(`\nSkipping TSLint configuration as ESLint has been found and configured.`)
     success.push('ESLint');
   } else if (enableTSLintStrict(cwd)) {
     success.push('TSLint');
@@ -41,6 +41,10 @@ export default function typescriptStrictlyTyped(cwd: string, { strictPropertyIni
     success.push('Angular');
   }
 
-  console.log(`Configuration finished. It succeeded for: ${success.join(', ')}.`);
+  if (success.length === 0) {
+    console.log(`\nConfiguration failed. Please fix the issues and run the command again.\n`);
+  } else {
+    console.log(`\nConfiguration finished. It succeeded for: ${success.join(', ')}.\n`);
+  }
 
 }

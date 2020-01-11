@@ -59,7 +59,7 @@ export default function enableESLintStrict(cwd: string): boolean {
     (config.extends === eslintReactPlugin) ||
     (Array.isArray(config.extends) && config.extends.includes(eslintVuePlugin))
   )) {
-    console.log(`${file} must be configured with "parser": "${eslintTypeScriptParser}" and "plugins": ["${eslintTypeScriptPlugin}"] (or an equivalent like "extends": ["${eslintVuePlugin}"] or "extends": "${eslintReactPlugin}"), otherwise rules won't be checked.`);
+    console.log(`\n${file} must be configured with "parser": "${eslintTypeScriptParser}" and "plugins": ["${eslintTypeScriptPlugin}"] (or an equivalent like "extends": ["${eslintVuePlugin}"] or "extends": "${eslintReactPlugin}"), otherwise rules won't be checked.`);
   }
 
   if (!config.rules) {
@@ -78,7 +78,7 @@ export default function enableESLintStrict(cwd: string): boolean {
     packageJSONConfig.eslintConfig = config;
     return saveConfig(cwd, file, packageJSONConfig);
   } else if (file === '.eslintrc.js') {
-    console.log(`Your project is using the advanced .eslintrc.js format for ESLint config, and it can't be overwrited directly, as it could mess up with advanced configuration. So the new strict configuration was saved in .eslintrc.json. As .eslintrc.js has precedence over .eslintrc.json, you need to manually copy the new options from the new .eslintrc.json to your preexisting .eslintrc.js. If you know a way to automate this, please open a PR.`);
+    console.log(`\nYour project is using the advanced .eslintrc.js format for ESLint config, and it can't be overwrited directly, as it could mess up with advanced configuration. So the new strict configuration was saved in .eslintrc.json. As .eslintrc.js has precedence over .eslintrc.json, you need to manually copy the new options from the new .eslintrc.json to your preexisting .eslintrc.js. If you know a way to automate this, please open a PR.`);
     return saveConfig(cwd, '.eslintrc.json', config);
   } else {
     return saveConfig(cwd, file, config);
