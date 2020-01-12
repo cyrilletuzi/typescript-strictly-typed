@@ -33,5 +33,9 @@ jobs:
       run: npm ci
       env:
         CI: true
-    - name: Lint check
+    - name: Build check with Node 12
       run: npm run build
+    - name: Build check with Node 10
+      run: npm install @types/node@10 -D && npm run build
+    - name: Build check with Node 13
+      run: npm install @types/node@13 -D && npm run build
