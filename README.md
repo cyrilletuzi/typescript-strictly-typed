@@ -3,7 +3,8 @@
 Enable configurations for strictly typed TypeScript, ESLint or TSLint, and optionally Angular.
 Because TypeScript `strict` mode is not enough.
 
-Blog post coming soon to explain the motivation and details of this lib.
+A [blog post](https://medium.com/@cyrilletuzi/typescript-strictly-typed-strict-mode-is-not-enough-40df698e2deb?source=friends_link&sk=00f968af095e7615f7220314df280a1b)
+explains the motivation of this lib.
 
 ## Getting started
 
