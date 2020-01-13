@@ -1,15 +1,16 @@
 import { findConfig } from './config-utils';
+import { logInfo, logError, logSuccess } from './log-utils';
 import enableTypescriptStrict from './typescript-strict';
 import enableESLintStrict from './eslint-strict';
 import enableTSLintStrict from './tslint-strict';
 import enableAngularStrict from './angular-strict';
 
-interface TypescriptStrictlyStrictOptions {
+interface TypescriptStrictlyTypedOptions {
   strictPropertyInitialization?: boolean;
 }
 
 /**
- * Enable strict configurations for:
+ * Enable strictly typed configurations for:
  * - TypeScript compiler
  * - ESLint or TSLint rules
  * - Angular compiler (if `angular.json` is detected)
@@ -21,7 +22,7 @@ interface TypescriptStrictlyStrictOptions {
  * or via decorators (mainly via `@Input()`). So it's disabled by default in Angular projects, as recommanded by Angular team.
  * Set this option to `true` to manually enable it.
  */
-export default function typescriptStrictlyStrict(cwd: string, { strictPropertyInitialization }: TypescriptStrictlyStrictOptions = {}): void {
+export default function typescriptStrictlyTyped(cwd: string, { strictPropertyInitialization }: TypescriptStrictlyTypedOptions = {}): void {
 
   const success: string[] = [];
 
@@ -30,7 +31,7 @@ export default function typescriptStrictlyStrict(cwd: string, { strictPropertyIn
   }
 
   if (enableESLintStrict(cwd)) {
-    console.log(`Skipping TSLint configuration as ESLint has been found and configured.`)
+    logInfo(`Skipping TSLint configuration as ESLint has been found and configured.`)
     success.push('ESLint');
   } else if (enableTSLintStrict(cwd)) {
     success.push('TSLint');
@@ -41,6 +42,10 @@ export default function typescriptStrictlyStrict(cwd: string, { strictPropertyIn
     success.push('Angular');
   }
 
-  console.log(`Configuration finished. It succeeded for: ${success.join(', ')}.`);
+  if (success.length === 0) {
+    logError(`Configuration failed. Please fix the issues and run the command again.\n`);
+  } else {
+    logSuccess(`Configuration finished. It succeeded for: ${success.join(', ')}.\n`);
+  }
 
 }

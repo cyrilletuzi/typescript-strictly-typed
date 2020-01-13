@@ -1,7 +1,7 @@
 import * as process from 'process';
 import * as minimist from 'minimist';
 
-import typescriptStrictlyStrict from './index';
+import typescriptStrictlyTyped from './index';
 
 /* Get the path where the command is invoked */
 const cwd = process.cwd()
@@ -14,4 +14,4 @@ const strictPropertyInitialization = ('strictPropertyInitialization' in options
                                      && typeof options.strictPropertyInitialization === 'boolean') ?
                                      options.strictPropertyInitialization : undefined;
 
-typescriptStrictlyStrict(cwd, { strictPropertyInitialization });
+typescriptStrictlyTyped(cwd, { strictPropertyInitialization });

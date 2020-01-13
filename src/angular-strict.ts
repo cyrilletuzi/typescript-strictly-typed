@@ -1,7 +1,9 @@
 import { findConfig, getConfig, saveConfig } from './config-utils';
-import { TSConfig } from './typescript-strict';
 
-interface TSConfigAngular extends TSConfig {
+interface TSConfigAngular {
+  compilerOptions?: {
+    strictPropertyInitialization?: boolean;
+  };
   angularCompilerOptions?: {
     fullTemplateTypeCheck?: boolean;
     strictInjectionParameters?: boolean;
