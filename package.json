@@ -50,7 +50,7 @@
     "@types/js-yaml": "3.12.1",
     "@types/json5": "0.0.30",
     "@types/minimist": "1.2.0",
-    "@types/node": "12.12.24",
+    "@types/node": "12.12.25",
     "@typescript-eslint/eslint-plugin": "2.16.0",
     "@typescript-eslint/parser": "2.16.0",
     "copyfiles": "2.1.1",
