@@ -3,6 +3,13 @@ import { findConfig, getConfig, saveConfig } from './config-utils';
 interface TSConfig {
   compilerOptions?: {
     strict?: boolean;
+    noImplicitAny?: boolean;
+    strictNullChecks?: boolean;
+    noImplicitThis?: boolean;
+    alwaysStrict?: boolean;
+    strictBindCallApply?: boolean;
+    strictFunctionTypes?: boolean;
+    strictPropertyInitialization?: boolean;
   };
 }
 
@@ -33,6 +40,29 @@ export default function enableTypescriptStrict(cwd: string): boolean {
   }
 
   config.compilerOptions.strict = true;
+
+  /* Clean up options included in strict mode */
+  if (config.compilerOptions.alwaysStrict) {
+    delete config.compilerOptions.alwaysStrict;
+  }
+  if (config.compilerOptions.noImplicitAny) {
+    delete config.compilerOptions.noImplicitAny;
+  }
+  if (config.compilerOptions.noImplicitThis) {
+    delete config.compilerOptions.noImplicitThis;
+  }
+  if (config.compilerOptions.strictBindCallApply) {
+    delete config.compilerOptions.strictBindCallApply;
+  }
+  if (config.compilerOptions.strictFunctionTypes) {
+    delete config.compilerOptions.strictFunctionTypes;
+  }
+  if (config.compilerOptions.strictNullChecks) {
+    delete config.compilerOptions.strictNullChecks;
+  }
+  if (config.compilerOptions.strictPropertyInitialization) {
+    delete config.compilerOptions.strictPropertyInitialization;
+  }
 
   return saveConfig(cwd, file, config);
 
