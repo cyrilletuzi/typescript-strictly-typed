@@ -127,6 +127,10 @@ Vue will create a `.eslintrc`*`.js`* file and so you'll have to do the above ste
 See [issue #3](https://github.com/cyrilletuzi/typescript-strictly-typed/issues/3)
 if you want to help.
 
+### Changelog
+
+[Changelog available here](./CHANGELOG.md).
+
 ## License
 
 MIT
