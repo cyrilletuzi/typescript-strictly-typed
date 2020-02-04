@@ -13,6 +13,17 @@ cd path/to/my-project
 npx typescript-strictly-typed
 ```
 
+`npx` is a command included in Node/npm. In case of problem
+(there is a [known issue](https://github.com/npm/npx/issues/6)
+with `npx` on Windows if your user path contains a space, like `C:\Users\Hello World`),
+just do the full commands:
+
+```bash
+cd path/to/my-project
+npm install typescript-strictly-typed -g
+typescript-strictly-typed
+```
+
 ## What does it do?
 
 Adding configuration for:
