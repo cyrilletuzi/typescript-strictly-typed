@@ -43,7 +43,7 @@
   "dependencies": {
     "chalk": "3.0.0",
     "js-yaml": "3.13.1",
-    "json5": "2.1.1",
+    "json5": "2.1.2",
     "minimist": "1.2.5"
   },
   "devDependencies": {
