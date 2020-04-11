@@ -17,7 +17,9 @@
     "build": "rimraf dist && tsc && copyfiles package.json LICENSE README.md bin/cli dist",
     "lint": "eslint src/**",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "publish": "npm run build && npm publish dist"
+    "release:patch": "npm run build && npm version patch && npm publish dist && git push && git push --tags",
+    "release:minor": "npm run build && npm version minor && npm publish dist && git push && git push --tags",
+    "release:major": "npm run build && npm version major && npm publish dist && git push && git push --tags"
   },
   "repository": {
     "type": "git",
