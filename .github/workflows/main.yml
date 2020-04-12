@@ -7,6 +7,7 @@ jobs:
   lint:
     name: Lint check
     runs-on: ubuntu-latest
+    timeout-minutes: 1
     steps:
     - uses: actions/checkout@v2
     - name: Setup Node
@@ -23,6 +24,7 @@ jobs:
   build:
     name: Build check
     runs-on: ubuntu-latest
+    timeout-minutes: 1
     steps:
     - uses: actions/checkout@v2
     - name: Setup Node
