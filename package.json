@@ -49,7 +49,7 @@
     "minimist": "1.2.5"
   },
   "devDependencies": {
-    "@types/js-yaml": "3.12.3",
+    "@types/js-yaml": "3.12.4",
     "@types/json5": "0.0.30",
     "@types/minimist": "1.2.0",
     "@types/node": "12.12.38",
