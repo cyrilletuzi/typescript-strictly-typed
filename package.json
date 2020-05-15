@@ -52,7 +52,7 @@
     "@types/js-yaml": "3.12.3",
     "@types/json5": "0.0.30",
     "@types/minimist": "1.2.0",
-    "@types/node": "12.12.38",
+    "@types/node": "12.12.39",
     "@typescript-eslint/eslint-plugin": "2.31.0",
     "@typescript-eslint/parser": "2.31.0",
     "copyfiles": "2.2.0",
