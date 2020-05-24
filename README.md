@@ -82,23 +82,6 @@ ESLint must be configured for TypeScript, ie. with:
 
 The project must use a LTS version of Angular CLI, ie. with a `angular.json` file.
 
-## Advanced options
-
-### Angular
-
-TypeScript `strict` mode includes the `strictPropertyInitialization` rule.
-But property initialization check is an issue in Angular projects,
-as most properties are initiliazed in `ngOnInit()` instead of `constructor()`
-or via decorators (mainly via `@Input()`).
-
-So this lib disables `strictPropertyInitialization` by default in Angular projects,
-as recommended by the Angular team.
-
-If you're feeling adventurous and want to enable it:
-```bash
-npx typescript-strictly-typed --strictPropertyInitialization
-```
-
 ## Known limitations
 
 This lib is here to promote good practices. But at the end of the day,
