@@ -45,13 +45,11 @@
   "dependencies": {
     "chalk": "4.0.0",
     "js-yaml": "3.13.1",
-    "json5": "2.1.3",
-    "minimist": "1.2.5"
+    "json5": "2.1.3"
   },
   "devDependencies": {
     "@types/js-yaml": "3.12.4",
     "@types/json5": "0.0.30",
-    "@types/minimist": "1.2.0",
     "@types/node": "12.12.42",
     "@typescript-eslint/eslint-plugin": "3.0.0",
     "@typescript-eslint/parser": "3.0.0",

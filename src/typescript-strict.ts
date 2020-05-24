@@ -24,7 +24,7 @@ interface TSConfig {
  */
 export default function enableTypescriptStrict(cwd: string): boolean {
 
-  const file = findConfig(cwd, ['tsconfig.json']);
+  const file = findConfig(cwd, ['tsconfig.base.json', 'tsconfig.json']);
 
   if (!file) {
     return false;

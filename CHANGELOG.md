@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.0.0 (2020-05-24)
+
+### Features
+
+- Look for `tsconfig.base.json` to support new "solution style" configuration introduced in
+[TypeScript 3.9](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-9.html#support-for-solution-style-tsconfigjson-files) and already used by Angular 10.
+
+- Enable full strict mode for Angular projects, to align with new Angular 10 recommandations
+(previously `strictPropertyInitialization` was disabled).
+
 ## 1.1.1 (2020-03-13)
 
 No code change, just rebuild with latest `minimist` dependency to fix security audits.

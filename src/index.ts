@@ -5,10 +5,6 @@ import enableESLintStrict from './eslint-strict';
 import enableTSLintStrict from './tslint-strict';
 import enableAngularStrict from './angular-strict';
 
-interface TypescriptStrictlyTypedOptions {
-  strictPropertyInitialization?: boolean;
-}
-
 /**
  * Enable strictly typed configurations for:
  * - TypeScript compiler
@@ -16,13 +12,8 @@ interface TypescriptStrictlyTypedOptions {
  * - Angular compiler (if `angular.json` is detected)
  *
  * @param cwd Working directory path
- * @param options Object of options:
- * - `strictPropertyInitialization`: Strict property initialization check is an issue in Angular projects,
- * as most properties are initiliazed in `ngOnInit()` instead of `constructor()`
- * or via decorators (mainly via `@Input()`). So it's disabled by default in Angular projects, as recommanded by Angular team.
- * Set this option to `true` to manually enable it.
  */
-export default function typescriptStrictlyTyped(cwd: string, { strictPropertyInitialization }: TypescriptStrictlyTypedOptions = {}): void {
+export default function typescriptStrictlyTyped(cwd: string): void {
 
   const success: string[] = [];
 
@@ -38,7 +29,7 @@ export default function typescriptStrictlyTyped(cwd: string, { strictPropertyIni
   }
 
   if (findConfig(cwd, ['angular.json', '.angular.json', 'angular-cli.json', '.angular-cli.json'])
-     && enableAngularStrict(cwd, { strictPropertyInitialization })) {
+     && enableAngularStrict(cwd)) {
     success.push('Angular');
   }
 
