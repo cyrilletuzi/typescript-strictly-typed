@@ -6,6 +6,17 @@ Because TypeScript `strict` mode is not enough.
 A [blog post](https://medium.com/@cyrilletuzi/typescript-strictly-typed-strict-mode-is-not-enough-40df698e2deb?source=friends_link&sk=00f968af095e7615f7220314df280a1b)
 explains the motivation of this lib.
 
+## Status of this project
+
+While this tool still works, I do not maintain this repo anymore.
+
+I made this tool cross-framework, but my personal need was to ease strict configuration in Angular projects.
+Now with Angular 10, just do `ng new` and you will be prompted about strictness: just say yes and you're all done!
+So this tool is not needed anymore.
+
+In React, Vue.js and vanilla TypeScript projects, `strict` is already the default,
+and you just have to add the `@typescript-eslint/no-explicit-any` lint rule.
+
 ## Getting started
 
 ```bash
