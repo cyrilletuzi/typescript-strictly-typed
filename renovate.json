@@ -1,0 +1,14 @@
+{
+  "extends": [
+    "config:base"
+  ],
+  "packageRules": [
+    {
+      "packageNames": ["@types/node"],
+      "allowedVersions": "<13",
+      "automerge": true
+    }
+  ],
+  "timezone": "Europe/Paris",
+  "prHourlyLimit": 0
+}
