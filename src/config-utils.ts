@@ -39,7 +39,7 @@ export function findConfig(cwd: string, files: string[]): string | null {
  *
  * @returns The parsed config, or `null`
  */
-export function getConfig<T>(cwd: string, file: string): T | null {
+export function getConfig<T extends object>(cwd: string, file: string): T | null { // eslint-disable-line @typescript-eslint/ban-types
 
   const filePath = path.join(cwd, file);
 
