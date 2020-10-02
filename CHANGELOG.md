@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.1.0 (2020-10-02)
+
+### Feature
+
+- For Angular projects, update to last Angular strict compiler options:
+  - `fullTemplateTypeCheck` is not required anymore as it is replaced by `strictTemplates`
+  - add new `strictInputAccessModifiers` option
+
 ## 2.0.0 (2020-05-24)
 
 ### Features
