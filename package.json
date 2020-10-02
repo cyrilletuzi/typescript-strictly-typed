@@ -17,9 +17,11 @@
     "build": "rimraf dist && tsc && copyfiles package.json LICENSE README.md bin/cli dist",
     "lint": "eslint src/**",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "release:patch": "npm run build && npm version patch && npm run build && npm publish dist && git push && git push --tags",
-    "release:minor": "npm run build && npm version minor && npm run build && npm publish dist && git push && git push --tags",
-    "release:major": "npm run build && npm version major && npm run build && npm publish dist && git push && git push --tags"
+    "release:major": "VERSION=major npm run release && npm run githubrelease",
+    "release:minor": "VERSION=minor npm run release && npm run githubrelease",
+    "release:patch": "VERSION=major patch run release && npm run githubrelease",
+    "release": "if test $VERSION; then npm run build && npm version $VERSION && npm run build && npm publish dist && git push && git push --tags; fi",
+    "githubrelease": "gh release create v$npm_package_version --title v$npm_package_version --notes-file CHANGELOG.md"
   },
   "repository": {
     "type": "git",
