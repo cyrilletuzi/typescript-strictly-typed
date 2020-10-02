@@ -59,7 +59,7 @@ export function getConfig<T>(cwd: string, file: string): T | null {
         configParsed = yaml.safeLoad(configRaw) as T;
         break;
       case '.js':
-        configParsed = require(filePath) as T;
+        configParsed = require(filePath) as T; // eslint-disable-line @typescript-eslint/no-var-requires
         break;
     }
 
