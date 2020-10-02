@@ -8,14 +8,11 @@ explains the motivation of this lib.
 
 ## Status of this project
 
-While this tool still works, I do not maintain this repo anymore.
+While the tool was still working, this project was archived when Angular 10 added a `--strict` option,
+given that React and Vue were already (partially) strict by default.
 
-I made this tool cross-framework, but my personal need was to ease strict configuration in Angular projects.
-Now with Angular 10, just do `ng new` and you will be prompted about strictness: just say yes and you're all done!
-So this tool is not needed anymore.
-
-In React, Vue.js and vanilla TypeScript projects, `strict` is already the default,
-and you just have to add the `@typescript-eslint/no-explicit-any` lint rule.
+Unfortunately, [Angular is stepping back](https://github.com/angular/angular-cli/issues/18948#issuecomment-702422833).
+So the project will restart soon.
 
 ## Getting started
 
