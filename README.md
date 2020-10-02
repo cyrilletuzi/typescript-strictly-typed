@@ -6,14 +6,6 @@ Because TypeScript `strict` mode is not enough.
 A [blog post](https://medium.com/@cyrilletuzi/typescript-strictly-typed-strict-mode-is-not-enough-40df698e2deb?source=friends_link&sk=00f968af095e7615f7220314df280a1b)
 explains the motivation of this lib.
 
-## Status of this project (October 2, 2020)
-
-While the tool was still working, this project was archived when Angular 10 added a `--strict` option,
-given that React and Vue were already (partially) strict by default.
-
-Unfortunately, [Angular is stepping back](https://github.com/angular/angular-cli/issues/18948#issuecomment-702422833).
-So the project will restart soon.
-
 ## Getting started
 
 ```bash
