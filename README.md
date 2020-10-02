@@ -45,9 +45,9 @@ Adding configuration for:
   - `no-any`
   - `typedef` with `call-signature`
 - [Angular compiler options](https://angular.io/guide/angular-compiler-options)
-  - `fullTemplateTypeCheck`
   - `strictInjectionParameters`
-  - `strictTemplates` (Angular >=9)
+  - `strictTemplates`
+  - `strictInputAccessModifiers`
 
 ## By the same author
 

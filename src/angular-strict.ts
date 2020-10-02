@@ -2,17 +2,17 @@ import { findConfig, getConfig, saveConfig } from './config-utils';
 
 interface TSConfigAngular {
   angularCompilerOptions?: {
-    fullTemplateTypeCheck?: boolean;
     strictInjectionParameters?: boolean;
     strictTemplates?: boolean;
+    strictInputAccessModifiers?: boolean;
   };
 }
 
 /**
  * Enable the following Angular compiler options:
- * - `fullTemplateTypeCheck`
  * - `strictInjectionParameters`
- * - `strictTemplates` (Angular >=9)
+ * - `strictTemplates`
+ * - `strictInputAccessModifiers`
  * {@link https://angular.io/guide/angular-compiler-options}
  *
  * @param cwd Working directory path
@@ -36,9 +36,9 @@ export default function enableAngularStrict(cwd: string): boolean {
     config.angularCompilerOptions = {};
   }
 
-  config.angularCompilerOptions.fullTemplateTypeCheck = true;
   config.angularCompilerOptions.strictInjectionParameters = true;
   config.angularCompilerOptions.strictTemplates = true;
+  config.angularCompilerOptions.strictInputAccessModifiers = true;
 
   return saveConfig(cwd, file, config);
 
