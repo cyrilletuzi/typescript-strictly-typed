@@ -6,6 +6,14 @@ Because TypeScript `strict` mode is not enough.
 A [blog post](https://medium.com/@cyrilletuzi/typescript-strictly-typed-strict-mode-is-not-enough-40df698e2deb?source=friends_link&sk=00f968af095e7615f7220314df280a1b)
 explains the motivation of this lib.
 
+## Warning
+
+Going fully strict is a choice to make at the *very beginning* of a project.
+
+**Enabling all strict options at once in an existing project is strongly discouraged**,
+as hundred of errors would appear. Converting an existing project to full strict mode is still possible,
+but it should be done *incrementally*, by activating each option *one by one*.
+
 ## Getting started
 
 ```bash
