@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.1 (2020-10-07)
+
+No change, new release for internal purposes.
+
 ## 2.1.0 (2020-10-02)
 
 ### Feature
