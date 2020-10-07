@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.1.2 (2020-10-07)
+
+No change.
+
+New release for internal purposes.
+
 ## 2.1.1 (2020-10-07)
 
 No change, new release for internal purposes.
