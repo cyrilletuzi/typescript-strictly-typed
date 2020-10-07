@@ -19,7 +19,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "release:major": "VERSION=major npm run release && npm run githubrelease",
     "release:minor": "VERSION=minor npm run release && npm run githubrelease",
-    "release:patch": "VERSION=patch patch run release && npm run githubrelease",
+    "release:patch": "VERSION=patch npm run release && npm run githubrelease",
     "release": "if test $VERSION; then npm run build && npm version $VERSION && npm run build && npm publish dist && git push && git push --tags; fi",
     "githubrelease": "changelog=$(sed -n \"/^## $npm_package_version/,/^## /p\" CHANGELOG.md | sed '1d;$d') && gh release create v$npm_package_version --title v$npm_package_version --notes $changelog"
   },
