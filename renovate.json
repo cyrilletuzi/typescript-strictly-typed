@@ -5,7 +5,7 @@
   "packageRules": [
     {
       "packageNames": ["@types/node"],
-      "allowedVersions": "<13",
+      "allowedVersions": "<15",
       "automerge": true
     }
   ],
