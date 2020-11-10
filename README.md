@@ -48,6 +48,8 @@ Adding configuration for:
   - `strictInjectionParameters`
   - `strictTemplates`
   - `strictInputAccessModifiers`
+- [Angular Codelyzer lint options](http://codelyzer.com)
+  - `template-no-any`
 
 ## By the same author
 
