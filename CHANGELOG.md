@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.2.0 (2020-11-10)
+
+### Feature
+
+For Angular projects still using TSLint/Codelyzer, add the following lint option:
+- [`template-no-any`](http://codelyzer.com/rules/template-no-any/)
+
 ## 2.1.2 (2020-10-07)
 
 No change.
