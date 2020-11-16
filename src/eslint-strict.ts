@@ -6,9 +6,11 @@ interface ESLint {
     '@typescript-eslint/no-explicit-any'?: string | string[];
     '@typescript-eslint/explicit-function-return-type'?: string | string[];
   };
-  parser?: string;
   plugins?: string[];
   extends?: string | string[];
+  overrides?: {
+    extends?: string[];
+  }[];
 }
 
 interface PackageJSON {
@@ -28,10 +30,6 @@ interface PackageJSON {
 export default function enableESLintStrict(cwd: string): boolean {
 
   const possibleConfigFiles = ['.eslintrc.json', '.eslintrc.yaml', '.eslintrc.yml', '.eslintrc.js', 'package.json'];
-  const eslintTypeScriptPlugin = '@typescript-eslint';
-  const eslintVuePlugin = '@vue/typescript';
-  const eslintReactPlugin = 'react-app';
-  const eslintTypeScriptParser = '@typescript-eslint/parser';
 
   let config: ESLint | null = null;
   let packageJSONConfig: PackageJSON | null = null;
@@ -55,13 +53,7 @@ export default function enableESLintStrict(cwd: string): boolean {
     return false;
   }
 
-  if (!(
-    (config.parser === eslintTypeScriptParser && Array.isArray(config.plugins) && config.plugins.includes(eslintTypeScriptPlugin)) ||
-    (config.extends === eslintReactPlugin) ||
-    (Array.isArray(config.extends) && config.extends.includes(eslintVuePlugin))
-  )) {
-    logWarning(`${file} must be configured with "parser": "${eslintTypeScriptParser}" and "plugins": ["${eslintTypeScriptPlugin}"] (or an equivalent like "extends": ["${eslintVuePlugin}"] or "extends": "${eslintReactPlugin}"), otherwise rules won't be checked.`);
-  }
+  checkConfig(config);
 
   if (!config.rules) {
     config.rules = {};
@@ -84,5 +76,45 @@ export default function enableESLintStrict(cwd: string): boolean {
   } else {
     return saveConfig(cwd, file, config);
   }
+
+}
+
+function checkConfig(config: ESLint): void {
+
+  const eslintTypeScriptPlugin = '@typescript-eslint';
+  const eslintReactPlugin = 'react-app';
+  const eslintVuePlugin = '@vue/typescript';
+  const eslintAngularPlugin = '@angular-eslint';
+
+  /* Case: @typescript-eslint */
+  if (
+    Array.isArray(config.plugins)
+    && config.plugins.includes(eslintTypeScriptPlugin)
+  ) return;
+
+  /* Case: react-app */
+  if (
+    (config.extends === eslintReactPlugin)
+    || (Array.isArray(config.extends) && config.extends.includes(eslintReactPlugin))
+  ) return;
+
+  /* Case: @vue/typescript */
+  if (
+    (config.extends === eslintVuePlugin)
+    || (Array.isArray(config.extends) && config.extends.includes(eslintVuePlugin))
+  ) return;
+
+  /* Case: @angular-eslint */
+  if (Array.isArray(config.overrides)) {
+    for (const override of config.overrides) {
+      if (Array.isArray(override.extends)) {
+        for (const extend of override.extends) {
+          if (extend.includes(eslintAngularPlugin)) return;
+        }
+      }
+    }
+  }
+
+  logWarning(`ESLint must be configured with "${eslintTypeScriptPlugin}" plugin or with a tool extending it like "${eslintVuePlugin}", "${eslintReactPlugin}" or "${eslintAngularPlugin}", otherwise rules won't be checked.`);
 
 }
