@@ -22,9 +22,10 @@ export default function typescriptStrictlyTyped(cwd: string): void {
   }
 
   if (enableESLintStrict(cwd)) {
-    logInfo(`Skipping TSLint configuration as ESLint has been found and configured.`)
     success.push('ESLint');
-  } else if (enableTSLintStrict(cwd)) {
+  }
+
+  if (enableTSLintStrict(cwd)) {
     success.push('TSLint');
   }
 
