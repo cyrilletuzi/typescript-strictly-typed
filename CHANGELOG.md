@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.3.1 (2020-11-16)
+
+### Bug fixes
+
+- Override ESLint rules if already here but disabled
+- Always add ESLint rules at root level even when there are overrides
+
 ## 2.3.0 (2020-11-16)
 
 ### Feature

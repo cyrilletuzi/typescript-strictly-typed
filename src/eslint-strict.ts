@@ -60,8 +60,6 @@ export default function enableESLintStrict(cwd: string): boolean {
 
   checkConfig(config);
 
-  let configAdded = false;
-
   /* If there is an override, rules must be set inside it, or they won't be checked */
   for (const override of config.overrides ?? []) {
 
@@ -74,16 +72,12 @@ export default function enableESLintStrict(cwd: string): boolean {
 
       addConfig(override);
 
-      configAdded = true;
-
     }
 
   }
 
-  /* Add rules at root level if there was no override */
-  if (!configAdded) {
-    addConfig(config);
-  }
+  /* Add rules at root level */
+  addConfig(config);
 
   if (packageJSONConfig) {
     packageJSONConfig.eslintConfig = config;
@@ -147,12 +141,8 @@ function addConfig(config: { rules?: ESLintRules }): void {
     config.rules = {};
   }
 
-  if (!config.rules['@typescript-eslint/no-explicit-any']) {
-    config.rules['@typescript-eslint/no-explicit-any'] = 'error';
-  }
+  config.rules['@typescript-eslint/no-explicit-any'] = 'error';
 
-  if (!config.rules['@typescript-eslint/explicit-function-return-type']) {
-    config.rules['@typescript-eslint/explicit-function-return-type'] = 'error';
-  }
+  config.rules['@typescript-eslint/explicit-function-return-type'] = 'error';
 
 }
