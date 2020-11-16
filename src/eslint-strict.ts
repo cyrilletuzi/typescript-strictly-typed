@@ -9,7 +9,7 @@ interface ESLint {
   plugins?: string[];
   extends?: string | string[];
   overrides?: {
-    extends?: string[];
+    extends?: string | string[];
   }[];
 }
 
@@ -81,38 +81,42 @@ export default function enableESLintStrict(cwd: string): boolean {
 
 function checkConfig(config: ESLint): void {
 
-  const eslintTypeScriptPlugin = '@typescript-eslint';
-  const eslintReactPlugin = 'react-app';
-  const eslintVuePlugin = '@vue/typescript';
-  const eslintAngularPlugin = '@angular-eslint';
+  const eslintTypeScriptPlugin = '@typescript-eslint' as const;
+  const eslintReactPlugin = 'react-app' as const;
+  const eslintVuePlugin = '@vue/typescript' as const;
+  const eslintAngularPlugin = '@angular-eslint' as const;
+  const eslintExtensionPlugins = [eslintReactPlugin, eslintVuePlugin, eslintAngularPlugin] as const;
 
   /* Case: @typescript-eslint */
-  if (
-    Array.isArray(config.plugins)
-    && config.plugins.includes(eslintTypeScriptPlugin)
-  ) return;
+  if (config.plugins?.includes(eslintTypeScriptPlugin)) return;
 
-  /* Case: react-app */
-  if (
-    (config.extends === eslintReactPlugin)
-    || (Array.isArray(config.extends) && config.extends.includes(eslintReactPlugin))
-  ) return;
+  /* Case: extensions */
+  for (const extension of eslintExtensionPlugins) {
 
-  /* Case: @vue/typescript */
-  if (
-    (config.extends === eslintVuePlugin)
-    || (Array.isArray(config.extends) && config.extends.includes(eslintVuePlugin))
-  ) return;
-
-  /* Case: @angular-eslint */
-  if (Array.isArray(config.overrides)) {
-    for (const override of config.overrides) {
-      if (Array.isArray(override.extends)) {
-        for (const extend of override.extends) {
-          if (extend.includes(eslintAngularPlugin)) return;
-        }
+    /* Case: plugin in `extends` */
+    if (Array.isArray(config.extends)) {
+      for (const extend of config.extends) {
+        if (extend.includes(extension)) return;
       }
     }
+
+    if (config.extends?.includes(extension)) return;
+
+    /* Case: plugin in `overrides[x].extends` */
+    if (Array.isArray(config.overrides)) {
+      for (const override of config.overrides) {
+
+        if (Array.isArray(override.extends)) {
+          for (const extend of override.extends) {
+            if (extend.includes(extension)) return;
+          }
+        }
+
+        if (override.extends?.includes(extension)) return;
+
+      }
+    }
+
   }
 
   logWarning(`ESLint must be configured with "${eslintTypeScriptPlugin}" plugin or with a tool extending it like "${eslintVuePlugin}", "${eslintReactPlugin}" or "${eslintAngularPlugin}", otherwise rules won't be checked.`);
