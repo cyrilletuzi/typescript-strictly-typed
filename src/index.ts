@@ -1,5 +1,5 @@
 import { findConfig } from './config-utils';
-import { logInfo, logError, logSuccess } from './log-utils';
+import { logError, logSuccess } from './log-utils';
 import enableTypescriptStrict from './typescript-strict';
 import enableESLintStrict from './eslint-strict';
 import enableTSLintStrict from './tslint-strict';
@@ -22,9 +22,10 @@ export default function typescriptStrictlyTyped(cwd: string): void {
   }
 
   if (enableESLintStrict(cwd)) {
-    logInfo(`Skipping TSLint configuration as ESLint has been found and configured.`)
     success.push('ESLint');
-  } else if (enableTSLintStrict(cwd)) {
+  }
+
+  if (enableTSLintStrict(cwd)) {
     success.push('TSLint');
   }
 

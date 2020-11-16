@@ -1,14 +1,20 @@
 import { findConfig, getConfig, saveConfig } from './config-utils';
 import { logWarning } from './log-utils';
 
+interface ESLintRules {
+  '@typescript-eslint/no-explicit-any'?: string | string[];
+  '@typescript-eslint/explicit-function-return-type'?: string | string[];
+}
+
 interface ESLint {
-  rules?: {
-    '@typescript-eslint/no-explicit-any'?: string | string[];
-    '@typescript-eslint/explicit-function-return-type'?: string | string[];
-  };
-  parser?: string;
+  rules?: ESLintRules;
   plugins?: string[];
   extends?: string | string[];
+  overrides?: {
+    files?: string | string[];
+    extends?: string | string[];
+    rules?: ESLintRules;
+  }[];
 }
 
 interface PackageJSON {
@@ -28,10 +34,7 @@ interface PackageJSON {
 export default function enableESLintStrict(cwd: string): boolean {
 
   const possibleConfigFiles = ['.eslintrc.json', '.eslintrc.yaml', '.eslintrc.yml', '.eslintrc.js', 'package.json'];
-  const eslintTypeScriptPlugin = '@typescript-eslint';
-  const eslintVuePlugin = '@vue/typescript';
-  const eslintReactPlugin = 'react-app';
-  const eslintTypeScriptParser = '@typescript-eslint/parser';
+  const filesConfig = '*.ts';
 
   let config: ESLint | null = null;
   let packageJSONConfig: PackageJSON | null = null;
@@ -55,13 +58,90 @@ export default function enableESLintStrict(cwd: string): boolean {
     return false;
   }
 
-  if (!(
-    (config.parser === eslintTypeScriptParser && Array.isArray(config.plugins) && config.plugins.includes(eslintTypeScriptPlugin)) ||
-    (config.extends === eslintReactPlugin) ||
-    (Array.isArray(config.extends) && config.extends.includes(eslintVuePlugin))
-  )) {
-    logWarning(`${file} must be configured with "parser": "${eslintTypeScriptParser}" and "plugins": ["${eslintTypeScriptPlugin}"] (or an equivalent like "extends": ["${eslintVuePlugin}"] or "extends": "${eslintReactPlugin}"), otherwise rules won't be checked.`);
+  checkConfig(config);
+
+  let configAdded = false;
+
+  /* If there is an override, rules must be set inside it, or they won't be checked */
+  for (const override of config.overrides ?? []) {
+
+    const files =
+      Array.isArray(override.files) ? override.files :
+      override.files ? [override.files] :
+      [];
+
+    if (files.some((file) => file.includes(filesConfig))) {
+
+      addConfig(override);
+
+      configAdded = true;
+
+    }
+
   }
+
+  /* Add rules at root level if there was no override */
+  if (!configAdded) {
+    addConfig(config);
+  }
+
+  if (packageJSONConfig) {
+    packageJSONConfig.eslintConfig = config;
+    return saveConfig(cwd, file, packageJSONConfig);
+  } else if (file === '.eslintrc.js') {
+    logWarning(`Your project is using the advanced .eslintrc.js format for ESLint config, and it can't be overwrited directly, as it could mess up with advanced configuration. So the new strict configuration was saved in .eslintrc.json. As .eslintrc.js has precedence over .eslintrc.json, you need to manually copy the new options from the new .eslintrc.json to your preexisting .eslintrc.js. If you know a way to automate this, please open a PR.`);
+    return saveConfig(cwd, '.eslintrc.json', config);
+  } else {
+    return saveConfig(cwd, file, config);
+  }
+
+}
+
+function checkConfig(config: ESLint): void {
+
+  const eslintTypeScriptPlugin = '@typescript-eslint' as const;
+  const eslintReactPlugin = 'react-app' as const;
+  const eslintVuePlugin = '@vue/typescript' as const;
+  const eslintAngularPlugin = '@angular-eslint' as const;
+  const eslintExtensionPlugins = [eslintReactPlugin, eslintVuePlugin, eslintAngularPlugin] as const;
+
+  /* Case: @typescript-eslint */
+  if (config.plugins?.includes(eslintTypeScriptPlugin)) return;
+
+  /* Case: extensions */
+  for (const extension of eslintExtensionPlugins) {
+
+    /* Case: plugin in `extends` */
+    const configExtends =
+      Array.isArray(config.extends) ? config.extends :
+      config.extends ? [config.extends] :
+      [];
+
+    for (const configExtend of configExtends) {
+      if (configExtend.includes(extension)) return;
+    }
+
+    /* Case: plugin in `overrides[x].extends` */
+    for (const override of config.overrides ?? []) {
+
+      const overrideExtends =
+        Array.isArray(override.extends) ? override.extends :
+        override.extends ? [override.extends] :
+        [];
+
+      for (const overrideExtend of overrideExtends) {
+        if (overrideExtend.includes(extension)) return;
+      }
+
+    }
+
+  }
+
+  logWarning(`ESLint must be configured with "${eslintTypeScriptPlugin}" plugin or with a tool extending it like "${eslintVuePlugin}", "${eslintReactPlugin}" or "${eslintAngularPlugin}", otherwise rules won't be checked.`);
+
+}
+
+function addConfig(config: { rules?: ESLintRules }): void {
 
   if (!config.rules) {
     config.rules = {};
@@ -73,16 +153,6 @@ export default function enableESLintStrict(cwd: string): boolean {
 
   if (!config.rules['@typescript-eslint/explicit-function-return-type']) {
     config.rules['@typescript-eslint/explicit-function-return-type'] = 'error';
-  }
-
-  if (packageJSONConfig) {
-    packageJSONConfig.eslintConfig = config;
-    return saveConfig(cwd, file, packageJSONConfig);
-  } else if (file === '.eslintrc.js') {
-    logWarning(`Your project is using the advanced .eslintrc.js format for ESLint config, and it can't be overwrited directly, as it could mess up with advanced configuration. So the new strict configuration was saved in .eslintrc.json. As .eslintrc.js has precedence over .eslintrc.json, you need to manually copy the new options from the new .eslintrc.json to your preexisting .eslintrc.js. If you know a way to automate this, please open a PR.`);
-    return saveConfig(cwd, '.eslintrc.json', config);
-  } else {
-    return saveConfig(cwd, file, config);
   }
 
 }

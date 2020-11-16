@@ -101,19 +101,6 @@ It was already a lot of work to support all possible official configuration form
 So if it doesn't work for your project because of a custom configuration,
 you can just modify the configuration files yourself.
 
-### React apps
-
-For React apps created with `create-react-app`, after running this lib command,
-it will work out of the box:
-- in your editor (for example if you have the ESLint extension in Visual Studio Code)
-- if you run lint manually (for example with `eslint src/**` command)
-
-But it won't be taken into account at React compilation (ie. on `npm start`),
-because React does custom things.
-
-See [issue #2](https://github.com/cyrilletuzi/typescript-strictly-typed/issues/2)
-if you want to help.
-
 ### Apps using `.eslintrc.js` (including Vue)
 
 If your project uses a `.eslintrc`*`.js`* file (instead of a more classic `.eslintrc`*`.json`* file)

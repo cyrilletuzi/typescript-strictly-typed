@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.3.0 (2020-11-16)
+
+### Feature
+
+Support adding ESLint strict rules in `overrides`, which means support for `@angular-eslint`!
+
 ## 2.2.0 (2020-11-10)
 
 ### Feature
