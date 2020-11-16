@@ -1,15 +1,19 @@
 import { findConfig, getConfig, saveConfig } from './config-utils';
 import { logWarning } from './log-utils';
 
+interface ESLintRules {
+  '@typescript-eslint/no-explicit-any'?: string | string[];
+  '@typescript-eslint/explicit-function-return-type'?: string | string[];
+}
+
 interface ESLint {
-  rules?: {
-    '@typescript-eslint/no-explicit-any'?: string | string[];
-    '@typescript-eslint/explicit-function-return-type'?: string | string[];
-  };
+  rules?: ESLintRules;
   plugins?: string[];
   extends?: string | string[];
   overrides?: {
+    files?: string | string[];
     extends?: string | string[];
+    rules?: ESLintRules;
   }[];
 }
 
@@ -30,6 +34,7 @@ interface PackageJSON {
 export default function enableESLintStrict(cwd: string): boolean {
 
   const possibleConfigFiles = ['.eslintrc.json', '.eslintrc.yaml', '.eslintrc.yml', '.eslintrc.js', 'package.json'];
+  const filesConfig = '*.ts';
 
   let config: ESLint | null = null;
   let packageJSONConfig: PackageJSON | null = null;
@@ -55,16 +60,29 @@ export default function enableESLintStrict(cwd: string): boolean {
 
   checkConfig(config);
 
-  if (!config.rules) {
-    config.rules = {};
+  let configAdded = false;
+
+  /* If there is an override, rules must be set inside it, or they won't be checked */
+  for (const override of config.overrides ?? []) {
+
+    const files =
+      Array.isArray(override.files) ? override.files :
+      override.files ? [override.files] :
+      [];
+
+    if (files.some((file) => file.includes(filesConfig))) {
+
+      addConfig(override);
+
+      configAdded = true;
+
+    }
+
   }
 
-  if (!config.rules['@typescript-eslint/no-explicit-any']) {
-    config.rules['@typescript-eslint/no-explicit-any'] = 'error';
-  }
-
-  if (!config.rules['@typescript-eslint/explicit-function-return-type']) {
-    config.rules['@typescript-eslint/explicit-function-return-type'] = 'error';
+  /* Add rules at root level if there was no override */
+  if (!configAdded) {
+    addConfig(config);
   }
 
   if (packageJSONConfig) {
@@ -94,31 +112,47 @@ function checkConfig(config: ESLint): void {
   for (const extension of eslintExtensionPlugins) {
 
     /* Case: plugin in `extends` */
-    if (Array.isArray(config.extends)) {
-      for (const extend of config.extends) {
-        if (extend.includes(extension)) return;
-      }
+    const configExtends =
+      Array.isArray(config.extends) ? config.extends :
+      config.extends ? [config.extends] :
+      [];
+
+    for (const configExtend of configExtends) {
+      if (configExtend.includes(extension)) return;
     }
 
-    if (config.extends?.includes(extension)) return;
-
     /* Case: plugin in `overrides[x].extends` */
-    if (Array.isArray(config.overrides)) {
-      for (const override of config.overrides) {
+    for (const override of config.overrides ?? []) {
 
-        if (Array.isArray(override.extends)) {
-          for (const extend of override.extends) {
-            if (extend.includes(extension)) return;
-          }
-        }
+      const overrideExtends =
+        Array.isArray(override.extends) ? override.extends :
+        override.extends ? [override.extends] :
+        [];
 
-        if (override.extends?.includes(extension)) return;
-
+      for (const overrideExtend of overrideExtends) {
+        if (overrideExtend.includes(extension)) return;
       }
+
     }
 
   }
 
   logWarning(`ESLint must be configured with "${eslintTypeScriptPlugin}" plugin or with a tool extending it like "${eslintVuePlugin}", "${eslintReactPlugin}" or "${eslintAngularPlugin}", otherwise rules won't be checked.`);
+
+}
+
+function addConfig(config: { rules?: ESLintRules }): void {
+
+  if (!config.rules) {
+    config.rules = {};
+  }
+
+  if (!config.rules['@typescript-eslint/no-explicit-any']) {
+    config.rules['@typescript-eslint/no-explicit-any'] = 'error';
+  }
+
+  if (!config.rules['@typescript-eslint/explicit-function-return-type']) {
+    config.rules['@typescript-eslint/explicit-function-return-type'] = 'error';
+  }
 
 }
