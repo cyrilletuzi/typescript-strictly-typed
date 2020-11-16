@@ -1,5 +1,5 @@
 import { findConfig } from './config-utils';
-import { logInfo, logError, logSuccess } from './log-utils';
+import { logError, logSuccess } from './log-utils';
 import enableTypescriptStrict from './typescript-strict';
 import enableESLintStrict from './eslint-strict';
 import enableTSLintStrict from './tslint-strict';
