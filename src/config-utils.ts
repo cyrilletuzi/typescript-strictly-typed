@@ -2,6 +2,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 import * as json5 from 'json5';
 import * as yaml from 'js-yaml';
+import { sync as pkgUpSync } from 'pkg-up';
 import * as semver from 'semver';
 
 import { logError, logInfo } from './log-utils';
@@ -139,12 +140,13 @@ export function saveConfig(cwd: string, file: string, config: unknown): boolean 
  */
 export function checkDependencyVersion(cwd: string, name: string, wantedVersion: string): boolean {
 
-  const file = 'package.json';
-  const filePath = path.join(cwd, file);
+  const filePath = pkgUpSync({ cwd });
 
-  if (fs.existsSync(filePath)) {
+  if (filePath) {
 
-    const packageJsonConfig = getConfig<PackageJSON>(cwd, file);
+    const packageJsonFile = fs.readFileSync(filePath, { encoding: 'utf8' });
+
+    const packageJsonConfig = json5.parse(packageJsonFile) as PackageJSON | undefined;
 
     const prodDependencyVersion = packageJsonConfig?.dependencies?.[name];
     const devDependencyVersion = packageJsonConfig?.devDependencies?.[name];
