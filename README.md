@@ -38,6 +38,9 @@ Adding configuration for:
 
 - [TypeScript compiler options](https://www.typescriptlang.org/docs/handbook/compiler-options.html)
   - `strict` (which includes in particular `noImplicitAny` and `strictNullChecks`)
+  - `noFallthroughCasesInSwitch`
+  - `noImplicitReturns`
+  - `noUncheckedIndexedAccess`
 - [ESLint rules](https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin)
   - `@typescript-eslint/no-explicit-any`
   - `@typescript-eslint/explicit-function-return-type`
