@@ -23,6 +23,7 @@ interface TSConfig {
  * - `noFallthroughCasesInSwitch`
  * - `noImplicitReturns`
  * - `noUncheckedIndexedAccess`
+ * - `forceConsistentCasingInFileNames`
  * {@link https://www.typescriptlang.org/docs/handbook/compiler-options.html}
  *
  * @param cwd Working directory path
