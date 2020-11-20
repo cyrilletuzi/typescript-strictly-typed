@@ -41,6 +41,7 @@ Adding configuration for:
   - `noFallthroughCasesInSwitch`
   - `noImplicitReturns`
   - `noUncheckedIndexedAccess`
+  - `forceConsistentCasingInFileNames`
 - [ESLint rules](https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin)
   - `@typescript-eslint/no-explicit-any`
   - `@typescript-eslint/explicit-function-return-type`
