@@ -25,7 +25,9 @@ export function findConfig(cwd: string, files: string[]): string | null {
 
   }
 
-  logInfo(`Can't find ${path.basename(files[0], '.json')} config file. Skipping this configuration.`);
+  if (files[0]) {
+    logInfo(`Can't find ${path.basename(files[0], '.json')} config file. Skipping this configuration.`);
+  }
 
   return null;
 
