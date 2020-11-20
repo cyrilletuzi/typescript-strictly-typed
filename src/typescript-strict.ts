@@ -13,6 +13,7 @@ interface TSConfig {
     noFallthroughCasesInSwitch?: boolean;
     noImplicitReturns?: boolean;
     noUncheckedIndexedAccess?: boolean;
+    forceConsistentCasingInFileNames?: boolean;
   };
 }
 
@@ -48,6 +49,7 @@ export default function enableTypescriptStrict(cwd: string): boolean {
   config.compilerOptions.strict = true;
   config.compilerOptions.noFallthroughCasesInSwitch = true;
   config.compilerOptions.noImplicitReturns = true;
+  config.compilerOptions.forceConsistentCasingInFileNames = true;
 
   if (checkDependencyVersion(cwd, 'typescript', '>=4.1.0')) {
     config.compilerOptions.noUncheckedIndexedAccess = true;
