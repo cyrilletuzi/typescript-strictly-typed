@@ -2,8 +2,19 @@ import * as path from 'path';
 import * as fs from 'fs';
 import * as json5 from 'json5';
 import * as yaml from 'js-yaml';
+import { sync as pkgUpSync } from 'pkg-up';
+import * as semver from 'semver';
 
 import { logError, logInfo } from './log-utils';
+
+interface PackageJSON {
+  dependencies?: {
+    [key: string]: string;
+  };
+  devDependencies?: {
+    [key: string]: string;
+  };
+}
 
 /**
  * Search the config file of a tool
@@ -117,5 +128,37 @@ export function saveConfig(cwd: string, file: string, config: unknown): boolean 
     logError(`Can't write ${file} file. Maybe a permission issue?`);
     return false;
   }
+
+}
+
+/**
+ * Check a dependency version
+ *
+ * @param cwd Working directory path
+ * @param name Dependency name to check
+ * @param wantedVersion Wanted version, eg. `>=2.1.0`
+ */
+export function checkDependencyVersion(cwd: string, name: string, wantedVersion: string): boolean {
+
+  const filePath = pkgUpSync({ cwd });
+
+  if (filePath) {
+
+    const packageJsonFile = fs.readFileSync(filePath, { encoding: 'utf8' });
+
+    const packageJsonConfig = json5.parse(packageJsonFile) as PackageJSON | undefined;
+
+    const prodDependencyVersion = packageJsonConfig?.dependencies?.[name];
+    const devDependencyVersion = packageJsonConfig?.devDependencies?.[name];
+
+    const dependencyVersion = semver.coerce(prodDependencyVersion ?? devDependencyVersion);
+
+    if (dependencyVersion) {
+      return semver.satisfies(dependencyVersion, wantedVersion);
+    }
+
+  }
+
+  return false;
 
 }

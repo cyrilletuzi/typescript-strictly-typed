@@ -1,4 +1,4 @@
-import { findConfig, getConfig, saveConfig } from './config-utils';
+import { checkDependencyVersion, findConfig, getConfig, saveConfig } from './config-utils';
 
 interface TSConfig {
   compilerOptions?: {
@@ -10,12 +10,20 @@ interface TSConfig {
     strictBindCallApply?: boolean;
     strictFunctionTypes?: boolean;
     strictPropertyInitialization?: boolean;
+    noFallthroughCasesInSwitch?: boolean;
+    noImplicitReturns?: boolean;
+    noUncheckedIndexedAccess?: boolean;
+    forceConsistentCasingInFileNames?: boolean;
   };
 }
 
 /**
  * Enable the following TypeScript compiler options:
  * - `strict`
+ * - `noFallthroughCasesInSwitch`
+ * - `noImplicitReturns`
+ * - `noUncheckedIndexedAccess`
+ * - `forceConsistentCasingInFileNames`
  * {@link https://www.typescriptlang.org/docs/handbook/compiler-options.html}
  *
  * @param cwd Working directory path
@@ -40,6 +48,13 @@ export default function enableTypescriptStrict(cwd: string): boolean {
   }
 
   config.compilerOptions.strict = true;
+  config.compilerOptions.noFallthroughCasesInSwitch = true;
+  config.compilerOptions.noImplicitReturns = true;
+  config.compilerOptions.forceConsistentCasingInFileNames = true;
+
+  if (checkDependencyVersion(cwd, 'typescript', '>=4.1.0')) {
+    config.compilerOptions.noUncheckedIndexedAccess = true;
+  }
 
   /* Clean up options included in strict mode */
   if (config.compilerOptions.alwaysStrict) {

@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.4.0 (2020-11-20)
+
+### Features
+
+Add `tsconfig.json` rules:
+- `forceConsistentCasingInFileNames`
+- `noFallthroughCasesInSwitch`
+- `noImplicitReturns`
+- `noUncheckedIndexedAccess` (TypeScript 4.1 only)
+
 ## 2.3.1 (2020-11-16)
 
 ### Bug fixes
