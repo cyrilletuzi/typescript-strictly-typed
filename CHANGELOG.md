@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.5.0 (2021-01-03)
+
+### Feature
+
+Add `@angular-eslint/template/no-any` rule in relevant projects.
+
 ## 2.4.0 (2020-11-20)
 
 ### Features

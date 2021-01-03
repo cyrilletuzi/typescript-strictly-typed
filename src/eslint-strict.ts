@@ -1,9 +1,12 @@
 import { findConfig, getConfig, saveConfig } from './config-utils';
 import { logWarning } from './log-utils';
 
+type ESLintErrorLevel = 'error' | 'warn' | 'off';
+
 interface ESLintRules {
-  '@typescript-eslint/no-explicit-any'?: string | string[];
-  '@typescript-eslint/explicit-function-return-type'?: string | string[];
+  '@typescript-eslint/no-explicit-any'?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
+  '@typescript-eslint/explicit-function-return-type'?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
+  '@angular-eslint/template/no-any'?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
 }
 
 interface ESLint {
@@ -12,6 +15,7 @@ interface ESLint {
   extends?: string | string[];
   overrides?: {
     files?: string | string[];
+    plugins?: string[];
     extends?: string | string[];
     rules?: ESLintRules;
   }[];
@@ -34,7 +38,9 @@ interface PackageJSON {
 export default function enableESLintStrict(cwd: string): boolean {
 
   const possibleConfigFiles = ['.eslintrc.json', '.eslintrc.yaml', '.eslintrc.yml', '.eslintrc.js', 'package.json'];
-  const filesConfig = '*.ts';
+  const tsFilesConfig = '*.ts';
+  const htmlFilesConfig = '*.html';
+  const eslintAngularTemplatePlugin = '@angular-eslint/template' as const;
 
   let config: ESLint | null = null;
   let packageJSONConfig: PackageJSON | null = null;
@@ -63,21 +69,29 @@ export default function enableESLintStrict(cwd: string): boolean {
   /* If there is an override, rules must be set inside it, or they won't be checked */
   for (const override of config.overrides ?? []) {
 
-    const files =
-      Array.isArray(override.files) ? override.files :
-      override.files ? [override.files] :
-      [];
+    const files = normalizeConfigToArray(override.files);
 
-    if (files.some((file) => file.includes(filesConfig))) {
+    if (files.some((file) => file.includes(tsFilesConfig))) {
 
-      addConfig(override);
+      addTSConfig(override);
+
+    }
+
+    if (files.some((file) => file.includes(htmlFilesConfig))) {
+
+      const extendsConfig = normalizeConfigToArray(override.extends);
+
+      if (override.plugins?.includes(eslintAngularTemplatePlugin)
+      || extendsConfig.some((extendConfig) => extendConfig.includes(eslintAngularTemplatePlugin)))
+
+      addAngularHTMLConfig(override);
 
     }
 
   }
 
   /* Add rules at root level */
-  addConfig(config);
+  addTSConfig(config);
 
   if (packageJSONConfig) {
     packageJSONConfig.eslintConfig = config;
@@ -106,10 +120,7 @@ function checkConfig(config: ESLint): void {
   for (const extension of eslintExtensionPlugins) {
 
     /* Case: plugin in `extends` */
-    const configExtends =
-      Array.isArray(config.extends) ? config.extends :
-      config.extends ? [config.extends] :
-      [];
+    const configExtends = normalizeConfigToArray(config.extends);
 
     for (const configExtend of configExtends) {
       if (configExtend.includes(extension)) return;
@@ -118,10 +129,9 @@ function checkConfig(config: ESLint): void {
     /* Case: plugin in `overrides[x].extends` */
     for (const override of config.overrides ?? []) {
 
-      const overrideExtends =
-        Array.isArray(override.extends) ? override.extends :
-        override.extends ? [override.extends] :
-        [];
+      if (override.plugins?.includes(eslintTypeScriptPlugin)) return;
+
+      const overrideExtends = normalizeConfigToArray(override.extends);
 
       for (const overrideExtend of overrideExtends) {
         if (overrideExtend.includes(extension)) return;
@@ -135,7 +145,7 @@ function checkConfig(config: ESLint): void {
 
 }
 
-function addConfig(config: { rules?: ESLintRules }): void {
+function addTSConfig(config: Pick<ESLint, 'rules'>): void {
 
   if (!config.rules) {
     config.rules = {};
@@ -144,5 +154,21 @@ function addConfig(config: { rules?: ESLintRules }): void {
   config.rules['@typescript-eslint/no-explicit-any'] = 'error';
 
   config.rules['@typescript-eslint/explicit-function-return-type'] = 'error';
+
+}
+
+function addAngularHTMLConfig(config: Pick<ESLint, 'rules'>): void {
+
+  if (!config.rules) {
+    config.rules = {};
+  }
+
+  config.rules['@angular-eslint/template/no-any'] = 'error';
+
+}
+
+function normalizeConfigToArray(config?: string | string[]): string[] {
+
+  return Array.isArray(config) ? config : config ? [config] : [];
 
 }
