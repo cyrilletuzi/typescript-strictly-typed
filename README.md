@@ -52,6 +52,8 @@ Adding configuration for:
   - `strictInjectionParameters`
   - `strictTemplates`
   - `strictInputAccessModifiers`
+- [Angular ESLint options](https://github.com/angular-eslint/angular-eslint)
+  - `@angular-eslint/template/no-any`
 - [Angular Codelyzer lint options](http://codelyzer.com/rules/)
   - `template-no-any`
 
