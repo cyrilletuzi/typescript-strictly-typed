@@ -107,7 +107,7 @@ export function saveConfig(cwd: string, file: string, config: unknown): boolean 
         break;
       case '.yaml':
       case '.yml':
-        configStringified = yaml.safeDump(config, { indent: 2 });
+        configStringified = yaml.dump(config, { indent: 2 });
         break;
     }
 
