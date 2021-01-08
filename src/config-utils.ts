@@ -69,7 +69,7 @@ export function getConfig<T extends object>(cwd: string, file: string): T | null
         break;
       case '.yaml':
       case '.yml':
-        configParsed = yaml.safeLoad(configRaw) as T;
+        configParsed = yaml.load(configRaw) as T;
         break;
       case '.js':
         configParsed = require(filePath) as T; // eslint-disable-line @typescript-eslint/no-var-requires
@@ -107,7 +107,7 @@ export function saveConfig(cwd: string, file: string, config: unknown): boolean 
         break;
       case '.yaml':
       case '.yml':
-        configStringified = yaml.safeDump(config, { indent: 2 });
+        configStringified = yaml.dump(config, { indent: 2 });
         break;
     }
 
