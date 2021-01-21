@@ -1,4 +1,4 @@
-import { checkDependencyVersion, findConfig, getConfig, saveConfig } from './config-utils';
+import { findConfig, getConfig, saveConfig } from './config-utils';
 
 interface TSConfig {
   compilerOptions?: {
@@ -12,7 +12,7 @@ interface TSConfig {
     strictPropertyInitialization?: boolean;
     noFallthroughCasesInSwitch?: boolean;
     noImplicitReturns?: boolean;
-    noUncheckedIndexedAccess?: boolean;
+    /* noUncheckedIndexedAccess?: boolean; */
     forceConsistentCasingInFileNames?: boolean;
   };
 }
@@ -22,7 +22,6 @@ interface TSConfig {
  * - `strict`
  * - `noFallthroughCasesInSwitch`
  * - `noImplicitReturns`
- * - `noUncheckedIndexedAccess`
  * - `forceConsistentCasingInFileNames`
  * {@link https://www.typescriptlang.org/docs/handbook/compiler-options.html}
  *
@@ -52,9 +51,11 @@ export default function enableTypescriptStrict(cwd: string): boolean {
   config.compilerOptions.noImplicitReturns = true;
   config.compilerOptions.forceConsistentCasingInFileNames = true;
 
+  /*
   if (checkDependencyVersion(cwd, 'typescript', '>=4.1.0')) {
     config.compilerOptions.noUncheckedIndexedAccess = true;
   }
+  */
 
   /* Clean up options included in strict mode */
   if (config.compilerOptions.alwaysStrict) {

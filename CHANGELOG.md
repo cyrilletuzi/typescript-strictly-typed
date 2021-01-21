@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.6.0 (2021-01-21)
+
+Reverting the addition of `noUncheckedIndexedAccess` flag.
+Currently it reports too much false positives,
+which probably explains why it's not part of the `strict` mode.
+
 ## 2.5.0 (2021-01-03)
 
 ### Feature
@@ -14,7 +20,6 @@ Add `tsconfig.json` rules:
 - `forceConsistentCasingInFileNames`
 - `noFallthroughCasesInSwitch`
 - `noImplicitReturns`
-- `noUncheckedIndexedAccess` (TypeScript 4.1 only)
 
 ## 2.3.1 (2020-11-16)
 
