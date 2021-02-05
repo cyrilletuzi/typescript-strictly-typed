@@ -65,7 +65,7 @@ export function getConfig<T extends object>(cwd: string, file: string): T | null
 
     switch (fileType) {
       case '.json':
-        configParsed = json5.parse(configRaw) as T;
+        configParsed = json5.parse<T>(configRaw);
         break;
       case '.yaml':
       case '.yml':
@@ -146,7 +146,7 @@ export function checkDependencyVersion(cwd: string, name: string, wantedVersion:
 
     const packageJsonFile = fs.readFileSync(filePath, { encoding: 'utf8' });
 
-    const packageJsonConfig = json5.parse(packageJsonFile) as PackageJSON | undefined;
+    const packageJsonConfig = json5.parse<PackageJSON | undefined>(packageJsonFile);
 
     const prodDependencyVersion = packageJsonConfig?.dependencies?.[name];
     const devDependencyVersion = packageJsonConfig?.devDependencies?.[name];
