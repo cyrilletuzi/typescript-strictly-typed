@@ -53,7 +53,7 @@
   },
   "devDependencies": {
     "@types/js-yaml": "4.0.0",
-    "@types/node": "14.14.25",
+    "@types/node": "14.14.26",
     "@types/semver": "7.3.4",
     "@typescript-eslint/eslint-plugin": "4.14.2",
     "@typescript-eslint/parser": "4.14.2",
