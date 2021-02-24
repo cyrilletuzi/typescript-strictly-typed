@@ -40,6 +40,7 @@ Adding configuration for:
   - `strict` (which includes in particular `noImplicitAny` and `strictNullChecks`)
   - `noFallthroughCasesInSwitch`
   - `noImplicitReturns`
+  - `noPropertyAccessFromIndexSignature`
   - `forceConsistentCasingInFileNames`
 - [ESLint rules](https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin)
   - `@typescript-eslint/no-explicit-any`

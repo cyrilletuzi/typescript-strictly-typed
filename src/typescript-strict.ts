@@ -1,4 +1,4 @@
-import { findConfig, getConfig, saveConfig } from './config-utils';
+import { checkDependencyVersion, findConfig, getConfig, saveConfig } from './config-utils';
 
 interface TSConfig {
   compilerOptions?: {
@@ -13,6 +13,7 @@ interface TSConfig {
     noFallthroughCasesInSwitch?: boolean;
     noImplicitReturns?: boolean;
     /* noUncheckedIndexedAccess?: boolean; */
+    noPropertyAccessFromIndexSignature?: boolean;
     forceConsistentCasingInFileNames?: boolean;
   };
 }
@@ -56,6 +57,10 @@ export default function enableTypescriptStrict(cwd: string): boolean {
     config.compilerOptions.noUncheckedIndexedAccess = true;
   }
   */
+
+  if (checkDependencyVersion(cwd, 'typescript', '>=4.2.0')) {
+    config.compilerOptions.noPropertyAccessFromIndexSignature = true;
+  }
 
   /* Clean up options included in strict mode */
   if (config.compilerOptions.alwaysStrict) {
