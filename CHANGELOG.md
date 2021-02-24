@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.7.0 (2021-02-24)
+
+### Feature
+
+Add `tsconfig.json` rule:
+- `noPropertyAccessFromIndexSignature` (TypeScript >= 4.2)
+
 ## 2.6.0 (2021-01-21)
 
 Reverting the addition of `noUncheckedIndexedAccess` flag.
