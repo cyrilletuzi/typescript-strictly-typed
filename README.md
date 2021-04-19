@@ -44,7 +44,7 @@ Adding configuration for:
   - `forceConsistentCasingInFileNames`
 - [ESLint rules](https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin)
   - `@typescript-eslint/no-explicit-any`
-  - `@typescript-eslint/explicit-function-return-type`
+  - `@typescript-eslint/explicit-module-boundary-types`
 - [TSLint rules](https://palantir.github.io/tslint/rules/)
   - `no-any`
   - `typedef` with `call-signature`

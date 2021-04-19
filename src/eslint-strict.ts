@@ -5,7 +5,7 @@ type ESLintErrorLevel = 'error' | 'warn' | 'off';
 
 interface ESLintRules {
   '@typescript-eslint/no-explicit-any'?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
-  '@typescript-eslint/explicit-function-return-type'?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
+  '@typescript-eslint/explicit-module-boundary-types'?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
   '@angular-eslint/template/no-any'?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
 }
 
@@ -28,7 +28,7 @@ interface PackageJSON {
 /**
  * Enable the following ESLint rules:
  * - `@typescript-eslint/no-explicit-any`
- * - `@typescript-eslint/explicit-function-return-type`
+ * - `@typescript-eslint/explicit-module-boundary-types`
  * {@link https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin}
  *
  * @param cwd Working directory path
@@ -66,6 +66,8 @@ export default function enableESLintStrict(cwd: string): boolean {
 
   checkConfig(config);
 
+  let tsConfigAdded = false;
+
   /* If there is an override, rules must be set inside it, or they won't be checked */
   for (const override of config.overrides ?? []) {
 
@@ -74,6 +76,8 @@ export default function enableESLintStrict(cwd: string): boolean {
     if (files.some((file) => file.includes(tsFilesConfig))) {
 
       addTSConfig(override);
+
+      tsConfigAdded = true;
 
     }
 
@@ -91,7 +95,9 @@ export default function enableESLintStrict(cwd: string): boolean {
   }
 
   /* Add rules at root level */
-  addTSConfig(config);
+  if (!tsConfigAdded) {
+    addTSConfig(config);
+  }
 
   if (packageJSONConfig) {
     packageJSONConfig.eslintConfig = config;
@@ -151,9 +157,17 @@ function addTSConfig(config: Pick<ESLint, 'rules'>): void {
     config.rules = {};
   }
 
-  config.rules['@typescript-eslint/no-explicit-any'] = 'error';
+  if (Array.isArray(config.rules['@typescript-eslint/no-explicit-any'])) {
+    config.rules['@typescript-eslint/no-explicit-any'][0] = 'error';
+  } else {
+    config.rules['@typescript-eslint/no-explicit-any'] = 'error';
+  }
 
-  config.rules['@typescript-eslint/explicit-function-return-type'] = 'error';
+  if (Array.isArray(config.rules['@typescript-eslint/explicit-module-boundary-types'])) {
+    config.rules['@typescript-eslint/explicit-module-boundary-types'][0] = 'error';
+  } else {
+    config.rules['@typescript-eslint/explicit-module-boundary-types'] = 'error';
+  }
 
 }
 
@@ -163,7 +177,11 @@ function addAngularHTMLConfig(config: Pick<ESLint, 'rules'>): void {
     config.rules = {};
   }
 
-  config.rules['@angular-eslint/template/no-any'] = 'error';
+  if (Array.isArray(config.rules['@angular-eslint/template/no-any'])) {
+    config.rules['@angular-eslint/template/no-any'][0] = 'error';
+  } else {
+    config.rules['@angular-eslint/template/no-any'] = 'error';
+  }
 
 }
 
