@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.8.0 (2021-04-19)
+
+### Feature
+
+For ESLint:
+- add `@typescript-eslint/explicit-module-boundary-types` instead of `@typescript-eslint/explicit-function-return-type`
+- preserve advanced options if rules already exist
+
 ## 2.7.0 (2021-02-24)
 
 ### Feature
