@@ -66,6 +66,8 @@ export default function enableESLintStrict(cwd: string): boolean {
 
   checkConfig(config);
 
+  let tsConfigAdded = false;
+
   /* If there is an override, rules must be set inside it, or they won't be checked */
   for (const override of config.overrides ?? []) {
 
@@ -74,6 +76,8 @@ export default function enableESLintStrict(cwd: string): boolean {
     if (files.some((file) => file.includes(tsFilesConfig))) {
 
       addTSConfig(override);
+
+      tsConfigAdded = true;
 
     }
 
@@ -91,7 +95,9 @@ export default function enableESLintStrict(cwd: string): boolean {
   }
 
   /* Add rules at root level */
-  addTSConfig(config);
+  if (!tsConfigAdded) {
+    addTSConfig(config);
+  }
 
   if (packageJSONConfig) {
     packageJSONConfig.eslintConfig = config;
