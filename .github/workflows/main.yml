@@ -13,9 +13,7 @@ jobs:
     - name: Setup Node
       uses: actions/setup-node@v2
       with:
-        node-version: 14
-    - name: Install npm@7
-      run: npm i npm -g
+        node-version: 16
     - name: Install dependencies
       run: npm ci
       env:
@@ -32,9 +30,7 @@ jobs:
     - name: Setup Node
       uses: actions/setup-node@v2
       with:
-        node-version: 14
-    - name: Install npm@7
-      run: npm i npm -g
+        node-version: 16
     - name: Install dependencies
       run: npm ci
       env:
@@ -43,5 +39,3 @@ jobs:
       run: npm run build
     - name: Build check with Node 12
       run: npm install @types/node@12 -D && npm run build
-    - name: Build check with Node 10
-      run: npm install @types/node@10 -D && npm run build
