@@ -35,7 +35,6 @@ jobs:
       run: npm ci
       env:
         CI: true
-    - name: Build check with Node 14
+    - name: Build check
       run: npm run build
-    - name: Build check with Node 12
-      run: npm install @types/node@12 -D && npm run build
+
