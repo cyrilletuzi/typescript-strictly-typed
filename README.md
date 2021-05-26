@@ -75,7 +75,7 @@ it would be nice to **consider becoming [a sponsor](https://github.com/sponsors/
 
 You need a LTS version of Node and npm, ie. currently:
 - Node >= 12.13
-- npm >= 6.4
+- npm >= 6.12
 
 ### Directory
 
