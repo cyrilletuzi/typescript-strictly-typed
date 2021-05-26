@@ -15,7 +15,7 @@ interface TSConfig {
     /* noUncheckedIndexedAccess?: boolean; */
     noPropertyAccessFromIndexSignature?: boolean;
     forceConsistentCasingInFileNames?: boolean;
-    noImplicitOverride: boolean;
+    noImplicitOverride?: boolean;
   };
 }
 
