@@ -15,6 +15,7 @@ interface TSConfig {
     /* noUncheckedIndexedAccess?: boolean; */
     noPropertyAccessFromIndexSignature?: boolean;
     forceConsistentCasingInFileNames?: boolean;
+    noImplicitOverride: boolean;
   };
 }
 
@@ -24,6 +25,7 @@ interface TSConfig {
  * - `noFallthroughCasesInSwitch`
  * - `noImplicitReturns`
  * - `forceConsistentCasingInFileNames`
+ * - `noImplicitOverride`
  * {@link https://www.typescriptlang.org/docs/handbook/compiler-options.html}
  *
  * @param cwd Working directory path
@@ -60,6 +62,10 @@ export default function enableTypescriptStrict(cwd: string): boolean {
 
   if (checkDependencyVersion(cwd, 'typescript', '>=4.2.0')) {
     config.compilerOptions.noPropertyAccessFromIndexSignature = true;
+  }
+
+  if (checkDependencyVersion(cwd, 'typescript', '>=4.3.0')) {
+    config.compilerOptions.noImplicitOverride = true;
   }
 
   /* Clean up options included in strict mode */
