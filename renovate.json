@@ -9,7 +9,7 @@
   "packageRules": [
     {
       "packageNames": ["@types/node"],
-      "allowedVersions": "<15"
+      "allowedVersions": "<12.14"
     }
   ],
   "schedule": ["after 1am and before 7am every weekday"],
