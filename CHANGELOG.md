@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.9.0 (2021-06-04)
+
+### Feature
+
+Add a new `tsconfig.json` rule in projects with TypeScript >= 4.3:
+- `noImplicitOverride`
+
 ## 2.8.0 (2021-04-19)
 
 ### Features
