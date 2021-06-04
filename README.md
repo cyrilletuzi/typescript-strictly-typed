@@ -42,6 +42,7 @@ Adding configuration for:
   - `noImplicitReturns`
   - `noPropertyAccessFromIndexSignature`
   - `forceConsistentCasingInFileNames`
+  - `noImplicitOverride`
 - [ESLint rules](https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin)
   - `@typescript-eslint/no-explicit-any`
   - `@typescript-eslint/explicit-module-boundary-types`
