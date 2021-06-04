@@ -14,6 +14,10 @@ Going fully strict is a choice to make at the *very beginning* of a project.
 as hundred of errors would appear. Converting an existing project to full strict mode is still possible,
 but it should be done *incrementally*, by activating each option *one by one*.
 
+On the other hand, it's recommended to redo the command when doing major updates of your tools
+(TypeScript, ESLint or Angular) to add newly introduced strict options,
+to stay up to date on best practices.
+
 ## Getting started
 
 ```bash
