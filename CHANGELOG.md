@@ -7,6 +7,8 @@
 Add a new `tsconfig.json` rule in projects with TypeScript >= 4.3:
 - `noImplicitOverride`
 
+Reminder: a Node LTS version is required, so Node 10 may still work but is no longer supported.
+
 ## 2.8.0 (2021-04-19)
 
 ### Features
