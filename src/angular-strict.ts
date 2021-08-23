@@ -1,4 +1,4 @@
-import { findConfig, getConfig, saveConfig } from './config-utils';
+import { findConfig, getConfig, modifyJSON, saveConfig } from './config-utils';
 
 interface TSConfigAngular {
   angularCompilerOptions?: {
@@ -41,13 +41,9 @@ export default function enableAngularStrict(cwd: string): boolean {
     return false;
   }
 
-  if (!config.angularCompilerOptions) {
-    config.angularCompilerOptions = {};
-  }
-
-  config.angularCompilerOptions.strictInjectionParameters = true;
-  config.angularCompilerOptions.strictTemplates = true;
-  config.angularCompilerOptions.strictInputAccessModifiers = true;
+  config.raw = modifyJSON(config.raw, ['angularCompilerOptions', 'strictInjectionParameters'], true);
+  config.raw = modifyJSON(config.raw, ['angularCompilerOptions', 'strictTemplates'], true);
+  config.raw = modifyJSON(config.raw, ['angularCompilerOptions', 'strictInputAccessModifiers'], true);
 
   return saveConfig(cwd, file, config);
 
@@ -66,13 +62,9 @@ function enableCodelyzerStrict(cwd: string): void {
 
     const config = getConfig<TSLintAngular>(cwd, file);
 
-    if (config && isCodelyzer(config.rulesDirectory)) {
+    if (config && isCodelyzer(config.json.rulesDirectory)) {
 
-      if (!config.rules) {
-        config.rules = {};
-      }
-
-      config.rules['template-no-any'] = true;
+      config.raw = modifyJSON(config.raw, ['rules', 'template-no-any'], true);
 
       saveConfig(cwd, file, config);
 

@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.10.0 (2021-08-23)
+
+### Feature
+
+Preserve comments in JSON files.
+
 ## 2.9.0 (2021-06-04)
 
 ### Feature
