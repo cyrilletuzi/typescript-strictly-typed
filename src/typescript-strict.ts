@@ -16,7 +16,6 @@ interface TSConfig {
     noPropertyAccessFromIndexSignature?: boolean;
     forceConsistentCasingInFileNames?: boolean;
     noImplicitOverride?: boolean;
-    useUnknownInCatchVariables?: boolean;
   };
 }
 
@@ -90,9 +89,6 @@ export default function enableTypescriptStrict(cwd: string): boolean {
   }
   if (config.compilerOptions.strictPropertyInitialization) {
     delete config.compilerOptions.strictPropertyInitialization;
-  }
-  if (config.compilerOptions.strictPropertyInitialization) {
-    delete config.compilerOptions.useUnknownInCatchVariables;
   }
 
   return saveConfig(cwd, file, config);
