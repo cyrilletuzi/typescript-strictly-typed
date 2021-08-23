@@ -41,13 +41,9 @@ export default function enableAngularStrict(cwd: string): boolean {
     return false;
   }
 
-  // if (!config.angularCompilerOptions) {
-  //   config.angularCompilerOptions = {};
-  // }
-
-  modifyJSON(config.raw, ['angularCompilerOptions', 'strictInjectionParameters'], true);
-  modifyJSON(config.raw, ['angularCompilerOptions', 'strictTemplates'], true);
-  modifyJSON(config.raw, ['angularCompilerOptions', 'strictInputAccessModifiers'], true);
+  config.raw = modifyJSON(config.raw, ['angularCompilerOptions', 'strictInjectionParameters'], true);
+  config.raw = modifyJSON(config.raw, ['angularCompilerOptions', 'strictTemplates'], true);
+  config.raw = modifyJSON(config.raw, ['angularCompilerOptions', 'strictInputAccessModifiers'], true);
 
   return saveConfig(cwd, file, config);
 
@@ -68,11 +64,7 @@ function enableCodelyzerStrict(cwd: string): void {
 
     if (config && isCodelyzer(config.json.rulesDirectory)) {
 
-      // if (!config.json.rules) {
-      //   config.rules = {};
-      // }
-
-      modifyJSON(config.raw, ['rules', 'template-no-any'], true);
+      config.raw = modifyJSON(config.raw, ['rules', 'template-no-any'], true);
 
       saveConfig(cwd, file, config);
 

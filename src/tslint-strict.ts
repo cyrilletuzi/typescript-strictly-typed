@@ -31,20 +31,16 @@ export default function enableTSLintStrict(cwd: string): boolean {
     return false;
   }
 
-  // if (!config.rules) {
-  //   config.rules = {};
-  // }
-
-  modifyJSON(config.raw, ['rules', 'no-any'], true);
+  config.raw = modifyJSON(config.raw, ['rules', 'no-any'], true);
 
   /* `typedef` has multiple options, existing ones must not be deleted */
   const rules = config.json.rules ?? {};
   if (rules.typedef && Array.isArray(rules.typedef)) {
     if (!rules.typedef.includes('call-signature')) {
-      modifyJSON(config.raw, ['rules', 'typedef'], 'call-signature', { isArrayInsertion: true });
+      config.raw = modifyJSON(config.raw, ['rules', 'typedef'], 'call-signature', { isArrayInsertion: true });
     }
   } else {
-    modifyJSON(config.raw, ['rules', 'typedef'], [true, 'call-signature']);
+    config.raw = modifyJSON(config.raw, ['rules', 'typedef'], [true, 'call-signature']);
   }
 
   return saveConfig(cwd, file, config);

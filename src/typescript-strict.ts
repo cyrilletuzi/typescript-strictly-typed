@@ -46,14 +46,10 @@ export default function enableTypescriptStrict(cwd: string): boolean {
     return false;
   }
 
-  // if (!config.compilerOptions) {
-  //   config.compilerOptions = {};
-  // }
-
-  modifyJSON(config.raw, ['compilerOptions', 'strict'], true);
-  modifyJSON(config.raw, ['compilerOptions', 'noFallthroughCasesInSwitch'], true);
-  modifyJSON(config.raw, ['compilerOptions', 'noImplicitReturns'], true);
-  modifyJSON(config.raw, ['compilerOptions', 'forceConsistentCasingInFileNames'], true);
+  config.raw = modifyJSON(config.raw, ['compilerOptions', 'strict'], true);
+  config.raw = modifyJSON(config.raw, ['compilerOptions', 'noFallthroughCasesInSwitch'], true);
+  config.raw = modifyJSON(config.raw, ['compilerOptions', 'noImplicitReturns'], true);
+  config.raw = modifyJSON(config.raw, ['compilerOptions', 'forceConsistentCasingInFileNames'], true);
 
   /*
   if (checkDependencyVersion(cwd, 'typescript', '>=4.1.0')) {
@@ -62,21 +58,21 @@ export default function enableTypescriptStrict(cwd: string): boolean {
   */
 
   if (checkDependencyVersion(cwd, 'typescript', '>=4.2.0')) {
-    modifyJSON(config.raw, ['compilerOptions', 'noPropertyAccessFromIndexSignature'], true);
+    config.raw = modifyJSON(config.raw, ['compilerOptions', 'noPropertyAccessFromIndexSignature'], true);
   }
 
   if (checkDependencyVersion(cwd, 'typescript', '>=4.3.0')) {
-    modifyJSON(config.raw, ['compilerOptions', 'noImplicitOverride'], true);
+    config.raw = modifyJSON(config.raw, ['compilerOptions', 'noImplicitOverride'], true);
   }
 
   /* Clean up options included in strict mode */
-  modifyJSON(config.raw, ['compilerOptions', 'alwaysStrict'], undefined);
-  modifyJSON(config.raw, ['compilerOptions', 'noImplicitAny'], undefined);
-  modifyJSON(config.raw, ['compilerOptions', 'noImplicitThis'], undefined);
-  modifyJSON(config.raw, ['compilerOptions', 'strictBindCallApply'], undefined);
-  modifyJSON(config.raw, ['compilerOptions', 'strictFunctionTypes'], undefined);
-  modifyJSON(config.raw, ['compilerOptions', 'strictNullChecks'], undefined);
-  modifyJSON(config.raw, ['compilerOptions', 'strictPropertyInitialization'], undefined);
+  config.raw = modifyJSON(config.raw, ['compilerOptions', 'alwaysStrict'], undefined);
+  config.raw = modifyJSON(config.raw, ['compilerOptions', 'noImplicitAny'], undefined);
+  config.raw = modifyJSON(config.raw, ['compilerOptions', 'noImplicitThis'], undefined);
+  config.raw = modifyJSON(config.raw, ['compilerOptions', 'strictBindCallApply'], undefined);
+  config.raw = modifyJSON(config.raw, ['compilerOptions', 'strictFunctionTypes'], undefined);
+  config.raw = modifyJSON(config.raw, ['compilerOptions', 'strictNullChecks'], undefined);
+  config.raw = modifyJSON(config.raw, ['compilerOptions', 'strictPropertyInitialization'], undefined);
 
   return saveConfig(cwd, file, config);
 

@@ -81,7 +81,7 @@ export default function enableESLintStrict(cwd: string): boolean {
 
     if (files.some((file) => file.includes(tsFilesConfig))) {
 
-      addTSConfig(config, ['overrides', index], config.json.overrides?.[indexNumber]?.rules);
+      addTSConfig(config, ['overrides', indexNumber], config.json.overrides?.[indexNumber]?.rules);
 
       tsConfigAdded = true;
 
@@ -94,7 +94,7 @@ export default function enableESLintStrict(cwd: string): boolean {
       if (override.plugins?.includes(eslintAngularTemplatePlugin)
       || extendsConfig.some((extendConfig) => extendConfig.includes(eslintAngularTemplatePlugin)))
 
-      addAngularHTMLConfig(config, ['overrides', index], config.json.overrides?.[indexNumber]?.rules);
+      addAngularHTMLConfig(config, ['overrides', indexNumber], config.json.overrides?.[indexNumber]?.rules);
 
     }
 
@@ -106,7 +106,7 @@ export default function enableESLintStrict(cwd: string): boolean {
   }
 
   if (packageJSONConfig) {
-    modifyJSON(packageJSONConfig.raw, ['eslintConfig'], config.json);
+    config.raw = modifyJSON(packageJSONConfig.raw, ['eslintConfig'], config.json);
     return saveConfig(cwd, file, packageJSONConfig);
   } else if (file === '.eslintrc.js') {
     logWarning(`Your project is using the advanced .eslintrc.js format for ESLint config, and it can't be overwrited directly, as it could mess up with advanced configuration. So the new strict configuration was saved in .eslintrc.json. As .eslintrc.js has precedence over .eslintrc.json, you need to manually copy the new options from the new .eslintrc.json to your preexisting .eslintrc.js. If you know a way to automate this, please open a PR.`);
@@ -159,34 +159,26 @@ function checkConfig(config: ESLint): void {
 
 function addTSConfig(config: Config<ESLint>, path: JSONPath, rules?: ESLint['rules']): void {
 
-  // if (!config.rules) {
-  //   config.rules = {};
-  // }
-
   if (Array.isArray(rules?.['@typescript-eslint/no-explicit-any'])) {
-    modifyJSON(config.raw, [...path, 'rules', '@typescript-eslint/no-explicit-any', 0], 'error');
+    config.raw = modifyJSON(config.raw, [...path, 'rules', '@typescript-eslint/no-explicit-any', 0], 'error');
   } else {
-    modifyJSON(config.raw, [...path, 'rules', '@typescript-eslint/no-explicit-any'], 'error');
+    config.raw = modifyJSON(config.raw, [...path, 'rules', '@typescript-eslint/no-explicit-any'], 'error');
   }
 
   if (Array.isArray(rules?.['@typescript-eslint/explicit-module-boundary-types'])) {
-    modifyJSON(config.raw, [...path, 'rules', '@typescript-eslint/explicit-module-boundary-types', 0], 'error');
+    config.raw = modifyJSON(config.raw, [...path, 'rules', '@typescript-eslint/explicit-module-boundary-types', 0], 'error');
   } else {
-    modifyJSON(config.raw, [...path, 'rules', '@typescript-eslint/explicit-module-boundary-types'], 'error');
+    config.raw = modifyJSON(config.raw, [...path, 'rules', '@typescript-eslint/explicit-module-boundary-types'], 'error');
   }
 
 }
 
 function addAngularHTMLConfig(config: Config<ESLint>, path: JSONPath, rules?: ESLint['rules']): void {
 
-  // if (!config.rules) {
-  //   config.rules = {};
-  // }
-
   if (Array.isArray(rules?.['@angular-eslint/template/no-any'])) {
-    modifyJSON(config.raw, [...path, 'rules', '@angular-eslint/template/no-any', 0], 'error');
+    config.raw = modifyJSON(config.raw, [...path, 'rules', '@angular-eslint/template/no-any', 0], 'error');
   } else {
-    modifyJSON(config.raw, [...path, 'rules', '@angular-eslint/template/no-any'], 'error');
+    config.raw = modifyJSON(config.raw, [...path, 'rules', '@angular-eslint/template/no-any'], 'error');
   }
 
 }

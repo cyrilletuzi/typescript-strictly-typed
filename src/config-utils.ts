@@ -150,7 +150,15 @@ export function saveConfig(cwd: string, file: string, config: Config<unknown>): 
 
 }
 
-export function modifyJSON(json: string, path: JSONPath, value: unknown, options?: ModificationOptions): string {
+export function modifyJSON(json: string, path: JSONPath, value: unknown, otherOptions?: ModificationOptions): string {
+
+  const options: ModificationOptions = {
+    formattingOptions: {
+      insertSpaces: true,
+      tabSize: 2,
+    },
+    ...otherOptions,
+  };
 
   return applyEdits(json, modify(json.toString(), path, value, options ?? {}));
 
