@@ -1,6 +1,6 @@
 {
   "name": "typescript-strictly-typed",
-  "version": "2.9.0",
+  "version": "2.10.0",
   "description": "Enable configurations for strictly typed TypeScript, ESLint or TSLint, and optionally Angular.",
   "funding": {
     "type": "github",
@@ -49,7 +49,7 @@
   "dependencies": {
     "chalk": "4.1.2",
     "js-yaml": "4.1.0",
-    "json5": "2.2.0",
+    "jsonc-parser": "3.0.0",
     "pkg-up": "3.1.0",
     "semver": "7.3.5"
   },

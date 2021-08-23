@@ -1,4 +1,4 @@
-import { findConfig, getConfig, saveConfig } from './config-utils';
+import { findConfig, getConfig, modifyJSON, saveConfig } from './config-utils';
 
 interface TSLint {
   rules?: {
@@ -31,19 +31,16 @@ export default function enableTSLintStrict(cwd: string): boolean {
     return false;
   }
 
-  if (!config.rules) {
-    config.rules = {};
-  }
-
-  config.rules['no-any'] = true;
+  config.raw = modifyJSON(config.raw, ['rules', 'no-any'], true);
 
   /* `typedef` has multiple options, existing ones must not be deleted */
-  if (config.rules.typedef && Array.isArray(config.rules.typedef)) {
-    if (!config.rules.typedef.includes('call-signature')) {
-      config.rules.typedef.push('call-signature');
+  const rules = config.json.rules ?? {};
+  if (rules.typedef && Array.isArray(rules.typedef)) {
+    if (!rules.typedef.includes('call-signature')) {
+      config.raw = modifyJSON(config.raw, ['rules', 'typedef'], 'call-signature', { isArrayInsertion: true });
     }
   } else {
-    config.rules.typedef = [true, 'call-signature'];
+    config.raw = modifyJSON(config.raw, ['rules', 'typedef'], [true, 'call-signature']);
   }
 
   return saveConfig(cwd, file, config);
