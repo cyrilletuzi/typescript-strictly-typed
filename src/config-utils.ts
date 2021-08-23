@@ -1,11 +1,16 @@
 import * as path from 'path';
 import * as fs from 'fs';
-import * as json5 from 'json5';
+import { applyEdits, JSONPath, ModificationOptions, modify, parse } from 'jsonc-parser';
 import * as yaml from 'js-yaml';
 import { sync as pkgUpSync } from 'pkg-up';
 import * as semver from 'semver';
 
 import { logError, logInfo } from './log-utils';
+
+export interface Config<T> {
+  raw: string;
+  json: T;
+}
 
 interface PackageJSON {
   dependencies?: {
@@ -45,42 +50,56 @@ export function findConfig(cwd: string, files: string[]): string | null {
 }
 
 /**
- * Get and parse the config of a tool
+ * Get the config of a tool
  *
  * @param cwd Working directory path
  * @param file Config file name. Allowed format: `.json`, `.yaml`/`.yml` and `.js`
  *
- * @returns The parsed config, or `null`
+ * @returns The config in raw (string) and JSON formats, or `null`
  */
-export function getConfig<T extends object>(cwd: string, file: string): T | null { // eslint-disable-line @typescript-eslint/ban-types
+export function getConfig<T>(cwd: string, file: string): Config<T> | null { // eslint-disable-line @typescript-eslint/ban-types
 
   const filePath = path.join(cwd, file);
 
-  const configRaw = fs.readFileSync(filePath, { encoding: 'utf8' });
+  const raw = fs.readFileSync(filePath, { encoding: 'utf8' });
 
   const fileType = path.extname(file);
 
-  let configParsed = null;
+  let config: Config<T> | null = null;
   try {
 
     switch (fileType) {
-      case '.json':
-        configParsed = json5.parse<T>(configRaw);
+      case '.json': {
+        config = {
+          raw,
+          json: parse(raw) as T,
+        };
         break;
+      }
       case '.yaml':
-      case '.yml':
-        configParsed = yaml.load(configRaw) as T;
+      case '.yml': {
+        const json = yaml.load(raw) as T;
+        config = {
+          raw: JSON.stringify(json),
+          json,
+        };
         break;
-      case '.js':
-        configParsed = require(filePath) as T; // eslint-disable-line @typescript-eslint/no-var-requires
+      }
+      case '.js': {
+        const json = require(filePath) as T; // eslint-disable-line @typescript-eslint/no-var-requires
+        config = {
+          raw: JSON.stringify(json),
+          json,
+        };
         break;
+      }
     }
 
   } catch {
     logError(`Can't parse ${file}. Check the file syntax is valid.`);
   }
 
-  return configParsed;
+  return config;
 
 }
 
@@ -93,7 +112,7 @@ export function getConfig<T extends object>(cwd: string, file: string): T | null
  *
  * @returns A boolean for success or failure
  */
-export function saveConfig(cwd: string, file: string, config: unknown): boolean {
+export function saveConfig(cwd: string, file: string, config: Config<unknown>): boolean {
 
   const filePath = path.join(cwd, file);
   const fileType = path.extname(file);
@@ -103,11 +122,11 @@ export function saveConfig(cwd: string, file: string, config: unknown): boolean 
 
     switch (fileType) {
       case '.json':
-        configStringified = JSON.stringify(config, null, 2);
+        configStringified = config.raw;
         break;
       case '.yaml':
       case '.yml':
-        configStringified = yaml.dump(config, { indent: 2 });
+        configStringified = yaml.dump(config.json, { indent: 2 });
         break;
     }
 
@@ -131,6 +150,12 @@ export function saveConfig(cwd: string, file: string, config: unknown): boolean 
 
 }
 
+export function modifyJSON(json: string, path: JSONPath, value: unknown, options?: ModificationOptions): string {
+
+  return applyEdits(json, modify(json.toString(), path, value, options ?? {}));
+
+}
+
 /**
  * Check a dependency version
  *
@@ -146,7 +171,7 @@ export function checkDependencyVersion(cwd: string, name: string, wantedVersion:
 
     const packageJsonFile = fs.readFileSync(filePath, { encoding: 'utf8' });
 
-    const packageJsonConfig = json5.parse<PackageJSON | undefined>(packageJsonFile);
+    const packageJsonConfig = parse(packageJsonFile) as PackageJSON | undefined;
 
     const prodDependencyVersion = packageJsonConfig?.dependencies?.[name];
     const devDependencyVersion = packageJsonConfig?.devDependencies?.[name];

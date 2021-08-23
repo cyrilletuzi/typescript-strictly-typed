@@ -1,4 +1,5 @@
 import { checkDependencyVersion, findConfig, getConfig, saveConfig } from './config-utils';
+import { modifyJSON } from './config-utils';
 
 interface TSConfig {
   compilerOptions?: {
@@ -45,14 +46,14 @@ export default function enableTypescriptStrict(cwd: string): boolean {
     return false;
   }
 
-  if (!config.compilerOptions) {
-    config.compilerOptions = {};
-  }
+  // if (!config.compilerOptions) {
+  //   config.compilerOptions = {};
+  // }
 
-  config.compilerOptions.strict = true;
-  config.compilerOptions.noFallthroughCasesInSwitch = true;
-  config.compilerOptions.noImplicitReturns = true;
-  config.compilerOptions.forceConsistentCasingInFileNames = true;
+  modifyJSON(config.raw, ['compilerOptions', 'strict'], true);
+  modifyJSON(config.raw, ['compilerOptions', 'noFallthroughCasesInSwitch'], true);
+  modifyJSON(config.raw, ['compilerOptions', 'noImplicitReturns'], true);
+  modifyJSON(config.raw, ['compilerOptions', 'forceConsistentCasingInFileNames'], true);
 
   /*
   if (checkDependencyVersion(cwd, 'typescript', '>=4.1.0')) {
@@ -61,35 +62,21 @@ export default function enableTypescriptStrict(cwd: string): boolean {
   */
 
   if (checkDependencyVersion(cwd, 'typescript', '>=4.2.0')) {
-    config.compilerOptions.noPropertyAccessFromIndexSignature = true;
+    modifyJSON(config.raw, ['compilerOptions', 'noPropertyAccessFromIndexSignature'], true);
   }
 
   if (checkDependencyVersion(cwd, 'typescript', '>=4.3.0')) {
-    config.compilerOptions.noImplicitOverride = true;
+    modifyJSON(config.raw, ['compilerOptions', 'noImplicitOverride'], true);
   }
 
   /* Clean up options included in strict mode */
-  if (config.compilerOptions.alwaysStrict) {
-    delete config.compilerOptions.alwaysStrict;
-  }
-  if (config.compilerOptions.noImplicitAny) {
-    delete config.compilerOptions.noImplicitAny;
-  }
-  if (config.compilerOptions.noImplicitThis) {
-    delete config.compilerOptions.noImplicitThis;
-  }
-  if (config.compilerOptions.strictBindCallApply) {
-    delete config.compilerOptions.strictBindCallApply;
-  }
-  if (config.compilerOptions.strictFunctionTypes) {
-    delete config.compilerOptions.strictFunctionTypes;
-  }
-  if (config.compilerOptions.strictNullChecks) {
-    delete config.compilerOptions.strictNullChecks;
-  }
-  if (config.compilerOptions.strictPropertyInitialization) {
-    delete config.compilerOptions.strictPropertyInitialization;
-  }
+  modifyJSON(config.raw, ['compilerOptions', 'alwaysStrict'], undefined);
+  modifyJSON(config.raw, ['compilerOptions', 'noImplicitAny'], undefined);
+  modifyJSON(config.raw, ['compilerOptions', 'noImplicitThis'], undefined);
+  modifyJSON(config.raw, ['compilerOptions', 'strictBindCallApply'], undefined);
+  modifyJSON(config.raw, ['compilerOptions', 'strictFunctionTypes'], undefined);
+  modifyJSON(config.raw, ['compilerOptions', 'strictNullChecks'], undefined);
+  modifyJSON(config.raw, ['compilerOptions', 'strictPropertyInitialization'], undefined);
 
   return saveConfig(cwd, file, config);
 
