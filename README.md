@@ -16,9 +16,12 @@ but it should be done *incrementally*, by activating each option *one by one*.
 
 On the other hand, it's recommended to redo the command when doing major updates of your tools
 (TypeScript, ESLint or Angular) to add newly introduced strict options,
-to stay up to date on best practices.
+to stay up to date with best practices.
 
 ## Getting started
+
+Check the Git (or equivalent) status is clean, to be able to revert easily if needed,
+then just run the following commands in your terminal:
 
 ```bash
 cd path/to/my-project
