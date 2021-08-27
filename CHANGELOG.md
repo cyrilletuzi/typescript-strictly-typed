@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.11.0 (2021-08-27)
+
+### Feature
+
+Add a new `tsconfig.json` rule in projects with TypeScript >= 4.4:
+- `exactOptionalPropertyTypes`
+
 ## 2.10.0 (2021-08-23)
 
 ### Feature

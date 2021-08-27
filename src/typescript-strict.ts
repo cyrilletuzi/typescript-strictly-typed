@@ -7,16 +7,18 @@ interface TSConfig {
     noImplicitAny?: boolean;
     strictNullChecks?: boolean;
     noImplicitThis?: boolean;
-    alwaysStrict?: boolean;
+    alwaysStrict?: boolean | undefined;
     strictBindCallApply?: boolean;
     strictFunctionTypes?: boolean;
     strictPropertyInitialization?: boolean;
+    useUnknownInCatchVariables?: boolean;
     noFallthroughCasesInSwitch?: boolean;
     noImplicitReturns?: boolean;
     /* noUncheckedIndexedAccess?: boolean; */
     noPropertyAccessFromIndexSignature?: boolean;
     forceConsistentCasingInFileNames?: boolean;
     noImplicitOverride?: boolean;
+    exactOptionalPropertyTypes?: boolean;
   };
 }
 
@@ -27,6 +29,7 @@ interface TSConfig {
  * - `noImplicitReturns`
  * - `forceConsistentCasingInFileNames`
  * - `noImplicitOverride`
+ * - `exactOptionalPropertyTypes`
  * {@link https://www.typescriptlang.org/docs/handbook/compiler-options.html}
  *
  * @param cwd Working directory path
@@ -65,6 +68,10 @@ export default function enableTypescriptStrict(cwd: string): boolean {
     config.raw = modifyJSON(config.raw, ['compilerOptions', 'noImplicitOverride'], true);
   }
 
+  if (checkDependencyVersion(cwd, 'typescript', '>=4.4.0')) {
+    config.raw = modifyJSON(config.raw, ['compilerOptions', 'exactOptionalPropertyTypes'], true);
+  }
+
   /* Clean up options included in strict mode */
   config.raw = modifyJSON(config.raw, ['compilerOptions', 'alwaysStrict'], undefined);
   config.raw = modifyJSON(config.raw, ['compilerOptions', 'noImplicitAny'], undefined);
@@ -73,6 +80,7 @@ export default function enableTypescriptStrict(cwd: string): boolean {
   config.raw = modifyJSON(config.raw, ['compilerOptions', 'strictFunctionTypes'], undefined);
   config.raw = modifyJSON(config.raw, ['compilerOptions', 'strictNullChecks'], undefined);
   config.raw = modifyJSON(config.raw, ['compilerOptions', 'strictPropertyInitialization'], undefined);
+  config.raw = modifyJSON(config.raw, ['compilerOptions', 'useUnknownInCatchVariables'], undefined);
 
   return saveConfig(cwd, file, config);
 
