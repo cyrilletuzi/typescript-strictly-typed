@@ -54,7 +54,7 @@
     "semver": "7.3.5"
   },
   "devDependencies": {
-    "@types/js-yaml": "4.0.3",
+    "@types/js-yaml": "4.0.4",
     "@types/node": "12.12.70",
     "@types/semver": "7.3.9",
     "@typescript-eslint/eslint-plugin": "5.1.0",
