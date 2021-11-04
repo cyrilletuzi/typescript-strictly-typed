@@ -68,9 +68,9 @@ export default function enableTypescriptStrict(cwd: string): boolean {
     config.raw = modifyJSON(config.raw, ['compilerOptions', 'noImplicitOverride'], true);
   }
 
-  if (checkDependencyVersion(cwd, 'typescript', '>=4.4.0')) {
-    config.raw = modifyJSON(config.raw, ['compilerOptions', 'exactOptionalPropertyTypes'], true);
-  }
+  // if (checkDependencyVersion(cwd, 'typescript', '>=4.4.0')) {
+  //   config.raw = modifyJSON(config.raw, ['compilerOptions', 'exactOptionalPropertyTypes'], true);
+  // }
 
   /* Clean up options included in strict mode */
   config.raw = modifyJSON(config.raw, ['compilerOptions', 'alwaysStrict'], undefined);

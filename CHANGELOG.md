@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.12.0 (2021-11-04)
+
+### Feature
+
+Disable the addition of `exactOptionalPropertyTypes` for now, as too much libraries are not supporting it yet.
+
 ## 2.11.0 (2021-08-27)
 
 ### Feature
