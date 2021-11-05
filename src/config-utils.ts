@@ -2,7 +2,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 import { applyEdits, JSONPath, ModificationOptions, modify, parse } from 'jsonc-parser';
 import * as yaml from 'js-yaml';
-import { sync as pkgUpSync } from 'pkg-up';
+import { pkgUpSync } from 'pkg-up';
 import * as semver from 'semver';
 
 import { logError, logInfo } from './log-utils';
