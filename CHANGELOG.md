@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.12.1 (2021-11-19)
+
+Just a documentation update.
+
 ## 2.12.0 (2021-11-04)
 
 ### Feature
