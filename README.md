@@ -70,7 +70,7 @@ Adding configuration for:
 Except this library, my open source work includes the [Angular async local storage lib](https://github.com/cyrilletuzi/angular-async-local-storage),
 downloaded more than **15 000 times each week**,
 and the [Angular schematics extension for VS Code](https://marketplace.visualstudio.com/items?itemName=cyrilletuzi.angular-schematics),
-is **used by 500 000 users**. It represents *months* of full time *unpaid* work.
+**used by 500 000 users**. It represents *months* of full time *unpaid* work.
 
 So **please consider to [sponsor](https://github.com/sponsors/cyrilletuzi)** (or ask your company to do so). In addition to support open source, it will grant you access to the **[Schematics Pro](https://www.schematicspro.dev/)** sponsorware, which helps you build optimized and architectured Angular projects in no time.
 
