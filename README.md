@@ -65,17 +65,14 @@ Adding configuration for:
 - [Angular Codelyzer lint options](http://codelyzer.com/rules/)
   - `template-no-any`
 
-## By the same author
+## Sponsorship
 
-- [Angular schematics extension for VS Code](https://marketplace.visualstudio.com/items?itemName=cyrilletuzi.angular-schematics) (GUI for Angular CLI commands)
-- [@ngx-pwa/local-storage](https://github.com/cyrilletuzi/angular-async-local-storage): Angular library for local storage
-- Popular [Angular posts on Medium](https://medium.com/@cyrilletuzi)
-- Follow updates of this lib on [Twitter](https://twitter.com/cyrilletuzi)
-- **[Angular onsite trainings](https://formationjavascript.com/formation-angular/)** (based in Paris, so the website is in French, but [my English bio is here](https://www.cyrilletuzi.com/en/) and I'm open to travel)
+Except this library, my open source work includes the [Angular async local storage lib](https://github.com/cyrilletuzi/angular-async-local-storage),
+downloaded more than **15 000 times each week**,
+and the [Angular schematics extension for VS Code](https://marketplace.visualstudio.com/items?itemName=cyrilletuzi.angular-schematics),
+is **used by 500 000 users**. It represents *months* of full time *unpaid* work.
 
-My open source contributions are done on *free* time.
-So if your company earns money with them,
-it would be nice to **consider becoming [a sponsor](https://github.com/sponsors/cyrilletuzi)**.
+So **please consider to [sponsor](https://github.com/sponsors/cyrilletuzi)** (or ask your company to do so). In addition to support open source, it will grant you access to the **[Schematics Pro](https://www.schematicspro.dev/)** sponsorware, which helps you build optimized and architectured Angular projects in no time.
 
 ## Requirements
 
