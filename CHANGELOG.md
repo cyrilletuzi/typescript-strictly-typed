@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.12.2 (2021-11-24)
+
+Fix a dependency issue.
+
 ## 2.12.1 (2021-11-19)
 
 Just a documentation update.
