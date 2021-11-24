@@ -2,7 +2,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 import { applyEdits, JSONPath, ModificationOptions, modify, parse } from 'jsonc-parser';
 import * as yaml from 'js-yaml';
-import { pkgUpSync } from 'pkg-up';
+import * as pkgUp from 'pkg-up';
 import * as semver from 'semver';
 
 import { logError, logInfo } from './log-utils';
@@ -173,7 +173,7 @@ export function modifyJSON(json: string, path: JSONPath, value: unknown, otherOp
  */
 export function checkDependencyVersion(cwd: string, name: string, wantedVersion: string): boolean {
 
-  const filePath = pkgUpSync({ cwd });
+  const filePath = pkgUp.sync({ cwd });
 
   if (filePath) {
 
