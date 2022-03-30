@@ -72,7 +72,7 @@ downloaded more than **15 000 times each week**,
 and the [Angular schematics extension for VS Code](https://marketplace.visualstudio.com/items?itemName=cyrilletuzi.angular-schematics),
 **used by 600 000 users**. It represents *months* of full time *unpaid* work.
 
-Want to help me by helping yourself? I released **[Schematics Pro](https://www.schematicspro.dev)**, a cross-framework tool for code, good practices, optimization and architecture automation.
+Want to help me by helping yourself? I released **[Schematics Pro](https://www.schematicspro.dev)**, a code automation tool for Angular, React, Vue, Ionic, Svelte, Stencil, Lit, Nest and more.
 
 ## Requirements
 
