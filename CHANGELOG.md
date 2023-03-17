@@ -1,6 +1,6 @@
 # Changelog
 
-## 3.0.0 (2023-03-17)
+## 3.0.6 (2023-03-17)
 
 - Requires Node >= 16
 - Only add `forceConsistentCasingInFileNames` in TypeScript <= 4.9, as it is now true by default in TypeScript >= 5.0.
