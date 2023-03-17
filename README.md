@@ -36,7 +36,7 @@ then just run the following commands in your terminal:
 
 ```bash
 cd path/to/my-project-with-tsconfig
-npx typescript-strictly-typed
+npx typescript-strictly-typed@latest
 ```
 
 ## What does it do?
