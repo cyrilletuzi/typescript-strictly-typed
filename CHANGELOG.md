@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.1.0 (2023-03-17)
+
+- Now checking if `@typescript-eslint/eslint-plugin` is installed, instead of specific frameworks configurations that changes every two minutes.
+- Support `.eslintrc.cjs`.
+
 ## 3.0.6 (2023-03-17)
 
 - Requires Node >= 16
