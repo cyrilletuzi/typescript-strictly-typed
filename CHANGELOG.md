@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.0.0 (2023-03-17)
+
+- Requires Node >= 16
+- Only add `forceConsistentCasingInFileNames` in TypeScript <= 4.9, as it is now true by default in TypeScript >= 5.0.
+- Add back `exactOptionalPropertyTypes`. It is reliable for your own code. Issues are only because of some libraries, so if a library is not correct regarding this check, report it to the lib repo, and temporarily add `skipLibCheck` to your `tsconfig.json`.
+- Add back `noUncheckedIndexedAccess` if TypeScript >= 5.0. It was reverted because the compiler is not smart enough in some cases. First case was dynamic objects (`Record` or `{ [key: string]: string }`): but now TypeScript >= 5.0 infers correctly if you check before (`if ('someProperty' in someObject)`). Second case is still there and is when accessing directly a speficic array value (`myArray[2]`) but those cases mainly happen because of old JavaScript syntaxes, there are easily avoided with modern syntaxes (like `for...of`, `?.`, `??`).
+
 ## 2.13.0 (2022-04-11)
 
 Remove support for TSLint and Codelyzer.
