@@ -6,14 +6,10 @@ Because TypeScript `strict` mode is not enough.
 A [blog post](https://medium.com/@cyrilletuzi/typescript-strictly-typed-strict-mode-is-not-enough-40df698e2deb?source=friends_link&sk=00f968af095e7615f7220314df280a1b)
 explains the motivation of this lib.
 
-## Status of this lib
-
-Given my current professional situation and the lack of support for my open source work, this tool is just provided as is.
-
 ## How to help?
 
 My open source work represents *months* of full time *unpaid* work, with for example the [Angular schematics extension for VS Code](https://marketplace.visualstudio.com/items?itemName=cyrilletuzi.angular-schematics),
-**used by 600 000 developers**.
+**installed 800 000 times**.
 
 So if you want to help, I released **[Schematics Pro](https://www.cyrilletuzi.com/schematics-pro/)**, a paid code automation tool for Angular, React, Vue, Ionic, Svelte, Stencil, Lit, Nest and more.
 
