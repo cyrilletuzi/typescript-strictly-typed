@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.2.0 (2023-04-14)
+
+- Check Git status is clean before doing anything
+
 ## 3.1.0 (2023-03-17)
 
 - Now checking if `@typescript-eslint/eslint-plugin` is installed, instead of specific frameworks configurations that changes every two minutes.

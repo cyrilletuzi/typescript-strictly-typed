@@ -29,8 +29,7 @@ to stay up to date with best practices.
 
 ## Getting started
 
-Check the Git (or equivalent) status is clean, to be able to revert easily if needed,
-then just run the following commands in your terminal:
+Just run the following commands in your terminal:
 
 ```bash
 cd path/to/my-project-with-tsconfig
