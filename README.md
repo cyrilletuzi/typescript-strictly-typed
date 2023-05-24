@@ -1,15 +1,12 @@
 # TypeScript Strictly Typed
 
-Enable configurations for strictly typed TypeScript, ESLint, and optionally Angular.
-Because TypeScript `strict` mode is not enough.
+Configure TypeScript, ESLint, and optionally Angular to ensure fully typed code. Because `strict` mode is not enough.
 
-A [blog post](https://medium.com/@cyrilletuzi/typescript-strictly-typed-strict-mode-is-not-enough-40df698e2deb?source=friends_link&sk=00f968af095e7615f7220314df280a1b)
-explains the motivation of this lib.
+A [blog post](https://medium.com/@cyrilletuzi/typescript-strictly-typed-strict-mode-is-not-enough-40df698e2deb?source=friends_link&sk=00f968af095e7615f7220314df280a1b) explains the motivation of this lib.
 
 ## How to help?
 
-This lib and other tools represent *months* of full time *unpaid* work, with for example the [Angular schematics extension for VS Code](https://marketplace.visualstudio.com/items?itemName=cyrilletuzi.angular-schematics),
-**installed 800 000 times**.
+This lib and my other tools represent *months* of full time *unpaid* work, with for example the [Angular schematics extension for VS Code](https://marketplace.visualstudio.com/items?itemName=cyrilletuzi.angular-schematics), **installed 800 000 times**.
 
 So if you want to help, I released **[Schematics Pro](https://www.cyrilletuzi.com/schematics-pro/)**, a paid code automation tool for Angular, React, Vue, Ionic, Svelte, Stencil, Lit, Nest and more.
 
@@ -19,15 +16,9 @@ Thank you! ♥️
 
 ## Warning
 
-Going fully strict is a choice to make at the *very beginning* of a project.
+Going fully typed is a choice to make at the *very beginning* of a project.
 
-**Enabling all strict options at once in an existing project is strongly discouraged**,
-as hundred of errors would appear. Converting an existing project to full strict mode is still possible,
-but it should be done *incrementally*, by activating each option *one by one*.
-
-On the other hand, it's recommended to redo the command when doing major updates of your tools
-(TypeScript, ESLint or Angular) to add newly introduced strict options,
-to stay up to date with best practices.
+**Enabling all strict options at once in an existing project is strongly discouraged**, as hundred of errors would appear. Converting an existing project to full strict mode is still possible end encouraged, but it should be done *incrementally*, by activating each option *one by one*.
 
 ## Getting started
 
@@ -40,17 +31,19 @@ npx typescript-strictly-typed@latest
 
 ## What does it do?
 
-Adding configuration for:
+It modifies these configurations:
 
-- [TypeScript compiler options](https://www.typescriptlang.org/docs/handbook/compiler-options.html)
-  - `strict` (which includes in particular `noImplicitAny` and `strictNullChecks`)
+- [TypeScript compiler options](https://www.typescriptlang.org/tsconfig)
+  - `strict` (includes: `noImplicitAny`, `strictNullChecks`, `alwaysStrict`, `strictBindCallApply`, `strictFunctionTypes`, `strictPropertyInitialization`, `noImplicitThis`, `useUnknownInCatchVariables`)
   - `noFallthroughCasesInSwitch`
   - `noImplicitReturns`
   - `noPropertyAccessFromIndexSignature`
   - `noImplicitOverride`
   - `exactOptionalPropertyTypes`
   - `noUncheckedIndexedAccess`
-- [ESLint rules](https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin)
+- [ESLint rules](https://eslint.org/docs/latest/rules/)
+  - `eqeqeq`
+- [TypeScript ESLint rules](https://typescript-eslint.io/rules/)
   - `@typescript-eslint/no-explicit-any`
   - `@typescript-eslint/explicit-module-boundary-types`
 - [Angular compiler options](https://angular.io/guide/angular-compiler-options)
