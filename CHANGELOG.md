@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.3.0 (2023-05-24)
+
+- New ESLint rule: `eqeqeq`
+
 ## 3.2.0 (2023-04-14)
 
 - Check Git status is clean before doing anything
