@@ -80,7 +80,7 @@ Add `tsconfig.json` rule:
 
 Reverting the addition of `noUncheckedIndexedAccess` flag.
 Currently it reports too much false positives,
-which probably explains why it's not part of the `strict` mode.
+which probably explains why it is not part of the `strict` mode.
 
 ## 2.5.0 (2021-01-03)
 
