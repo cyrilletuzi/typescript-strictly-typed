@@ -6,7 +6,7 @@ A [blog post](https://medium.com/@cyrilletuzi/typescript-strictly-typed-strict-m
 
 ## By the same author
 
-I am also the author of the [Angular Schematics extension for Visual Studio Code](https://github.com/cyrilletuzi/vscode-angular-schematics), installed nearly 1 million times. Feel free to give it a try.
+I am also the author of the [Angular Schematics extension for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=cyrilletuzi.angular-schematics), installed nearly 1 million times. Feel free to give it a try.
 
 ## Warning
 
