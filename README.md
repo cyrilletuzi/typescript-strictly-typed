@@ -4,15 +4,9 @@ Configure TypeScript, ESLint, and optionally Angular to ensure fully typed code.
 
 A [blog post](https://medium.com/@cyrilletuzi/typescript-strictly-typed-strict-mode-is-not-enough-40df698e2deb?source=friends_link&sk=00f968af095e7615f7220314df280a1b) explains the motivation of this lib.
 
-## How to help?
+## By the same author
 
-This lib and my other tools represent *months* of full time *unpaid* work, with for example the [Angular schematics extension for VS Code](https://marketplace.visualstudio.com/items?itemName=cyrilletuzi.angular-schematics), **installed 800 000 times**.
-
-So if you want to help, I released **[Schematics Pro](https://www.cyrilletuzi.com/schematics-pro/)**, a paid code automation tool for Angular, React, Vue, Ionic, Svelte, Stencil, Lit, Nest and more.
-
-Or you can [sponsor my GitHub account](https://github.com/sponsors/cyrilletuzi).
-
-Thank you! ♥️
+I am also the author of the [Angular Schematics extension for Visual Studio Code](https://github.com/cyrilletuzi/vscode-angular-schematics), installed nearly 1 million times. Feel free to give it a try.
 
 ## Warning
 
