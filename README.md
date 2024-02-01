@@ -20,7 +20,7 @@ npx typescript-strictly-typed@latest
 > [!IMPORTANT]
 > Going fully typed is a choice to make at the *very beginning* of a project.
 >
-> **Enabling all strict options at once in an existing project is strongly discouraged**, as hundred of errors would appear. Converting an existing project to full strict mode is still possible and encouraged, but it should be done *incrementally*, by activating each option *one by one*.
+> **Enabling all strict options at once in an existing project is not recommended**, as hundred of errors would appear. Converting an existing project to full strict mode is still possible and encouraged, but it should be done *incrementally*, by activating each option *one by one*.
 
 ## What does it do?
 
