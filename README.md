@@ -39,7 +39,7 @@ It modifies these configurations:
 - [TypeScript ESLint rules](https://typescript-eslint.io/rules/)
   - `@typescript-eslint/no-explicit-any`
   - `@typescript-eslint/explicit-module-boundary-types`
-- [Angular compiler options](https://angular.io/guide/angular-compiler-options)
+- [Angular compiler options](https://angular.dev/reference/configs/angular-compiler-options)
   - `strictInjectionParameters`
   - `strictTemplates`
   - `strictInputAccessModifiers`
