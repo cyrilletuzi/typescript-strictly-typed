@@ -8,12 +8,6 @@ A [blog post](https://medium.com/@cyrilletuzi/typescript-strictly-typed-strict-m
 
 I am also the author of the [Angular Schematics extension for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=cyrilletuzi.angular-schematics), installed nearly 1 million times. Feel free to give it a try.
 
-## Warning
-
-Going fully typed is a choice to make at the *very beginning* of a project.
-
-**Enabling all strict options at once in an existing project is strongly discouraged**, as hundred of errors would appear. Converting an existing project to full strict mode is still possible end encouraged, but it should be done *incrementally*, by activating each option *one by one*.
-
 ## Getting started
 
 Just run the following commands in your terminal:
@@ -22,6 +16,11 @@ Just run the following commands in your terminal:
 cd path/to/my-project-with-tsconfig
 npx typescript-strictly-typed@latest
 ```
+
+> [!IMPORTANT]
+> Going fully typed is a choice to make at the *very beginning* of a project.
+>
+> **Enabling all strict options at once in an existing project is strongly discouraged**, as hundred of errors would appear. Converting an existing project to full strict mode is still possible and encouraged, but it should be done *incrementally*, by activating each option *one by one*.
 
 ## What does it do?
 
