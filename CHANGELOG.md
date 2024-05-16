@@ -1,5 +1,15 @@
 # Changelog
 
+## 3.4.0 (2023-05-16)
+
+New lint rules:
+- `prefer-template`
+- `@typescript-eslint/explicit-function-return-type` (replaces `@typescript-eslint/explicit-module-boundary-types`)
+- `@typescript-eslint/prefer-nullish-coalescing`
+- `@typescript-eslint/use-unknown-in-catch-callback-variable`
+- `@typescript-eslint/no-non-null-assertion`
+- `@typescript-eslint/restrict-plus-operands`
+
 ## 3.3.0 (2023-05-24)
 
 - New ESLint rule: `eqeqeq`

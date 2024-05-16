@@ -35,9 +35,14 @@ It modifies these configurations:
   - `noUncheckedIndexedAccess`
 - [ESLint rules](https://eslint.org/docs/latest/rules/)
   - `eqeqeq`
+  - `prefer-template`
 - [TypeScript ESLint rules](https://typescript-eslint.io/rules/)
   - `@typescript-eslint/no-explicit-any`
-  - `@typescript-eslint/explicit-module-boundary-types`
+  - `@typescript-eslint/explicit-function-return-type`
+  - `@typescript-eslint/prefer-nullish-coalescing`
+  - `@typescript-eslint/use-unknown-in-catch-callback-variable`
+  - `@typescript-eslint/no-non-null-assertion`
+  - `@typescript-eslint/restrict-plus-operands`
 - [Angular compiler options](https://angular.dev/reference/configs/angular-compiler-options)
   - `strictInjectionParameters`
   - `strictTemplates`
