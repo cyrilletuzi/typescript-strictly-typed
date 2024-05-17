@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.6.0 (2023-05-17)
+
+- Partial support for ESLint 9 new flat config
+
 ## 3.4.0 (2023-05-16)
 
 New lint rules:

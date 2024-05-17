@@ -21,9 +21,6 @@ npx typescript-strictly-typed@latest
 >
 > **Enabling all strict options at once in an existing project is not recommended**, as hundred of errors would appear. Converting an existing project to full strict mode is still possible and encouraged, but it should be done *incrementally*, by activating each option *one by one*.
 
-> [!NOTE]
-> ESLint 9 new flat config is now using a JavaScript file instead of a JSON file. It is a terrible choice for tools like this one, because while JSON manipulation is tedious but manageable, parsing a JavaScript file is far more complex. Even worse: it allows different implementations, which is what TypeScript-ESLint is doing. So as long as a helper is not provided to modify the configuration, I will not add support for ESLint 9. Just add the below configuration manually in `eslint.config.js`.
-
 ## What does it do?
 
 It modifies these configurations:
