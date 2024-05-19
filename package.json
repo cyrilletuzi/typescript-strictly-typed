@@ -1,0 +1,55 @@
+{
+  "name": "typescript-strictly-typed",
+  "version": "3.6.3",
+  "description": "Enable configurations for strictly typed TypeScript, ESLint, and optionally Angular.",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/cyrilletuzi"
+  },
+  "main": "index.js",
+  "bin": {
+    "typescript-strictly-typed": "bin/cli.js"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=18.12.0",
+    "npm": ">=8.19.2"
+  },
+  "scripts": {
+    "build": "rimraf dist && tsc && copyfiles package.json LICENSE bin/cli.js dist && copyfiles -f src/README.md dist",
+    "lint": "eslint src/**",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "release:major": "VERSION=major npm run release",
+    "release:minor": "VERSION=minor npm run release",
+    "release:patch": "VERSION=patch npm run release",
+    "release": "if test $VERSION; then npm run build && npm version $VERSION && npm run build && npm publish ./dist && git push; fi"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cyrilletuzi/typescript-strictly-typed.git"
+  },
+  "author": "Cyrille Tuzi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cyrilletuzi/typescript-strictly-typed/issues"
+  },
+  "homepage": "https://github.com/cyrilletuzi/typescript-strictly-typed",
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "js-yaml": "^4.1.0",
+    "jsonc-parser": "^3.2.1",
+    "package-up": "^5.0.0",
+    "semver": "^7.6.2"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^18.19.33",
+    "@types/semver": "^7.5.8",
+    "@typescript-eslint/eslint-plugin": "^7.9.0",
+    "@typescript-eslint/parser": "^7.9.0",
+    "copyfiles": "^2.4.1",
+    "eslint": "^8.57.0",
+    "rimraf": "^5.0.7",
+    "typescript": "^5.4.5"
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": [
+      "./tsconfig.json"
+    ]
+  },
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/strict-type-checked",
+    "plugin:@typescript-eslint/stylistic-type-checked"
+  ],
+  "rules": {
+    "quotes": "off",
+    "@typescript-eslint/quotes": [
+      "warn",
+      "double",
+      {
+        "allowTemplateLiterals": true
+      }
+    ],
+    // Fix a bug in typescript-eslint v6.0.0
+    "@typescript-eslint/prefer-nullish-coalescing": [
+      "error",
+      {
+        "ignoreConditionalTests": true
+      }
+    ],
+    // Enforce modern JavaScript
+    "prefer-template": "error",
+    "prefer-arrow-callback": "error",
+    // Stricter JavaScript
+    "no-new-native-nonconstructor": "error",
+    "no-constant-binary-expression": "error",
+    "prefer-object-has-own": "error", // ES2022+
+    // Strict types
+    "eqeqeq": "error",
+    "@typescript-eslint/explicit-function-return-type": "error",
+    "@typescript-eslint/prefer-readonly": "error",
+    "@typescript-eslint/no-useless-empty-export": "error",
+    // Force usage of "node:" protocol for Node builtins
+    "no-restricted-imports": [
+      "error",
+      "assert",
+      "buffer",
+      "child_process",
+      "cluster",
+      "crypto",
+      "dgram",
+      "dns",
+      "domain",
+      "events",
+      "freelist",
+      "fs",
+      "http",
+      "https",
+      "module",
+      "net",
+      "os",
+      "path",
+      "punycode",
+      "querystring",
+      "readline",
+      "repl",
+      "smalloc",
+      "stream",
+      "string_decoder",
+      "sys",
+      "timers",
+      "tls",
+      "tracing",
+      "tty",
+      "url",
+      "util",
+      "vm",
+      "zlib"
+    ]
+  }
+}

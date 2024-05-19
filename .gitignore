@@ -1,2 +1,8 @@
+node_modules/
+.npm
+typings/
 .DS_Store
 Thumbs.db
+.eslintcache
+*.tgz
+dist/
