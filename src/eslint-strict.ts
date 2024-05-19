@@ -112,7 +112,7 @@ export async function enableESLintStrict(cwd: string): Promise<boolean> {
 
       const extendsConfig = normalizeConfigToArray(override.extends);
 
-      if (override.plugins?.includes(eslintAngularTemplatePlugin)
+      if ((override.plugins ?? []).includes(eslintAngularTemplatePlugin)
         || extendsConfig.some((extendConfig) => extendConfig.includes(eslintAngularTemplatePlugin)))
 
         addAngularHTMLConfig(config, ["overrides", indexNumber], config.json.overrides?.[indexNumber]?.rules);

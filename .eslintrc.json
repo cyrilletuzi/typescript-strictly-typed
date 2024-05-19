@@ -23,13 +23,7 @@
         "allowTemplateLiterals": true
       }
     ],
-    // Fix a bug in typescript-eslint v6.0.0
-    "@typescript-eslint/prefer-nullish-coalescing": [
-      "error",
-      {
-        "ignoreConditionalTests": true
-      }
-    ],
+    "@typescript-eslint/prefer-nullish-coalescing": "error",
     // Enforce modern JavaScript
     "prefer-template": "error",
     "prefer-arrow-callback": "error",
