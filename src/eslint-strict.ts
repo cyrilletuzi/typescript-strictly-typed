@@ -7,7 +7,9 @@ type ESLintErrorLevel = "error" | "warn" | "off";
 interface ESLintRules {
   "eqeqeq"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
   "prefer-template"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
-  "@typescript-eslint/no-explicit-any"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
+  "@typescript-eslint/no-explicit-any"?: ESLintErrorLevel | [ESLintErrorLevel, {
+    fixToUnknown?: boolean;
+  }?];
   "@typescript-eslint/explicit-function-return-type"?: ESLintErrorLevel | [ESLintErrorLevel, {
     allowExpressions?: boolean;
   }?];
@@ -117,7 +119,7 @@ export async function enableESLintStrict(cwd: string): Promise<boolean> {
       if ((override.plugins ?? []).includes(eslintAngularTemplatePlugin)
         || extendsConfig.some((extendConfig) => extendConfig.includes(eslintAngularTemplatePlugin)))
 
-        addAngularHTMLConfig(config, ["overrides", indexNumber], config.json.overrides?.[indexNumber]?.rules);
+        addAngularHTMLConfig(config, ["overrides", indexNumber]);
 
     }
 
@@ -148,106 +150,50 @@ export async function enableESLintStrict(cwd: string): Promise<boolean> {
 
 function addTSConfig(config: Config<ESLint>, path: JSONPath, rules?: ESLint["rules"]): void {
 
-  if (Array.isArray(rules?.eqeqeq)) {
-    config.raw = modifyJSON(config.raw, [...path, "rules", "eqeqeq", 0], "error");
-  } else {
-    config.raw = modifyJSON(config.raw, [...path, "rules", "eqeqeq"], "error");
-  }
+  config.raw = modifyJSON(config.raw, [...path, "rules", "eqeqeq"], "error");
 
-  if (Array.isArray(rules?.["prefer-template"])) {
-    config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-template", 0], "error");
-  } else {
-    config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-template"], "error");
-  }
+  config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-template"], "error");
 
   if (Array.isArray(rules?.["@typescript-eslint/no-explicit-any"])) {
-    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-explicit-any", 0], "error");
+
+    const ruleValue = rules["@typescript-eslint/no-explicit-any"];
+
+    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-explicit-any", 0], ["error", {
+      ...(ruleValue[1]?.fixToUnknown !== undefined ? { fixToUnknown: ruleValue[1].fixToUnknown } : {}),
+    }]);
+
   } else {
     config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-explicit-any"], "error");
   }
 
-  if (Array.isArray(rules?.["@typescript-eslint/explicit-function-return-type"])) {
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/explicit-function-return-type"], ["error", {
+    allowExpressions: true
+  }]);
 
-    const ruleValue = rules["@typescript-eslint/explicit-function-return-type"];
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/prefer-nullish-coalescing"], "error");
 
-    if (ruleValue.length === 1) {
-      config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/explicit-function-return-type", 0], [
-        "error",
-        {
-          allowExpressions: true
-        }
-      ]);
-    } else {
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/use-unknown-in-catch-callback-variable"], "error");
 
-      const ruleValueOptions = ruleValue[1];
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-non-null-assertion"], "error");
 
-      if (ruleValueOptions === undefined) {
-        config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/explicit-function-return-type", 0], [
-          "error",
-          {
-            allowExpressions: true
-          }
-        ]);
-      } else {
-        config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/explicit-function-return-type", 0], [
-          "error",
-          {
-            allowExpressions: true,
-            ...ruleValueOptions,
-          }
-        ]);
-      }
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/restrict-plus-operands"], ["error", {
+    allowAny: false,
+    allowBoolean: false,
+    allowNullish: false,
+    allowNumberAndString: false,
+    allowRegExp: false,
+  }]);
 
-    }
-
-  } else {
-    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/explicit-function-return-type"], [
-      "error",
-      {
-        allowExpressions: true
-      }
-    ]);
-  }
-
-  if (Array.isArray(rules?.["@typescript-eslint/prefer-nullish-coalescing"])) {
-    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/prefer-nullish-coalescing", 0], "error");
-  } else {
-    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/prefer-nullish-coalescing"], "error");
-  }
-
-  if (Array.isArray(rules?.["@typescript-eslint/use-unknown-in-catch-callback-variable"])) {
-    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/use-unknown-in-catch-callback-variable", 0], "error");
-  } else {
-    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/use-unknown-in-catch-callback-variable"], "error");
-  }
-
-  if (Array.isArray(rules?.["@typescript-eslint/no-non-null-assertion"])) {
-    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-non-null-assertion", 0], "error");
-  } else {
-    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-non-null-assertion"], "error");
-  }
-
-  if (Array.isArray(rules?.["@typescript-eslint/restrict-plus-operands"])) {
-    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/restrict-plus-operands", 0], "error");
-  } else {
-    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/restrict-plus-operands"], "error");
-  }
-
-  if (Array.isArray(rules?.["@typescript-eslint/strict-boolean-expressions"])) {
-    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/strict-boolean-expressions", 0], "error");
-  } else {
-    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/strict-boolean-expressions"], "error");
-  }
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/strict-boolean-expressions"], ["error", {
+    allowNumber: false,
+    allowString: false
+  }]);
 
 }
 
-function addAngularHTMLConfig(config: Config<ESLint>, path: JSONPath, rules?: ESLint["rules"]): void {
+function addAngularHTMLConfig(config: Config<ESLint>, path: JSONPath): void {
 
-  if (Array.isArray(rules?.["@angular-eslint/template/no-any"])) {
-    config.raw = modifyJSON(config.raw, [...path, "rules", "@angular-eslint/template/no-any", 0], "error");
-  } else {
-    config.raw = modifyJSON(config.raw, [...path, "rules", "@angular-eslint/template/no-any"], "error");
-  }
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@angular-eslint/template/no-any"], "error");
 
 }
 
