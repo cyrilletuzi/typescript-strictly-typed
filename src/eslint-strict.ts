@@ -18,6 +18,7 @@ interface ESLintRules {
   "@typescript-eslint/use-unknown-in-catch-callback-variable"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
   "@typescript-eslint/no-non-null-assertion"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
   "@typescript-eslint/restrict-plus-operands"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
+  "@typescript-eslint/restrict-template-expressions"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
   "@typescript-eslint/strict-boolean-expressions"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
   "@angular-eslint/template/no-any"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
 }
@@ -50,6 +51,7 @@ interface PackageJSON {
  * - `@typescript-eslint/no-non-null-assertion`
  * - `@typescript-eslint/restrict-plus-operands`
  * - `@typescript-eslint/strict-boolean-expressions`
+ * - `@typescript-eslint/restrict-template-expressions`
  * {@link https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin}
  *
  * @param cwd Working directory path
@@ -192,6 +194,8 @@ function addTSConfig(config: Config<ESLint>, path: JSONPath, rules?: ESLint["rul
     allowNumber: false,
     allowString: false
   }]);
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/restrict-template-expressions"], "error");
 
 }
 

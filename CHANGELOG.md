@@ -1,18 +1,11 @@
 # Changelog
 
-## 3.9.0 (2023-05-29)
+## 3.10.0 (2023-05-29)
 
-New lint rule:
-- `prefer-arrow-callback`
-
-## 3.8.0 (2023-05-29)
-
-Enforce lint rules sub-options.
-
-## 3.7.0 (2023-05-29)
-
-New lint rule:
+New lint rules:
 - `@typescript-eslint/strict-boolean-expressions`
+- `@typescript-eslint/restrict-template-expressions`
+- `prefer-arrow-callback`
 
 ## 3.6.0 (2023-05-17)
 

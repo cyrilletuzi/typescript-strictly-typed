@@ -52,6 +52,7 @@
         "allowRegExp": false
       }
     ],
+    "@typescript-eslint/restrict-template-expressions": "error",
     "@typescript-eslint/strict-boolean-expressions": [
       "error",
       {

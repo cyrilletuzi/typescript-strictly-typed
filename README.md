@@ -44,6 +44,7 @@ It modifies these configurations:
   - `@typescript-eslint/use-unknown-in-catch-callback-variable`
   - `@typescript-eslint/no-non-null-assertion`
   - `@typescript-eslint/restrict-plus-operands`
+  - `@typescript-eslint/restrict-template-expressions`
   - `@typescript-eslint/strict-boolean-expressions`
 - [Angular compiler options](https://angular.dev/reference/configs/angular-compiler-options)
   - `strictInjectionParameters`
