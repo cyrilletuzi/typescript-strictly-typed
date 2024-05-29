@@ -27,31 +27,31 @@ It modifies these configurations:
 
 - [TypeScript compiler options](https://www.typescriptlang.org/tsconfig)
   - `strict` (includes: `noImplicitAny`, `strictNullChecks`, `alwaysStrict`, `strictBindCallApply`, `strictFunctionTypes`, `strictPropertyInitialization`, `noImplicitThis`, `useUnknownInCatchVariables`)
+  - `exactOptionalPropertyTypes`
   - `noFallthroughCasesInSwitch`
+  - `noImplicitOverride`
   - `noImplicitReturns`
   - `noPropertyAccessFromIndexSignature`
-  - `noImplicitOverride`
-  - `exactOptionalPropertyTypes`
   - `noUncheckedIndexedAccess`
 - [ESLint rules](https://eslint.org/docs/latest/rules/)
   - `eqeqeq`
   - `prefer-arrow-callback`
   - `prefer-template`
 - [TypeScript ESLint rules](https://typescript-eslint.io/rules/)
-  - `@typescript-eslint/no-explicit-any`
   - `@typescript-eslint/explicit-function-return-type`
+  - `@typescript-eslint/no-explicit-any`
+  - `@typescript-eslint/no-non-null-assertion`
   - `@typescript-eslint/prefer-for-of`
   - `@typescript-eslint/prefer-nullish-coalescing`
   - `@typescript-eslint/prefer-optional-chain`
-  - `@typescript-eslint/use-unknown-in-catch-callback-variable`
-  - `@typescript-eslint/no-non-null-assertion`
   - `@typescript-eslint/restrict-plus-operands`
   - `@typescript-eslint/restrict-template-expressions`
   - `@typescript-eslint/strict-boolean-expressions`
+  - `@typescript-eslint/use-unknown-in-catch-callback-variable`
 - [Angular compiler options](https://angular.dev/reference/configs/angular-compiler-options)
   - `strictInjectionParameters`
-  - `strictTemplates`
   - `strictInputAccessModifiers`
+  - `strictTemplates`
 - [Angular ESLint options](https://github.com/angular-eslint/angular-eslint)
   - `@angular-eslint/template/no-any`
 

@@ -49,26 +49,21 @@ export async function enableTypescriptStrict(cwd: string): Promise<boolean> {
   }
 
   config.raw = modifyJSON(config.raw, ["compilerOptions", "strict"], true);
-  config.raw = modifyJSON(config.raw, ["compilerOptions", "noFallthroughCasesInSwitch"], true);
-  config.raw = modifyJSON(config.raw, ["compilerOptions", "noImplicitReturns"], true);
-
-  if (checkDependencyVersion(cwd, "typescript", ">=4.2.0")) {
-    config.raw = modifyJSON(config.raw, ["compilerOptions", "noPropertyAccessFromIndexSignature"], true);
-  }
-
-  if (checkDependencyVersion(cwd, "typescript", ">=4.3.0")) {
-    config.raw = modifyJSON(config.raw, ["compilerOptions", "noImplicitOverride"], true);
-  }
 
   if (checkDependencyVersion(cwd, "typescript", ">=4.4.0")) {
     config.raw = modifyJSON(config.raw, ["compilerOptions", "exactOptionalPropertyTypes"], true);
   }
 
-  /* Already true by defaut since TypeScript 5.0 */
-  if (checkDependencyVersion(cwd, "typescript", "<5.0.0")) {
-    config.raw = modifyJSON(config.raw, ["compilerOptions", "forceConsistentCasingInFileNames"], true);
-  } else {
-    config.raw = modifyJSON(config.raw, ["compilerOptions", "forceConsistentCasingInFileNames"], undefined);
+  config.raw = modifyJSON(config.raw, ["compilerOptions", "noFallthroughCasesInSwitch"], true);
+
+  if (checkDependencyVersion(cwd, "typescript", ">=4.3.0")) {
+    config.raw = modifyJSON(config.raw, ["compilerOptions", "noImplicitOverride"], true);
+  }
+
+  config.raw = modifyJSON(config.raw, ["compilerOptions", "noImplicitReturns"], true);
+
+  if (checkDependencyVersion(cwd, "typescript", ">=4.2.0")) {
+    config.raw = modifyJSON(config.raw, ["compilerOptions", "noPropertyAccessFromIndexSignature"], true);
   }
 
   /* Available since 4.1.0 but before 5.0.0 compiler was not smart enough and thus too annoying with Records
