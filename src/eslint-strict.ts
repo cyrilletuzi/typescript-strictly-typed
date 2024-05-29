@@ -237,9 +237,12 @@ function isTypeCheckedEnabled(fileContent: string): boolean {
 
   if (fileContent.includes("-type-checked")
     || fileContent.includes("TypeChecked")
-    || fileContent.includes("project: true")
-    || fileContent.includes("EXPERIMENTAL_useProjectService: true")
-    || fileContent.includes("projectService: true")
+    || fileContent.includes(`"project":`)
+    || fileContent.includes("project:")
+    || fileContent.includes(`"EXPERIMENTAL_useProjectService":`)
+    || fileContent.includes("EXPERIMENTAL_useProjectService:")
+    || fileContent.includes(`"projectService":`)
+    || fileContent.includes("projectService:")
   ) {
     return true;
   }
