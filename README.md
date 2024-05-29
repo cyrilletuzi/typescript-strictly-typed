@@ -35,6 +35,7 @@ It modifies these configurations:
   - `noUncheckedIndexedAccess`
 - [ESLint rules](https://eslint.org/docs/latest/rules/)
   - `eqeqeq`
+  - `prefer-arrow-callback`
   - `prefer-template`
 - [TypeScript ESLint rules](https://typescript-eslint.io/rules/)
   - `@typescript-eslint/no-explicit-any`

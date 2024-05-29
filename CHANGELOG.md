@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.9.0 (2023-05-29)
+
+New lint rule:
+- `prefer-arrow-callback`
+
 ## 3.8.0 (2023-05-29)
 
 Enforce lint rules sub-options.
