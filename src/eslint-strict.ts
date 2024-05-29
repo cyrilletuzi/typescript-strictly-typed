@@ -16,6 +16,7 @@ interface ESLintRules {
     allowExpressions?: boolean;
   }?];
   "@typescript-eslint/prefer-nullish-coalescing"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
+  "@typescript-eslint/prefer-optional-chain"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
   "@typescript-eslint/use-unknown-in-catch-callback-variable"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
   "@typescript-eslint/no-non-null-assertion"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
   "@typescript-eslint/restrict-plus-operands"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
@@ -49,6 +50,7 @@ interface PackageJSON {
  * - `@typescript-eslint/no-explicit-any`
  * - `@typescript-eslint/explicit-function-return-type`
  * - `@typescript-eslint/prefer-nullish-coalescing`
+ * - `@typescript-eslint/prefer-optional-chain`
  * - `@typescript-eslint/use-unknown-in-catch-callback-variable`
  * - `@typescript-eslint/no-non-null-assertion`
  * - `@typescript-eslint/restrict-plus-operands`
@@ -183,6 +185,8 @@ function addTSConfig(config: Config<ESLint>, path: JSONPath, rules?: ESLint["rul
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-non-null-assertion"], "error");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/prefer-nullish-coalescing"], "error");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/prefer-optional-chain"], "error");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/restrict-plus-operands"], ["error", {
     allowAny: false,

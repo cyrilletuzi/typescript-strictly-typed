@@ -42,6 +42,7 @@ It modifies these configurations:
   - `@typescript-eslint/no-explicit-any`
   - `@typescript-eslint/explicit-function-return-type`
   - `@typescript-eslint/prefer-nullish-coalescing`
+  - `@typescript-eslint/prefer-optional-chain`
   - `@typescript-eslint/use-unknown-in-catch-callback-variable`
   - `@typescript-eslint/no-non-null-assertion`
   - `@typescript-eslint/restrict-plus-operands`

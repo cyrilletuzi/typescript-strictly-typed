@@ -5,6 +5,7 @@
 New lint rules:
 - `@typescript-eslint/strict-boolean-expressions`
 - `@typescript-eslint/restrict-template-expressions`
+- `@typescript-eslint/prefer-optional-chain`
 - `prefer-arrow-callback`
 - `prefer-for-of`
 
