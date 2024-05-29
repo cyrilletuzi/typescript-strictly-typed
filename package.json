@@ -1,6 +1,6 @@
 {
   "name": "typescript-strictly-typed",
-  "version": "3.10.1",
+  "version": "3.11.0",
   "description": "Enable configurations for strictly typed TypeScript, ESLint, and optionally Angular.",
   "funding": {
     "type": "github",
