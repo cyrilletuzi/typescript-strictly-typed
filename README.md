@@ -36,11 +36,11 @@ It modifies these configurations:
 - [ESLint rules](https://eslint.org/docs/latest/rules/)
   - `eqeqeq`
   - `prefer-arrow-callback`
-  - `prefer-for-of`
   - `prefer-template`
 - [TypeScript ESLint rules](https://typescript-eslint.io/rules/)
   - `@typescript-eslint/no-explicit-any`
   - `@typescript-eslint/explicit-function-return-type`
+  - `@typescript-eslint/prefer-for-of`
   - `@typescript-eslint/prefer-nullish-coalescing`
   - `@typescript-eslint/prefer-optional-chain`
   - `@typescript-eslint/use-unknown-in-catch-callback-variable`

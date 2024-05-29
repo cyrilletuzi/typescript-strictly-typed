@@ -7,7 +7,6 @@ type ESLintErrorLevel = "error" | "warn" | "off";
 interface ESLintRules {
   "eqeqeq"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
   "prefer-arrow-callback"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
-  "prefer-for-of"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
   "prefer-template"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
   "@typescript-eslint/no-explicit-any"?: ESLintErrorLevel | [ESLintErrorLevel, {
     fixToUnknown?: boolean;
@@ -15,6 +14,7 @@ interface ESLintRules {
   "@typescript-eslint/explicit-function-return-type"?: ESLintErrorLevel | [ESLintErrorLevel, {
     allowExpressions?: boolean;
   }?];
+  "@typescript-eslint/prefer-for-of"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
   "@typescript-eslint/prefer-nullish-coalescing"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
   "@typescript-eslint/prefer-optional-chain"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
   "@typescript-eslint/use-unknown-in-catch-callback-variable"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
@@ -45,7 +45,7 @@ interface PackageJSON {
  * Enable the following ESLint rules:
  * - `eqeqeq`
  * - `prefer-arrow-callback`
- * - `prefer-for-of`
+ * - `@typescript-eslint/prefer-for-of`
  * - `prefer-template`
  * - `@typescript-eslint/no-explicit-any`
  * - `@typescript-eslint/explicit-function-return-type`
@@ -162,8 +162,6 @@ function addTSConfig(config: Config<ESLint>, path: JSONPath, rules?: ESLint["rul
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-arrow-callback"], "error");
 
-  config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-for-of"], "error");
-
   config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-template"], "error");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/explicit-function-return-type"], ["error", {
@@ -183,6 +181,8 @@ function addTSConfig(config: Config<ESLint>, path: JSONPath, rules?: ESLint["rul
   }
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-non-null-assertion"], "error");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/prefer-for-of"], "error");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/prefer-nullish-coalescing"], "error");
 

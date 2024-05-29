@@ -7,7 +7,7 @@ New lint rules:
 - `@typescript-eslint/restrict-template-expressions`
 - `@typescript-eslint/prefer-optional-chain`
 - `prefer-arrow-callback`
-- `prefer-for-of`
+- `@typescript-eslint/prefer-for-of`
 
 ## 3.6.0 (2023-05-17)
 
