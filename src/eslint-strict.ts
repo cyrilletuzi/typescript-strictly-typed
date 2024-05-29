@@ -7,6 +7,7 @@ type ESLintErrorLevel = "error" | "warn" | "off";
 interface ESLintRules {
   "eqeqeq"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
   "prefer-arrow-callback"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
+  "prefer-for-of"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
   "prefer-template"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
   "@typescript-eslint/no-explicit-any"?: ESLintErrorLevel | [ESLintErrorLevel, {
     fixToUnknown?: boolean;
@@ -43,6 +44,7 @@ interface PackageJSON {
  * Enable the following ESLint rules:
  * - `eqeqeq`
  * - `prefer-arrow-callback`
+ * - `prefer-for-of`
  * - `prefer-template`
  * - `@typescript-eslint/no-explicit-any`
  * - `@typescript-eslint/explicit-function-return-type`
@@ -157,6 +159,8 @@ function addTSConfig(config: Config<ESLint>, path: JSONPath, rules?: ESLint["rul
   config.raw = modifyJSON(config.raw, [...path, "rules", "eqeqeq"], "error");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-arrow-callback"], "error");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-for-of"], "error");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-template"], "error");
 
