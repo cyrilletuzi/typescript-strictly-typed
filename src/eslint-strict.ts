@@ -158,6 +158,8 @@ export async function enableESLintStrict(cwd: string): Promise<boolean> {
 
 function addTSConfig(config: Config<ESLint>, path: JSONPath, rules?: ESLint["rules"]): void {
 
+  const typeCheckedEnabled = isTypeCheckedEnabled(config.raw);
+
   config.raw = modifyJSON(config.raw, [...path, "rules", "eqeqeq"], "error");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-arrow-callback"], "error");
@@ -184,26 +186,38 @@ function addTSConfig(config: Config<ESLint>, path: JSONPath, rules?: ESLint["rul
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/prefer-for-of"], "error");
 
-  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/prefer-nullish-coalescing"], "error");
+  if (typeCheckedEnabled) {
+    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/prefer-nullish-coalescing"], "error");
+  }
 
-  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/prefer-optional-chain"], "error");
+  if (typeCheckedEnabled) {
+    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/prefer-optional-chain"], "error");
+  }
 
-  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/restrict-plus-operands"], ["error", {
-    allowAny: false,
-    allowBoolean: false,
-    allowNullish: false,
-    allowNumberAndString: false,
-    allowRegExp: false,
-  }]);
+  if (typeCheckedEnabled) {
+    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/restrict-plus-operands"], ["error", {
+      allowAny: false,
+      allowBoolean: false,
+      allowNullish: false,
+      allowNumberAndString: false,
+      allowRegExp: false,
+    }]);
+  }
 
-  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/restrict-template-expressions"], "error");
+  if (typeCheckedEnabled) {
+    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/restrict-template-expressions"], "error");
+  }
 
-  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/strict-boolean-expressions"], ["error", {
-    allowNumber: false,
-    allowString: false
-  }]);
+  if (typeCheckedEnabled) {
+    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/strict-boolean-expressions"], ["error", {
+      allowNumber: false,
+      allowString: false
+    }]);
+  }
 
-  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/use-unknown-in-catch-callback-variable"], "error");
+  if (typeCheckedEnabled) {
+    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/use-unknown-in-catch-callback-variable"], "error");
+  }
 
 }
 
@@ -216,5 +230,22 @@ function addAngularHTMLConfig(config: Config<ESLint>, path: JSONPath): void {
 function normalizeConfigToArray(config?: string | string[]): string[] {
 
   return Array.isArray(config) ? config : (config !== undefined ? [config] : []);
+
+}
+
+function isTypeCheckedEnabled(fileContent: string): boolean {
+
+  if (fileContent.includes("-type-checked")
+    || fileContent.includes("TypeChecked")
+    || fileContent.includes("project: true")
+    || fileContent.includes("EXPERIMENTAL_useProjectService: true")
+    || fileContent.includes("projectService: true")
+  ) {
+    return true;
+  }
+
+  logWarning(`Some TypeScript ESLint rules require type checking, which does not seem to be enabled in this project, so they will not be added. Add the required configuration, and run the command again to add the missing rules. See https://typescript-eslint.io/getting-started/typed-linting`);
+
+  return false;
 
 }

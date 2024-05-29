@@ -1,6 +1,6 @@
 # Changelog
 
-## 3.10.0 (2023-05-29)
+## 3.11.0 (2023-05-29)
 
 New lint rules:
 - `@typescript-eslint/strict-boolean-expressions`
@@ -8,6 +8,10 @@ New lint rules:
 - `@typescript-eslint/prefer-optional-chain`
 - `prefer-arrow-callback`
 - `@typescript-eslint/prefer-for-of`
+
+Only add TypeScript ESLint rules which require type checking in configurations were it is enabled.
+
+Enforce lint rules sub-options.
 
 ## 3.6.0 (2023-05-17)
 
