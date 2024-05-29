@@ -36,7 +36,7 @@ export function findConfig(cwd: string, files: string[]): string | null {
 
   }
 
-  if (files[0]) {
+  if (files[0] !== undefined) {
     logInfo(`Can't find ${basename(files[0], ".json")} config file. Skipping this configuration.`);
   }
 
@@ -132,7 +132,7 @@ export function saveConfig(cwd: string, file: string, config: Config<unknown>): 
     return false;
   }
 
-  if (!configStringified) {
+  if (configStringified === null) {
     logError(`Can't save ${file} config.`);
     return false;
   }
@@ -172,7 +172,7 @@ export function checkDependencyVersion(cwd: string, name: string, wantedVersion:
 
   const filePath = packageUpSync({ cwd });
 
-  if (filePath) {
+  if (filePath !== undefined) {
 
     const packageJsonFile = readFileSync(filePath, { encoding: "utf8" });
 
@@ -203,7 +203,7 @@ export function dependencyExists(cwd: string, name: string): boolean {
 
   const filePath = packageUpSync({ cwd });
 
-  if (filePath) {
+  if (filePath !== undefined) {
 
     const packageJsonFile = readFileSync(filePath, { encoding: "utf8" });
 

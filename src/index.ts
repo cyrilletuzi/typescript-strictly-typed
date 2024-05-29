@@ -15,7 +15,7 @@ import { enableTypescriptStrict } from "./typescript-strict.js";
  */
 export async function typescriptStrictlyTyped(cwd: string): Promise<void> {
 
-  if (isGitStatusDirty(cwd)) {
+  if (isGitStatusDirty(cwd) === true) {
     return;
   }
 
@@ -29,7 +29,7 @@ export async function typescriptStrictlyTyped(cwd: string): Promise<void> {
     success.push("ESLint");
   }
 
-  if (findConfig(cwd, ["angular.json", ".angular.json", "angular-cli.json", ".angular-cli.json"])
+  if (findConfig(cwd, ["angular.json", ".angular.json", "angular-cli.json", ".angular-cli.json"]) !== null
     && await enableAngularStrict(cwd)) {
     success.push("Angular");
   }

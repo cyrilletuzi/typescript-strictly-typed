@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.7.0 (2023-05-29)
+
+New lint rule:
+- `@typescript-eslint/strict-boolean-expressions`
+
 ## 3.6.0 (2023-05-17)
 
 - Partial support for ESLint 9 new flat config

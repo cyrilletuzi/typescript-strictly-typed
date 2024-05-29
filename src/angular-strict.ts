@@ -23,7 +23,7 @@ export async function enableAngularStrict(cwd: string): Promise<boolean> {
 
   const file = findConfig(cwd, ["tsconfig.base.json", "tsconfig.json"]);
 
-  if (!file) {
+  if (file === null) {
     return false;
   }
 

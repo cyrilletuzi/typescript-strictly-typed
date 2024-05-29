@@ -15,6 +15,7 @@ interface ESLintRules {
   "@typescript-eslint/use-unknown-in-catch-callback-variable"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
   "@typescript-eslint/no-non-null-assertion"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
   "@typescript-eslint/restrict-plus-operands"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
+  "@typescript-eslint/strict-boolean-expressions"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
   "@angular-eslint/template/no-any"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
 }
 
@@ -44,6 +45,7 @@ interface PackageJSON {
  * - `@typescript-eslint/use-unknown-in-catch-callback-variable`
  * - `@typescript-eslint/no-non-null-assertion`
  * - `@typescript-eslint/restrict-plus-operands`
+ * - `@typescript-eslint/strict-boolean-expressions`
  * {@link https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin}
  *
  * @param cwd Working directory path
@@ -61,7 +63,7 @@ export async function enableESLintStrict(cwd: string): Promise<boolean> {
   let packageJSONConfig: Config<PackageJSON> | null = null;
 
   const file = findConfig(cwd, possibleConfigFiles);
-  if (!file) {
+  if (file === null) {
     return false;
   }
 
@@ -231,6 +233,12 @@ function addTSConfig(config: Config<ESLint>, path: JSONPath, rules?: ESLint["rul
     config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/restrict-plus-operands"], "error");
   }
 
+  if (Array.isArray(rules?.["@typescript-eslint/strict-boolean-expressions"])) {
+    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/strict-boolean-expressions", 0], "error");
+  } else {
+    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/strict-boolean-expressions"], "error");
+  }
+
 }
 
 function addAngularHTMLConfig(config: Config<ESLint>, path: JSONPath, rules?: ESLint["rules"]): void {
@@ -245,6 +253,6 @@ function addAngularHTMLConfig(config: Config<ESLint>, path: JSONPath, rules?: ES
 
 function normalizeConfigToArray(config?: string | string[]): string[] {
 
-  return Array.isArray(config) ? config : config ? [config] : [];
+  return Array.isArray(config) ? config : (config !== undefined ? [config] : []);
 
 }
