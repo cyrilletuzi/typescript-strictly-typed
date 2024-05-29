@@ -112,7 +112,7 @@ export async function enableESLintStrict(cwd: string): Promise<boolean> {
 
     const files = normalizeConfigToArray(override.files);
 
-    if (files.some((file) => file.includes(tsFilesConfig))) {
+    if (files.some((fileItem) => fileItem.includes(tsFilesConfig))) {
 
       addTSConfig(config, ["overrides", indexNumber], config.json.overrides?.[indexNumber]?.rules);
 
@@ -120,7 +120,7 @@ export async function enableESLintStrict(cwd: string): Promise<boolean> {
 
     }
 
-    if (files.some((file) => file.includes(htmlFilesConfig))) {
+    if (files.some((fileItem) => fileItem.includes(htmlFilesConfig))) {
 
       const extendsConfig = normalizeConfigToArray(override.extends);
 
