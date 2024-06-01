@@ -8,22 +8,13 @@ export default tseslint.config(
   ...tseslint.configs.strictTypeChecked,
   ...tseslint.configs.stylisticTypeChecked,
   {
-    plugins: {
-      "@typescript-eslint": tseslint.plugin,
-    },
     languageOptions: {
-      parser: tseslint.parser,
       parserOptions: {
         projectService: true,
+        tsconfigRootDir: import.meta.dirname,
       },
     },
-    ignores: [
-      "dist/*",
-      "bin/*",
-      "eslint.config.js"
-    ],
     rules: {
-      "quotes": "off",
       "@typescript-eslint/prefer-nullish-coalescing": "error",
       // Enforce modern JavaScript
       "prefer-template": "error",
@@ -105,4 +96,8 @@ export default tseslint.config(
         "zlib"
       ]
     },
+  },
+  {
+    files: ['**/*.js'],
+    ...tseslint.configs.disableTypeChecked,
   });
