@@ -52,7 +52,7 @@ export function findConfig(cwd: string, files: string[]): string | null {
  *
  * @returns The config in raw (string) and JSON formats, or `null`
  */
-export async function getConfig<T>(cwd: string, file: string): Promise<Config<T> | null> { // eslint-disable-line @typescript-eslint/ban-types
+export async function getConfig<T>(cwd: string, file: string): Promise<Config<T> | null> {
 
   const filePath = join(cwd, file);
 
