@@ -25,12 +25,7 @@ export default tseslint.config(
       "prefer-object-has-own": "error", // ES2022+
       // Strict types
       "eqeqeq": "error",
-      "@typescript-eslint/explicit-function-return-type": [
-        "error",
-        {
-          "allowExpressions": true
-        }
-      ],
+      "@typescript-eslint/explicit-function-return-type": "error",
       "@typescript-eslint/no-explicit-any": "error",
       "@typescript-eslint/use-unknown-in-catch-callback-variable": "error",
       "@typescript-eslint/no-non-null-assertion": "error",

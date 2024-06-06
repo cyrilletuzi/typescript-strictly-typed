@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.12.0 (2023-06-06)
+
+Remove `allowExpression` option in `@typescript-eslint/explicit-function-return-type` as it is less noisy now
+
 ## 3.11.0 (2023-05-29)
 
 New lint rules:

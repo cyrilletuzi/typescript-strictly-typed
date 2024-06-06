@@ -11,9 +11,7 @@ interface ESLintRules {
   "@typescript-eslint/no-explicit-any"?: ESLintErrorLevel | [ESLintErrorLevel, {
     fixToUnknown?: boolean;
   }?];
-  "@typescript-eslint/explicit-function-return-type"?: ESLintErrorLevel | [ESLintErrorLevel, {
-    allowExpressions?: boolean;
-  }?];
+  "@typescript-eslint/explicit-function-return-type"?: ESLintErrorLevel | [ESLintErrorLevel, unknown];
   "@typescript-eslint/prefer-for-of"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
   "@typescript-eslint/prefer-nullish-coalescing"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
   "@typescript-eslint/prefer-optional-chain"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
@@ -166,9 +164,7 @@ function addTSConfig(config: Config<ESLint>, path: JSONPath, rules?: ESLint["rul
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-template"], "error");
 
-  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/explicit-function-return-type"], ["error", {
-    allowExpressions: true
-  }]);
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/explicit-function-return-type"], "error");
 
   if (Array.isArray(rules?.["@typescript-eslint/no-explicit-any"])) {
 
