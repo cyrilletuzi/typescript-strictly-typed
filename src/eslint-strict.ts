@@ -88,7 +88,7 @@ export async function enableESLintStrict(cwd: string): Promise<boolean> {
       return false;
     }
     config = {
-      source: getSource(cwd, file),
+      source: JSON.stringify(packageJSONConfig.json.eslintConfig),
       raw: JSON.stringify(packageJSONConfig.json.eslintConfig),
       json: packageJSONConfig.json.eslintConfig,
     };
