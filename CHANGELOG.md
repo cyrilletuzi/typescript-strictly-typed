@@ -1,8 +1,10 @@
 # Changelog
 
-## 3.12.0 (2023-06-06)
+## 3.13.0 (2023-06-06)
 
-Remove `allowExpression` option in `@typescript-eslint/explicit-function-return-type` as it is less noisy now
+- Remove `allowExpression` option in `@typescript-eslint/explicit-function-return-type` as it is less noisy now
+- Enforce sub options if `tsconfig.json` extends another one
+- Fix detection of type checked lint in `eslint.config.js`
 
 ## 3.11.0 (2023-05-29)
 

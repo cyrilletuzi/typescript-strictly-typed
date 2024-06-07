@@ -77,6 +77,7 @@ export async function enableESLintStrict(cwd: string): Promise<boolean> {
 
   if (file === "eslint.config.js") {
     config = {
+      source: file,
       raw: JSON.stringify({ rules: {} }),
       json: { rules: {} },
     };
@@ -86,6 +87,7 @@ export async function enableESLintStrict(cwd: string): Promise<boolean> {
       return false;
     }
     config = {
+      source: file,
       raw: JSON.stringify(packageJSONConfig.json.eslintConfig),
       json: packageJSONConfig.json.eslintConfig,
     };
@@ -156,7 +158,7 @@ export async function enableESLintStrict(cwd: string): Promise<boolean> {
 
 function addTSConfig(config: Config<ESLint>, path: JSONPath, rules?: ESLint["rules"]): void {
 
-  const typeCheckedEnabled = isTypeCheckedEnabled(config.raw);
+  const typeCheckedEnabled = isTypeCheckedEnabled(config.source);
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "eqeqeq"], "error");
 
