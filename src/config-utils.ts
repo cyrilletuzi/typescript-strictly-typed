@@ -45,6 +45,17 @@ export function findConfig(cwd: string, files: string[]): string | null {
 
 }
 
+export function getSource(cwd: string, file: string): string {
+
+  try {
+    const filePath = join(cwd, file);
+    return readFileSync(filePath, { encoding: "utf8" });
+  } catch {
+    return "";
+  }
+
+}
+
 /**
  * Get the config of a tool
  *

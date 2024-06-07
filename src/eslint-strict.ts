@@ -1,5 +1,5 @@
 import { type JSONPath } from "jsonc-parser";
-import { dependencyExists, findConfig, getConfig, modifyJSON, saveConfig, type Config } from "./config-utils.js";
+import { dependencyExists, findConfig, getConfig, getSource, modifyJSON, saveConfig, type Config } from "./config-utils.js";
 import { logWarning } from "./log-utils.js";
 
 type ESLintErrorLevel = "error" | "warn" | "off";
@@ -76,8 +76,9 @@ export async function enableESLintStrict(cwd: string): Promise<boolean> {
   }
 
   if (file === "eslint.config.js") {
+
     config = {
-      source: file,
+      source: getSource(cwd, file),
       raw: JSON.stringify({ rules: {} }),
       json: { rules: {} },
     };
@@ -87,7 +88,7 @@ export async function enableESLintStrict(cwd: string): Promise<boolean> {
       return false;
     }
     config = {
-      source: file,
+      source: getSource(cwd, file),
       raw: JSON.stringify(packageJSONConfig.json.eslintConfig),
       json: packageJSONConfig.json.eslintConfig,
     };
