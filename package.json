@@ -17,7 +17,7 @@
   },
   "scripts": {
     "build": "rimraf dist && tsc && copyfiles package.json LICENSE bin/cli.js dist && copyfiles -f src/README.md dist",
-    "lint": "eslint src/**/*.ts",
+    "lint": "eslint src/",
     "test": "echo \"Error: no test specified\" && exit 1",
     "release:major": "VERSION=major npm run release",
     "release:minor": "VERSION=minor npm run release",
