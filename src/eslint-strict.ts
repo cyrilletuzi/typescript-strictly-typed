@@ -88,7 +88,6 @@ export async function enableESLintStrict(cwd: string): Promise<boolean> {
       return false;
     }
     config = {
-      source: JSON.stringify(packageJSONConfig.json.eslintConfig),
       raw: JSON.stringify(packageJSONConfig.json.eslintConfig),
       json: packageJSONConfig.json.eslintConfig,
     };
@@ -159,7 +158,7 @@ export async function enableESLintStrict(cwd: string): Promise<boolean> {
 
 function addTSConfig(config: Config<ESLint>, path: JSONPath, rules?: ESLint["rules"]): void {
 
-  const typeCheckedEnabled = isTypeCheckedEnabled(config.source);
+  const typeCheckedEnabled = isTypeCheckedEnabled(config.source ?? config.raw);
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "eqeqeq"], "error");
 

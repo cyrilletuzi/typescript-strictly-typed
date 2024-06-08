@@ -7,9 +7,9 @@ import { coerce, satisfies } from "semver";
 import { logError, logInfo } from "./log-utils.js";
 
 export interface Config<T> {
-  source: string;
   raw: string;
   json: T;
+  source?: string;
 }
 
 interface PackageJSON {
@@ -79,7 +79,6 @@ export async function getConfig<T>(cwd: string, file: string): Promise<Config<T>
       case ".json":
       case ".jsonc": {
         config = {
-          source: file,
           raw,
           json: parse(raw) as T,
         };
@@ -89,7 +88,6 @@ export async function getConfig<T>(cwd: string, file: string): Promise<Config<T>
       case ".yml": {
         const json = load(raw) as T;
         config = {
-          source: file,
           raw: JSON.stringify(json) ?? "",
           json,
         };
@@ -100,7 +98,6 @@ export async function getConfig<T>(cwd: string, file: string): Promise<Config<T>
         const moduleImport = await import(filePath) as { default: T; };
         const json = moduleImport.default;
         config = {
-          source: file,
           raw: JSON.stringify(json) ?? "",
           json,
         };
