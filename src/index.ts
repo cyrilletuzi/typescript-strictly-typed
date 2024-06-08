@@ -1,4 +1,5 @@
 import { enableAngularStrict } from "./angular-strict.js";
+import { enableBiomeStrict } from "./biome-strict.js";
 import { isGitStatusDirty } from "./check-git-status.js";
 import { findConfig } from "./config-utils.js";
 import { enableESLintStrict } from "./eslint-strict.js";
@@ -9,6 +10,7 @@ import { enableTypescriptStrict } from "./typescript-strict.js";
  * Enable strictly typed configurations for:
  * - TypeScript compiler
  * - ESLint rules
+ * - Biome rules
  * - Angular compiler (if `angular.json` is detected)
  *
  * @param cwd Working directory path
@@ -27,6 +29,10 @@ export async function typescriptStrictlyTyped(cwd: string): Promise<void> {
 
   if (await enableESLintStrict(cwd)) {
     success.push("ESLint");
+  }
+
+  if (await enableBiomeStrict(cwd)) {
+    success.push("Biome");
   }
 
   if (findConfig(cwd, ["angular.json", ".angular.json", "angular-cli.json", ".angular-cli.json"]) !== null

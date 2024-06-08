@@ -1,5 +1,17 @@
 # Changelog
 
+## 3.14.0 (2023-06-08)
+
+- Support for Biome. Initial rules:
+  - `noDoubleEquals`
+  - `noExplicitAny`
+  - `noImplicitAnyLet`
+  - `noNonNullAssertion`
+  - `useArrowFunction`
+  - `useForOf`
+  - `useOptionalChain`
+  - `useTemplate`
+
 ## 3.13.0 (2023-06-06)
 
 - Remove `allowExpression` option in `@typescript-eslint/explicit-function-return-type` as it is less noisy now

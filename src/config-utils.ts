@@ -76,7 +76,8 @@ export async function getConfig<T>(cwd: string, file: string): Promise<Config<T>
   try {
 
     switch (fileType) {
-      case ".json": {
+      case ".json":
+      case ".jsonc": {
         config = {
           source: file,
           raw,
@@ -134,6 +135,7 @@ export function saveConfig(cwd: string, file: string, config: Config<unknown>): 
 
     switch (fileType) {
       case ".json":
+      case ".jsonc":
         configStringified = config.raw;
         break;
       case ".yaml":

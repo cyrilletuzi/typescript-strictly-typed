@@ -1,6 +1,6 @@
 # TypeScript Strictly Typed
 
-Configure TypeScript, ESLint, and optionally Angular to ensure fully typed code. Because `strict` mode is not enough.
+Configure TypeScript, ESLint or Biome, and optionally Angular to ensure fully typed code. Because `strict` mode is not enough.
 
 A [blog post](https://medium.com/@cyrilletuzi/typescript-strictly-typed-strict-mode-is-not-enough-40df698e2deb?source=friends_link&sk=00f968af095e7615f7220314df280a1b) explains the motivation of this lib.
 
@@ -48,6 +48,15 @@ It modifies these configurations:
   - `@typescript-eslint/restrict-template-expressions`
   - `@typescript-eslint/strict-boolean-expressions`
   - `@typescript-eslint/use-unknown-in-catch-callback-variable`
+- [Biome linter rules](https://biomejs.dev/linter/rules/)
+  - `noDoubleEquals`
+  - `noExplicitAny`
+  - `noImplicitAnyLet`
+  - `noNonNullAssertion`
+  - `useArrowFunction`
+  - `useForOf`
+  - `useOptionalChain`
+  - `useTemplate`
 - [Angular compiler options](https://angular.dev/reference/configs/angular-compiler-options)
   - `strictInjectionParameters`
   - `strictInputAccessModifiers`
