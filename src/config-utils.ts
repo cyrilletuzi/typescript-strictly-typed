@@ -90,7 +90,7 @@ export async function getConfig<T>(cwd: string, file: string): Promise<Config<T>
         const json = load(raw) as T;
         config = {
           source: file,
-          raw: JSON.stringify(json),
+          raw: JSON.stringify(json) ?? "",
           json,
         };
         break;
@@ -101,7 +101,7 @@ export async function getConfig<T>(cwd: string, file: string): Promise<Config<T>
         const json = moduleImport.default;
         config = {
           source: file,
-          raw: JSON.stringify(json),
+          raw: JSON.stringify(json) ?? "",
           json,
         };
         break;
