@@ -12,6 +12,8 @@
   - `useOptionalChain`
   - `useTemplate`
 
+  Note that some options are already included in the `recommended` preset, so they are not added if the preset is enabled, to keep configuration concise.
+
 ## 3.13.0 (2023-06-06)
 
 - Remove `allowExpression` option in `@typescript-eslint/explicit-function-return-type` as it is less noisy now
