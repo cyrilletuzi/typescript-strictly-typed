@@ -1,7 +1,8 @@
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { ObjectLiteralExpression, Project, ScriptTarget, StructureKind, SyntaxKind, type ObjectLiteralElementLike } from "ts-morph";
+import { IndentationText, ObjectLiteralExpression, Project, QuoteKind, ScriptTarget, StructureKind, SyntaxKind, type ObjectLiteralElementLike } from "ts-morph";
 import { findConfig, getSource } from "./config-utils.js";
+import { logWarning } from "./log-utils.js";
 
 const eslintRules: Record<string, string> = {
   "eqeqeq": `"error"`,
@@ -27,7 +28,7 @@ const eslintRules: Record<string, string> = {
   "@typescript-eslint/restrict-template-expressions": `"error"`,
   "@typescript-eslint/strict-boolean-expressions": `["error", {
     allowNumber: false,
-    allowString: false
+    allowString: false,
   }]`,
   "@typescript-eslint/use-unknown-in-catch-callback-variable": `"error"`,
 };
@@ -40,100 +41,98 @@ export function enableESLintFlatStrict(cwd: string): boolean {
     return false;
   }
 
-  const filePath = join(cwd, fileName);
+  const fallbackErrorMessage = `Could not handle ${fileName}, falling back to JSON solution.`;
 
-  const fileContent = getSource(cwd, fileName);
+  try {
 
-  const project = new Project({
-    manipulationSettings: {
-      // quoteKind: this.quote === "'" ? QuoteKind.Single : QuoteKind.Double,
+    const filePath = join(cwd, fileName);
+    const fileContent = getSource(cwd, fileName);
 
-    },
-    compilerOptions: {
-      target: ScriptTarget.Latest,
-    },
-    useInMemoryFileSystem: true,
-    // skipLoadingLibFiles: true,
-  });
+    const quoteMatch = /import .* from (['"])/.exec(fileContent);
+    const quote = quoteMatch?.[1] ?? `"`;
 
-  const source = project.createSourceFile(filePath, fileContent);
+    const spacesMatch = /tseslint\.config\(\n(\s)+/.exec(fileContent);
+    const spaces = spacesMatch?.[1]?.length ?? 2;
 
-  const sourceRootNode = source.getChildAtIndexIfKind(0, SyntaxKind.SyntaxList);
+    const project = new Project({
+      manipulationSettings: {
+        quoteKind: quote === "'" ? QuoteKind.Single : QuoteKind.Double,
+        indentationText: spaces === 4 ? IndentationText.FourSpaces : IndentationText.TwoSpaces,
+      },
+      compilerOptions: {
+        target: ScriptTarget.Latest,
+      },
+      useInMemoryFileSystem: true,
+    });
 
-  if (!sourceRootNode) {
-    return false;
-  }
+    const source = project.createSourceFile(filePath, fileContent);
 
-  const sourceExport = sourceRootNode.getFirstChildByKind(SyntaxKind.ExportAssignment);
+    const configObjects = source
+      .getChildAtIndexIfKind(0, SyntaxKind.SyntaxList)
+      ?.getFirstChildByKind(SyntaxKind.ExportAssignment)
+      ?.getFirstChildByKind(SyntaxKind.CallExpression)
+      ?.getFirstChildByKind(SyntaxKind.SyntaxList)
+      ?.getChildrenOfKind(SyntaxKind.ObjectLiteralExpression)
+      ?? [];
 
-  if (!sourceExport) {
-    return false;
-  }
+    const configObject = configObjects.find((config) => getProperty(config, "files")?.getLastChildByKind(SyntaxKind.ArrayLiteralExpression)?.getFullText().includes(".ts") ?? false)
+      ?? configObjects.find((config) => getProperty(config, "files") === undefined)
+      ?? configObjects[0];
 
-  const exportExpression = sourceExport.getFirstChildByKind(SyntaxKind.CallExpression);
+    if (!configObject) {
+      logWarning(fallbackErrorMessage);
+      return false;
+    }
 
-  if (!exportExpression) {
-    return false;
-  }
+    const rulesProperty = getProperty(configObject, "rules") ?? configObject.addProperty({
+      kind: StructureKind.PropertyAssignment,
+      name: "rules",
+      initializer: "{}",
+    }) as ObjectLiteralElementLike;
 
-  const exportExpressionList = exportExpression.getFirstChildByKind(SyntaxKind.SyntaxList);
+    const rulesObject = rulesProperty.getFirstChildByKind(SyntaxKind.ObjectLiteralExpression);
 
-  if (!exportExpressionList) {
-    return false;
-  }
+    if (!rulesObject) {
+      logWarning(fallbackErrorMessage);
+      return false;
+    }
 
-  const configObjects = exportExpressionList.getChildrenOfKind(SyntaxKind.ObjectLiteralExpression);
+    for (const [ruleName, ruleErrorConfig] of Object.entries(eslintRules)) {
 
-  const configObject = configObjects.find((config) => getProperty(config, "files")?.getLastChildByKind(SyntaxKind.ArrayLiteralExpression)?.getFullText().includes(".ts") ?? false)
-    ?? configObjects.find((config) => getProperty(config, "files") === undefined)
-    ?? configObjects[0];
-
-  if (!configObject) {
-    return false;
-  }
-
-  const rulesProperty = getProperty(configObject, "rules") ?? configObject.addProperty({
-    kind: StructureKind.PropertyAssignment,
-    name: "rules",
-    initializer: "{}",
-  }) as ObjectLiteralElementLike;
-
-  const rulesObject = rulesProperty.getFirstChildByKind(SyntaxKind.ObjectLiteralExpression);
-
-  if (!rulesObject) {
-    return false;
-  }
-
-  for (const [ruleName, ruleErrorConfig] of Object.entries(eslintRules)) {
-
-    const ruleProperty = getProperty(rulesObject, ruleName);
-
-    try {
+      const ruleProperty = getProperty(rulesObject, ruleName);
 
       if (ruleProperty) {
         ruleProperty.getLastChild()?.replaceWithText(ruleErrorConfig);
       } else {
+
+        const name = `${quote}${ruleName}${quote}`;
+        const initializer = ruleErrorConfig
+          .replaceAll('"', quote)
+          .replaceAll(/s+/, "".padStart(spaces));
+
         rulesObject.addProperty({
           kind: StructureKind.PropertyAssignment,
-          name: `"${ruleName}"`,
-          initializer: ruleErrorConfig,
+          name,
+          initializer,
         });
+
       }
 
-    } catch (error) {
-      console.log(error);
     }
 
+    writeFileSync(filePath, source.getFullText());
+
+    return true;
+
+  } catch {
+    logWarning(fallbackErrorMessage);
+    return false;
   }
-
-  writeFileSync(filePath, source.getFullText());
-
-  return true;
 
 }
 
 function getProperty(objectLiteralExpression: ObjectLiteralExpression, propertyName: string): ObjectLiteralElementLike | undefined {
   return objectLiteralExpression.getProperty(propertyName) ??
     objectLiteralExpression.getProperty(`"${propertyName}"`) ??
-    objectLiteralExpression.getProperty(`"${propertyName}"`);
+    objectLiteralExpression.getProperty(`'${propertyName}'`);
 }
