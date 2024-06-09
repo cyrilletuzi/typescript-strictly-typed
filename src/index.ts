@@ -1,7 +1,6 @@
 import { enableAngularStrict } from "./angular-strict.js";
 import { enableBiomeStrict } from "./biome-strict.js";
 import { isGitStatusDirty } from "./check-git-status.js";
-import { findConfig } from "./config-utils.js";
 import { enableESLintStrict } from "./eslint-strict.js";
 import { logError, logSuccess } from "./log-utils.js";
 import { enableTypescriptStrict } from "./typescript-strict.js";
@@ -18,7 +17,7 @@ import { enableTypescriptStrict } from "./typescript-strict.js";
 export async function typescriptStrictlyTyped(cwd: string): Promise<void> {
 
   if (isGitStatusDirty(cwd) === true) {
-    // return;
+    return;
   }
 
   const success: string[] = [];
@@ -35,8 +34,7 @@ export async function typescriptStrictlyTyped(cwd: string): Promise<void> {
     success.push("Biome");
   }
 
-  if (findConfig(cwd, ["angular.json", ".angular.json", "angular-cli.json", ".angular-cli.json"]) !== null
-    && await enableAngularStrict(cwd)) {
+  if (await enableAngularStrict(cwd)) {
     success.push("Angular");
   }
 

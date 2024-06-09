@@ -1,7 +1,7 @@
 import { type JSONPath } from "jsonc-parser";
 import { dependencyExists, findConfig, getConfig, getSource, modifyJSON, saveConfig, type Config } from "./config-utils.js";
 import { enableESLintFlatStrict } from "./eslint-flat-strict.js";
-import { logWarning } from "./log-utils.js";
+import { logInfo, logWarning } from "./log-utils.js";
 
 type ESLintErrorLevel = "error" | "warn" | "off";
 
@@ -68,6 +68,7 @@ export async function enableESLintStrict(cwd: string): Promise<boolean> {
 
   const file = findConfig(cwd, possibleConfigFiles);
   if (file === null) {
+    logInfo(`Can't find an ESLint config file. Skipping this configuration.`);
     return false;
   }
 

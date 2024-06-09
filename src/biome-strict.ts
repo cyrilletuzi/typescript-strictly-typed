@@ -1,5 +1,5 @@
 import { checkDependencyVersion, findConfig, getConfig, modifyJSON, saveConfig } from "./config-utils.js";
-import { logWarning } from "./log-utils.js";
+import { logInfo, logWarning } from "./log-utils.js";
 
 // Missing rules from ESlint (last check: v1.8.0)
 // interface ESLintRules {
@@ -103,6 +103,7 @@ export async function enableBiomeStrict(cwd: string): Promise<boolean> {
 
   const file = findConfig(cwd, possibleConfigFiles);
   if (file === null) {
+    logInfo(`Can't find a Biome config file. Skipping this configuration.`);
     return false;
   }
 

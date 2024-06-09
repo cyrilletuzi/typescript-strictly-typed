@@ -1,4 +1,5 @@
-import { findConfig, getConfig, modifyJSON, saveConfig } from "./config-utils.js";
+import { dependencyExists, findConfig, getConfig, modifyJSON, saveConfig } from "./config-utils.js";
+import { logInfo } from "./log-utils.js";
 
 interface TSConfigAngular {
   angularCompilerOptions?: {
@@ -20,6 +21,11 @@ interface TSConfigAngular {
  * @returns A boolean for success or failure
  */
 export async function enableAngularStrict(cwd: string): Promise<boolean> {
+
+  if ((findConfig(cwd, ["angular.json", ".angular.json"]) === null) && !dependencyExists(cwd, "@angular/core")) {
+    logInfo(`Can't find an Angular config file. Skipping this configuration.`);
+    return false;
+  }
 
   const file = findConfig(cwd, ["tsconfig.base.json", "tsconfig.json"]);
 

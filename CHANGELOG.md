@@ -1,6 +1,6 @@
 # Changelog
 
-## 3.16.0 (2023-06-09)
+## 3.17.0 (2023-06-09)
 
 - New ESLint rules:
   - `@typescript-eslint/no-unsafe-argument`
@@ -8,7 +8,7 @@
   - `@typescript-eslint/no-unsafe-call`
   - `@typescript-eslint/no-unsafe-member-access`
   - `@typescript-eslint/no-unsafe-return`
-- Detect `eslint.config.mjs`
+- Better support for ESLint flat config
 
 ## 3.14.0 (2023-06-08)
 

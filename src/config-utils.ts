@@ -1,10 +1,10 @@
 import { dump, load } from "js-yaml";
 import { applyEdits, modify, parse, type JSONPath, type ModificationOptions } from "jsonc-parser";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
-import { basename, extname, join } from "node:path";
+import { extname, join } from "node:path";
 import { packageUpSync } from "package-up";
 import { coerce, satisfies } from "semver";
-import { logError, logInfo } from "./log-utils.js";
+import { logError } from "./log-utils.js";
 
 export interface Config<T> {
   raw: string;
@@ -35,10 +35,6 @@ export function findConfig(cwd: string, files: string[]): string | null {
       return file;
     }
 
-  }
-
-  if (files[0] !== undefined) {
-    logInfo(`Can't find ${basename(files[0], ".json")} config file. Skipping this configuration.`);
   }
 
   return null;
