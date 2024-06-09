@@ -69,11 +69,14 @@ It modifies these configurations:
 - [Angular ESLint options](https://github.com/angular-eslint/angular-eslint)
   - `@angular-eslint/template/no-any`
 
-> [!NOTE]
-> To keep configuration concise, you may not see all TypeScript and Biome options added, if they are already enabled by an existing preset. All ESLint rules will be added, as ESLint configuration is too complex to detect presets.
-
 > [!IMPORTANT]
 > Some TypeScript ESLint rules require type checking. Please follow the [official documentation](https://typescript-eslint.io/getting-started/typed-linting) to enable that in your project.
+
+> [!IMPORTANT]
+> ESLint configuration files in JavaScript format (`eslint.config.js` and `.eslintrc.js`) is a nightmare for tools authors, because it is far more difficult to manipulate a JavaScript file than a JSON file. For now, in such cases, the command will generate a JSON file. Then, it is up to you to copy the rules from the generated JSON file to your existing JavaScript file.
+
+> [!NOTE]
+> To keep configuration concise, you may not see all TypeScript and Biome options added, if they are already enabled by an existing preset. All ESLint rules will be added, as ESLint configuration is too complex to detect presets.
 
 ## License
 
