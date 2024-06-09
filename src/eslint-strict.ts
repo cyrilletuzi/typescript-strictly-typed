@@ -1,5 +1,5 @@
 import { type JSONPath } from "jsonc-parser";
-import { dependencyExists, findConfig, getConfig, getSource, modifyJSON, saveConfig, type Config } from "./config-utils.js";
+import { dependencyExists, findConfig, getConfig, getSource, isAngularESLint, isTypeCheckedEnabled, modifyJSON, saveConfig, type Config } from "./config-utils.js";
 import { enableESLintFlatStrict } from "./eslint-flat-strict.js";
 import { logInfo, logWarning } from "./log-utils.js";
 
@@ -226,31 +226,5 @@ function addAngularHTMLConfig(config: Config<ESLint>, path: JSONPath): void {
 function normalizeConfigToArray(config?: string | string[]): string[] {
 
   return Array.isArray(config) ? config : (config !== undefined ? [config] : []);
-
-}
-
-function isTypeCheckedEnabled(fileContent: string): boolean {
-
-  if (fileContent.includes("-type-checked")
-    || fileContent.includes("TypeChecked")
-    || fileContent.includes(`"project":`)
-    || fileContent.includes("project:")
-    || fileContent.includes(`"EXPERIMENTAL_useProjectService":`)
-    || fileContent.includes("EXPERIMENTAL_useProjectService:")
-    || fileContent.includes(`"projectService":`)
-    || fileContent.includes("projectService:")
-  ) {
-    return true;
-  }
-
-  logWarning(`Some TypeScript ESLint rules require type checking, which does not seem to be enabled in this project, so they will not be added. Add the required configuration, and run the command again to add the missing rules. See https://typescript-eslint.io/getting-started/typed-linting`);
-
-  return false;
-
-}
-
-function isAngularESLint(cwd: string): boolean {
-
-  return dependencyExists(cwd, "angular-eslint") || dependencyExists(cwd, "@angular-eslint/eslint-plugin-template");
 
 }

@@ -4,7 +4,7 @@ import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { extname, join } from "node:path";
 import { packageUpSync } from "package-up";
 import { coerce, satisfies } from "semver";
-import { logError } from "./log-utils.js";
+import { logError, logWarning } from "./log-utils.js";
 
 export interface Config<T> {
   raw: string;
@@ -228,5 +228,34 @@ export function dependencyExists(cwd: string, name: string): boolean {
   }
 
   return false;
+
+}
+
+export function isTypeCheckedEnabled(fileContent: string): boolean {
+
+  if (fileContent.includes("-type-checked")
+    || fileContent.includes("TypeChecked")
+    || fileContent.includes(`"project":`)
+    || fileContent.includes(`'project':`)
+    || fileContent.includes("project:")
+    || fileContent.includes(`"EXPERIMENTAL_useProjectService":`)
+    || fileContent.includes(`'EXPERIMENTAL_useProjectService':`)
+    || fileContent.includes("EXPERIMENTAL_useProjectService:")
+    || fileContent.includes(`"projectService":`)
+    || fileContent.includes(`'projectService':`)
+    || fileContent.includes("projectService:")
+  ) {
+    return true;
+  }
+
+  logWarning(`Some TypeScript ESLint rules require type checking, which does not seem to be enabled in this project, so they will not be added. Add the required configuration, and run the command again to add the missing rules. See https://typescript-eslint.io/getting-started/typed-linting`);
+
+  return false;
+
+}
+
+export function isAngularESLint(cwd: string): boolean {
+
+  return dependencyExists(cwd, "angular-eslint") || dependencyExists(cwd, "@angular-eslint/eslint-plugin-template");
 
 }

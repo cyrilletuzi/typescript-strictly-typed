@@ -1,7 +1,7 @@
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { IndentationText, ObjectLiteralExpression, Project, QuoteKind, ScriptTarget, StructureKind, SyntaxKind, type ObjectLiteralElementLike } from "ts-morph";
-import { dependencyExists, findConfig, getSource } from "./config-utils.js";
+import { dependencyExists, findConfig, getSource, isAngularESLint, isTypeCheckedEnabled } from "./config-utils.js";
 import { logWarning } from "./log-utils.js";
 
 const eslintRules: Record<string, string> = {
@@ -32,6 +32,15 @@ const eslintRules: Record<string, string> = {
 }]`,
   "@typescript-eslint/use-unknown-in-catch-callback-variable": `"error"`,
 };
+
+const rulesRequiringTypeChecking: string[] = [
+  "@typescript-eslint/prefer-nullish-coalescing",
+  "@typescript-eslint/prefer-optional-chain",
+  "@typescript-eslint/restrict-plus-operands",
+  "@typescript-eslint/restrict-template-expressions",
+  "@typescript-eslint/strict-boolean-expressions",
+  "@typescript-eslint/use-unknown-in-catch-callback-variable",
+];
 
 export function enableESLintFlatStrict(cwd: string): boolean {
 
@@ -106,25 +115,31 @@ export function enableESLintFlatStrict(cwd: string): boolean {
       return false;
     }
 
+    const isTypeChecked = isTypeCheckedEnabled(fileContent);
+
     for (const [ruleName, ruleErrorConfig] of Object.entries(eslintRules)) {
 
-      const ruleProperty = getProperty(rulesObject, ruleName);
+      if (!rulesRequiringTypeChecking.includes(ruleName) || isTypeChecked) {
 
-      if (ruleProperty) {
-        ruleProperty.getLastChild()?.replaceWithText(ruleErrorConfig);
-      } else {
+        const ruleProperty = getProperty(rulesObject, ruleName);
 
-        const name = `${quote}${ruleName}${quote}`;
-        const spacesReplaceValue = "".padStart(spaces);
-        const initializer = ruleErrorConfig
-          .replaceAll('"', quote)
-          .replaceAll(/\s{2}/g, spacesReplaceValue);
+        if (ruleProperty) {
+          ruleProperty.getLastChild()?.replaceWithText(ruleErrorConfig);
+        } else {
 
-        rulesObject.addProperty({
-          kind: StructureKind.PropertyAssignment,
-          name,
-          initializer,
-        });
+          const name = `${quote}${ruleName}${quote}`;
+          const spacesReplaceValue = "".padStart(spaces);
+          const initializer = ruleErrorConfig
+            .replaceAll('"', quote)
+            .replaceAll(/\s{2}/g, spacesReplaceValue);
+
+          rulesObject.addProperty({
+            kind: StructureKind.PropertyAssignment,
+            name,
+            initializer,
+          });
+
+        }
 
       }
 
@@ -194,10 +209,4 @@ function getProperty(objectLiteralExpression: ObjectLiteralExpression, propertyN
   return objectLiteralExpression.getProperty(propertyName) ??
     objectLiteralExpression.getProperty(`"${propertyName}"`) ??
     objectLiteralExpression.getProperty(`'${propertyName}'`);
-}
-
-function isAngularESLint(cwd: string): boolean {
-
-  return dependencyExists(cwd, "angular-eslint") || dependencyExists(cwd, "@angular-eslint/eslint-plugin-template");
-
 }
