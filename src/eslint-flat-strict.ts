@@ -160,7 +160,7 @@ export function enableESLintFlatStrict(cwd: string): boolean {
               .replaceAll('"', quote)
               .replaceAll(/\s{2}/g, spacesReplaceValue);
 
-            rulesObject.addProperty({
+            angularRulesObject.addProperty({
               kind: StructureKind.PropertyAssignment,
               name,
               initializer,
