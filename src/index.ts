@@ -2,7 +2,7 @@ import { enableAngularStrict } from "./angular-strict.js";
 import { enableBiomeStrict } from "./biome-strict.js";
 import { isGitStatusDirty } from "./check-git-status.js";
 import { findConfig } from "./config-utils.js";
-import { enableESLintFlatStrict } from "./eslint-flat-strict.js";
+import { enableESLintStrict } from "./eslint-strict.js";
 import { logError, logSuccess } from "./log-utils.js";
 import { enableTypescriptStrict } from "./typescript-strict.js";
 
@@ -27,11 +27,7 @@ export async function typescriptStrictlyTyped(cwd: string): Promise<void> {
     success.push("TypeScript");
   }
 
-  // if (await enableESLintStrict(cwd)) {
-  //   success.push("ESLint");
-  // }
-
-  if (enableESLintFlatStrict(cwd)) {
+  if (await enableESLintStrict(cwd)) {
     success.push("ESLint");
   }
 

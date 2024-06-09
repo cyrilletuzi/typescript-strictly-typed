@@ -1,5 +1,6 @@
 import { type JSONPath } from "jsonc-parser";
 import { dependencyExists, findConfig, getConfig, getSource, modifyJSON, saveConfig, type Config } from "./config-utils.js";
+import { enableESLintFlatStrict } from "./eslint-flat-strict.js";
 import { logWarning } from "./log-utils.js";
 
 type ESLintErrorLevel = "error" | "warn" | "off";
@@ -53,6 +54,10 @@ interface PackageJSON {
  * @returns A boolean for success or failure
  */
 export async function enableESLintStrict(cwd: string): Promise<boolean> {
+
+  if (enableESLintFlatStrict(cwd)) {
+    return true;
+  }
 
   const possibleConfigFiles = ["eslint.config.js", "eslint.config.mjs", ".eslintrc.js", ".eslintrc.cjs", ".eslintrc.yaml", ".eslintrc.yml", ".eslintrc.json", "package.json"];
   const tsFilesConfig = "*.ts";

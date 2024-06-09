@@ -19,17 +19,17 @@ const eslintRules: Record<string, string> = {
   "@typescript-eslint/prefer-nullish-coalescing": `"error"`,
   "@typescript-eslint/prefer-optional-chain": `"error"`,
   "@typescript-eslint/restrict-plus-operands": `["error", {
-    allowAny: false,
-    allowBoolean: false,
-    allowNullish: false,
-    allowNumberAndString: false,
-    allowRegExp: false,
-  }]`,
+  allowAny: false,
+  allowBoolean: false,
+  allowNullish: false,
+  allowNumberAndString: false,
+  allowRegExp: false,
+}]`,
   "@typescript-eslint/restrict-template-expressions": `"error"`,
   "@typescript-eslint/strict-boolean-expressions": `["error", {
-    allowNumber: false,
-    allowString: false,
-  }]`,
+  allowNumber: false,
+  allowString: false,
+}]`,
   "@typescript-eslint/use-unknown-in-catch-callback-variable": `"error"`,
 };
 
@@ -106,9 +106,10 @@ export function enableESLintFlatStrict(cwd: string): boolean {
       } else {
 
         const name = `${quote}${ruleName}${quote}`;
+        const spacesReplaceValue = "".padStart(spaces);
         const initializer = ruleErrorConfig
           .replaceAll('"', quote)
-          .replaceAll(/s+/, "".padStart(spaces));
+          .replaceAll(/\s{2}/g, spacesReplaceValue);
 
         rulesObject.addProperty({
           kind: StructureKind.PropertyAssignment,
@@ -124,7 +125,8 @@ export function enableESLintFlatStrict(cwd: string): boolean {
 
     return true;
 
-  } catch {
+  } catch (error) {
+    console.log(error);
     logWarning(fallbackErrorMessage);
     return false;
   }
