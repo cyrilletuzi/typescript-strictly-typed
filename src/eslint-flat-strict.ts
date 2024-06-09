@@ -67,9 +67,18 @@ export function enableESLintFlatStrict(cwd: string): boolean {
 
     const source = project.createSourceFile(filePath, fileContent);
 
-    const configObjects = source
-      .getChildAtIndexIfKind(0, SyntaxKind.SyntaxList)
-      ?.getFirstChildByKind(SyntaxKind.ExportAssignment)
+    const exportExpression = (fileContent.includes(`require(`) || /require ?['"]/.exec(fileContent)) ?
+      /* CommonJS */
+      source
+        .getChildAtIndexIfKind(0, SyntaxKind.SyntaxList)
+        ?.getFirstChildByKind(SyntaxKind.ExpressionStatement)
+        ?.getFirstChildByKind(SyntaxKind.BinaryExpression) :
+      /* ESM */
+      source
+        .getChildAtIndexIfKind(0, SyntaxKind.SyntaxList)
+        ?.getFirstChildByKind(SyntaxKind.ExportAssignment);
+
+    const configObjects = exportExpression
       ?.getFirstChildByKind(SyntaxKind.CallExpression)
       ?.getFirstChildByKind(SyntaxKind.SyntaxList)
       ?.getChildrenOfKind(SyntaxKind.ObjectLiteralExpression)
