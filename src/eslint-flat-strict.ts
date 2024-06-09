@@ -1,7 +1,7 @@
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { IndentationText, ObjectLiteralExpression, Project, QuoteKind, ScriptTarget, StructureKind, SyntaxKind, type ObjectLiteralElementLike } from "ts-morph";
-import { findConfig, getSource } from "./config-utils.js";
+import { dependencyExists, findConfig, getSource } from "./config-utils.js";
 import { logWarning } from "./log-utils.js";
 
 const eslintRules: Record<string, string> = {
@@ -130,7 +130,55 @@ export function enableESLintFlatStrict(cwd: string): boolean {
 
     }
 
+    if (isAngularESLint(cwd)) {
+
+      const angularConfigObject = configObjects.find((config) => getProperty(config, "files")?.getLastChildByKind(SyntaxKind.ArrayLiteralExpression)?.getFullText().includes(".html") ?? false);
+
+      if (angularConfigObject) {
+
+        const angularRulesProperty = getProperty(angularConfigObject, "rules") ?? angularConfigObject.addProperty({
+          kind: StructureKind.PropertyAssignment,
+          name: "rules",
+          initializer: "{}",
+        }) as ObjectLiteralElementLike;
+
+        const angularRulesObject = angularRulesProperty.getFirstChildByKind(SyntaxKind.ObjectLiteralExpression);
+
+        if (angularRulesObject) {
+
+          const ruleName = "@angular-eslint/template/no-any";
+          const ruleErrorConfig = `"error"`;
+          const ruleProperty = getProperty(angularRulesObject, ruleName);
+
+          if (ruleProperty) {
+            ruleProperty.getLastChild()?.replaceWithText(ruleErrorConfig);
+          } else {
+
+            const name = `${quote}${ruleName}${quote}`;
+            const spacesReplaceValue = "".padStart(spaces);
+            const initializer = ruleErrorConfig
+              .replaceAll('"', quote)
+              .replaceAll(/\s{2}/g, spacesReplaceValue);
+
+            rulesObject.addProperty({
+              kind: StructureKind.PropertyAssignment,
+              name,
+              initializer,
+            });
+
+          }
+
+        }
+
+      }
+
+    }
+
     writeFileSync(filePath, source.getFullText());
+
+    if (!dependencyExists(cwd, "typescript-eslint") && !dependencyExists(cwd, "@typescript-eslint/eslint-plugin")) {
+      logWarning(`'@typescript-eslint/eslint-plugin' or 'typescript-eslint' dependency must be installed, otherwise rules will not be checked.`);
+    }
 
     return true;
 
@@ -146,4 +194,10 @@ function getProperty(objectLiteralExpression: ObjectLiteralExpression, propertyN
   return objectLiteralExpression.getProperty(propertyName) ??
     objectLiteralExpression.getProperty(`"${propertyName}"`) ??
     objectLiteralExpression.getProperty(`'${propertyName}'`);
+}
+
+function isAngularESLint(cwd: string): boolean {
+
+  return dependencyExists(cwd, "angular-eslint") || dependencyExists(cwd, "@angular-eslint/eslint-plugin-template");
+
 }

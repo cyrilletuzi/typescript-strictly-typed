@@ -96,10 +96,6 @@ export async function enableESLintStrict(cwd: string): Promise<boolean> {
     return false;
   }
 
-  if (!dependencyExists(cwd, "@typescript-eslint/eslint-plugin") && !dependencyExists(cwd, "typescript-eslint")) {
-    logWarning(`'@typescript-eslint/eslint-plugin' or 'typescript-eslint' dependency must be installed, otherwise rules will not be checked.`);
-  }
-
   let tsConfigAdded = false;
 
   /* If there is an override, rules must be set inside it, or they won't be checked */
@@ -128,6 +124,10 @@ export async function enableESLintStrict(cwd: string): Promise<boolean> {
   /* Add rules at root level */
   if (!tsConfigAdded) {
     addTSConfig(config, [], config.json.rules);
+  }
+
+  if (!dependencyExists(cwd, "@typescript-eslint/eslint-plugin") && !dependencyExists(cwd, "typescript-eslint")) {
+    logWarning(`'@typescript-eslint/eslint-plugin' or 'typescript-eslint' dependency must be installed, otherwise rules will not be checked.`);
   }
 
   if (packageJSONConfig) {
