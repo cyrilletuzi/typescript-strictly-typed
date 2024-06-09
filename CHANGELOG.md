@@ -1,5 +1,14 @@
 # Changelog
 
+## 3.15.0 (2023-06-09)
+
+- New ESLint rules:
+  - `@typescript-eslint/no-unsafe-argument`
+  - `@typescript-eslint/no-unsafe-assignment`
+  - `@typescript-eslint/no-unsafe-call`
+  - `@typescript-eslint/no-unsafe-member-access`
+  - `@typescript-eslint/no-unsafe-return`
+
 ## 3.14.0 (2023-06-08)
 
 - Support for Biome. Initial rules:

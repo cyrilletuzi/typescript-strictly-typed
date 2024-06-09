@@ -17,6 +17,11 @@ interface ESLintRules {
   "@typescript-eslint/prefer-optional-chain"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
   "@typescript-eslint/use-unknown-in-catch-callback-variable"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
   "@typescript-eslint/no-non-null-assertion"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
+  "@typescript-eslint/no-unsafe-argument"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?]; // in recommended-type-checked
+  "@typescript-eslint/no-unsafe-assignment"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?]; // in recommended-type-checked
+  "@typescript-eslint/no-unsafe-call"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?]; // in recommended-type-checked
+  "@typescript-eslint/no-unsafe-member-access"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?]; // in recommended-type-checked
+  "@typescript-eslint/no-unsafe-return"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?]; // in recommended-type-checked
   "@typescript-eslint/restrict-plus-operands"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
   "@typescript-eslint/restrict-template-expressions"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
   "@typescript-eslint/strict-boolean-expressions"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
@@ -40,20 +45,7 @@ interface PackageJSON {
 }
 
 /**
- * Enable the following ESLint rules:
- * - `eqeqeq`
- * - `prefer-arrow-callback`
- * - `@typescript-eslint/prefer-for-of`
- * - `prefer-template`
- * - `@typescript-eslint/no-explicit-any`
- * - `@typescript-eslint/explicit-function-return-type`
- * - `@typescript-eslint/prefer-nullish-coalescing`
- * - `@typescript-eslint/prefer-optional-chain`
- * - `@typescript-eslint/use-unknown-in-catch-callback-variable`
- * - `@typescript-eslint/no-non-null-assertion`
- * - `@typescript-eslint/restrict-plus-operands`
- * - `@typescript-eslint/strict-boolean-expressions`
- * - `@typescript-eslint/restrict-template-expressions`
+ * Enable strict ESLint rules
  * {@link https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin}
  *
  * @param cwd Working directory path
@@ -181,6 +173,12 @@ function addTSConfig(config: Config<ESLint>, path: JSONPath, rules?: ESLint["rul
   }
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-non-null-assertion"], "error");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-argument"], "error");
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-assignment"], "error");
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-call"], "error");
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-member-access"], "error");
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-return"], "error");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/prefer-for-of"], "error");
 
