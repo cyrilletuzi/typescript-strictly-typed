@@ -57,7 +57,6 @@ export async function enableESLintStrict(cwd: string): Promise<boolean> {
   const possibleConfigFiles = ["eslint.config.js", ".eslintrc.js", ".eslintrc.cjs", ".eslintrc.yaml", ".eslintrc.yml", ".eslintrc.json", "package.json"];
   const tsFilesConfig = "*.ts";
   const htmlFilesConfig = "*.html";
-  const eslintAngularTemplatePlugin = "@angular-eslint/template";
 
   let config: Config<ESLint> | null = null;
   let packageJSONConfig: Config<PackageJSON> | null = null;
@@ -112,14 +111,9 @@ export async function enableESLintStrict(cwd: string): Promise<boolean> {
 
     }
 
-    if (files.some((fileItem) => fileItem.includes(htmlFilesConfig))) {
+    if (isAngularESLint(cwd) && files.some((fileItem) => fileItem.includes(htmlFilesConfig))) {
 
-      const extendsConfig = normalizeConfigToArray(override.extends);
-
-      if ((override.plugins ?? []).includes(eslintAngularTemplatePlugin)
-        || extendsConfig.some((extendConfig) => extendConfig.includes(eslintAngularTemplatePlugin)))
-
-        addAngularHTMLConfig(config, ["overrides", indexNumber]);
+      addAngularHTMLConfig(config, ["overrides", indexNumber]);
 
     }
 
@@ -246,5 +240,11 @@ function isTypeCheckedEnabled(fileContent: string): boolean {
   logWarning(`Some TypeScript ESLint rules require type checking, which does not seem to be enabled in this project, so they will not be added. Add the required configuration, and run the command again to add the missing rules. See https://typescript-eslint.io/getting-started/typed-linting`);
 
   return false;
+
+}
+
+function isAngularESLint(cwd: string): boolean {
+
+  return dependencyExists(cwd, "angular-eslint") || dependencyExists(cwd, "@angular-eslint/eslint-plugin-template");
 
 }
