@@ -54,7 +54,7 @@ interface PackageJSON {
  */
 export async function enableESLintStrict(cwd: string): Promise<boolean> {
 
-  const possibleConfigFiles = ["eslint.config.js", ".eslintrc.js", ".eslintrc.cjs", ".eslintrc.yaml", ".eslintrc.yml", ".eslintrc.json", "package.json"];
+  const possibleConfigFiles = ["eslint.config.js", "eslint.config.mjs", ".eslintrc.js", ".eslintrc.cjs", ".eslintrc.yaml", ".eslintrc.yml", ".eslintrc.json", "package.json"];
   const tsFilesConfig = "*.ts";
   const htmlFilesConfig = "*.html";
 
@@ -66,7 +66,7 @@ export async function enableESLintStrict(cwd: string): Promise<boolean> {
     return false;
   }
 
-  if (file === "eslint.config.js") {
+  if (file === "eslint.config.js" || file === "eslint.config.mjs") {
 
     config = {
       source: getSource(cwd, file),
@@ -127,8 +127,8 @@ export async function enableESLintStrict(cwd: string): Promise<boolean> {
   if (packageJSONConfig) {
     config.raw = modifyJSON(packageJSONConfig.raw, ["eslintConfig"], config.json);
     return saveConfig(cwd, file, packageJSONConfig);
-  } else if (file === "eslint.config.js") {
-    logWarning(`Your project is using the new eslint.config.js format, and it cannot be overwrited directly, as it could mess up with advanced configuration. So the new strict configuration was saved in eslint.config.json. eslint.config.json is not recognized by ESLint, you need to manually copy the options from eslint.config.json to eslint.config.js. Once done, you can delete eslint.config.json.`);
+  } else if (file === "eslint.config.js" || file === "eslint.config.mjs") {
+    logWarning(`Your project is using the new ${file} format, and it cannot be overwrited directly, as it could mess up with advanced configuration. So the new strict configuration was saved in eslint.config.json. eslint.config.json is not recognized by ESLint, you need to manually copy the options from eslint.config.json to ${file}. Once done, you can delete eslint.config.json.`);
     return saveConfig(cwd, "eslint.config.json", config);
   } else if (file === ".eslintrc.js") {
     logWarning(`Your project is using the advanced .eslintrc.js format, and it cannot be overwrited directly, as it could mess up with advanced configuration. So the new strict configuration was saved in .eslintrc.json. As .eslintrc.js has precedence over .eslintrc.json, you need to manually copy the options from .eslintrc.json to .eslintrc.js. Once done, you can delete .eslintrc.json.`);
