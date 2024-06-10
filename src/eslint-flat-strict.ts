@@ -91,7 +91,7 @@ export function enableESLintFlatStrict(cwd: string): boolean {
 
     if (configObjectsCheck.length === 0) {
       configList?.addChildText((writer) => {
-        writer.conditionalWrite(configList?.getChildAtIndexIfKind(configList.getChildren().length - 1, SyntaxKind.CommaToken) === undefined, ",").newLine().write("{}");
+        writer.conditionalWrite(configList.getChildAtIndexIfKind(configList.getChildren().length - 1, SyntaxKind.CommaToken) === undefined, ",").newLine().write("{}");
       });
     }
 
