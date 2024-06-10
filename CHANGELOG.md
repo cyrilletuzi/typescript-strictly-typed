@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.18.0 (2023-06-10)
+
+- Configure TypeScript ESLint type checking automatically
+
 ## 3.17.0 (2023-06-09)
 
 - New ESLint rules:

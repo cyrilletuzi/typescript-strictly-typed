@@ -1,5 +1,5 @@
 import { type JSONPath } from "jsonc-parser";
-import { dependencyExists, findConfig, getConfig, getSource, isAngularESLint, isTypeCheckedEnabled, modifyJSON, saveConfig, type Config } from "./config-utils.js";
+import { dependencyExists, findConfig, getConfig, getSource, isAngularESLint, modifyJSON, saveConfig, type Config } from "./config-utils.js";
 import { enableESLintFlatStrict } from "./eslint-flat-strict.js";
 import { logInfo, logWarning } from "./log-utils.js";
 
@@ -30,6 +30,9 @@ interface ESLintRules {
 }
 
 interface ESLint {
+  parserOptions?: {
+    project?: boolean | string | string[];
+  };
   rules?: ESLintRules;
   plugins?: string[];
   extends?: string | string[];
@@ -150,7 +153,9 @@ export async function enableESLintStrict(cwd: string): Promise<boolean> {
 
 function addTSConfig(config: Config<ESLint>, path: JSONPath, rules?: ESLint["rules"]): void {
 
-  const typeCheckedEnabled = isTypeCheckedEnabled(config.source ?? config.raw);
+  if (config.json.parserOptions?.project === undefined) {
+    config.raw = modifyJSON(config.raw, [...path, "parserOptions", "project"], true);
+  }
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "eqeqeq"], "error");
 
@@ -182,38 +187,26 @@ function addTSConfig(config: Config<ESLint>, path: JSONPath, rules?: ESLint["rul
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/prefer-for-of"], "error");
 
-  if (typeCheckedEnabled) {
-    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/prefer-nullish-coalescing"], "error");
-  }
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/prefer-nullish-coalescing"], "error");
 
-  if (typeCheckedEnabled) {
-    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/prefer-optional-chain"], "error");
-  }
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/prefer-optional-chain"], "error");
 
-  if (typeCheckedEnabled) {
-    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/restrict-plus-operands"], ["error", {
-      allowAny: false,
-      allowBoolean: false,
-      allowNullish: false,
-      allowNumberAndString: false,
-      allowRegExp: false,
-    }]);
-  }
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/restrict-plus-operands"], ["error", {
+    allowAny: false,
+    allowBoolean: false,
+    allowNullish: false,
+    allowNumberAndString: false,
+    allowRegExp: false,
+  }]);
 
-  if (typeCheckedEnabled) {
-    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/restrict-template-expressions"], "error");
-  }
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/restrict-template-expressions"], "error");
 
-  if (typeCheckedEnabled) {
-    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/strict-boolean-expressions"], ["error", {
-      allowNumber: false,
-      allowString: false
-    }]);
-  }
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/strict-boolean-expressions"], ["error", {
+    allowNumber: false,
+    allowString: false
+  }]);
 
-  if (typeCheckedEnabled) {
-    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/use-unknown-in-catch-callback-variable"], "error");
-  }
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/use-unknown-in-catch-callback-variable"], "error");
 
 }
 

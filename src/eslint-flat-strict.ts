@@ -1,7 +1,7 @@
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { IndentationText, ObjectLiteralExpression, Project, QuoteKind, ScriptTarget, StructureKind, SyntaxKind, type ObjectLiteralElementLike } from "ts-morph";
-import { dependencyExists, findConfig, getSource, isAngularESLint, isTypeCheckedEnabled } from "./config-utils.js";
+import { checkDependencyVersion, dependencyExists, findConfig, getSource, isAngularESLint } from "./config-utils.js";
 import { logWarning } from "./log-utils.js";
 
 const eslintRules: Record<string, string> = {
@@ -33,15 +33,6 @@ const eslintRules: Record<string, string> = {
 }]`,
   "@typescript-eslint/use-unknown-in-catch-callback-variable": `"error"`,
 };
-
-const rulesRequiringTypeChecking: string[] = [
-  "@typescript-eslint/prefer-nullish-coalescing",
-  "@typescript-eslint/prefer-optional-chain",
-  "@typescript-eslint/restrict-plus-operands",
-  "@typescript-eslint/restrict-template-expressions",
-  "@typescript-eslint/strict-boolean-expressions",
-  "@typescript-eslint/use-unknown-in-catch-callback-variable",
-];
 
 export function enableESLintFlatStrict(cwd: string): boolean {
 
@@ -77,7 +68,9 @@ export function enableESLintFlatStrict(cwd: string): boolean {
 
     const source = project.createSourceFile(filePath, fileContent);
 
-    const exportExpression = (fileContent.includes(`require(`) || /require ?['"]/.exec(fileContent)) ?
+    const isCommonJS: boolean = (fileContent.includes(`require(`) || /require ?['"]/.exec(fileContent) !== null);
+
+    const exportExpression = isCommonJS ?
       /* CommonJS */
       source
         .getChildAtIndexIfKind(0, SyntaxKind.SyntaxList)
@@ -116,31 +109,80 @@ export function enableESLintFlatStrict(cwd: string): boolean {
       return false;
     }
 
-    const isTypeChecked = isTypeCheckedEnabled(fileContent);
+    const languageOptionsProperty = getProperty(configObject, "languageOptions") ?? configObject.addProperty({
+      kind: StructureKind.PropertyAssignment,
+      name: "languageOptions",
+      initializer: "{}",
+    }) as ObjectLiteralElementLike;
+
+    const languageOptionsObject = languageOptionsProperty.getFirstChildByKind(SyntaxKind.ObjectLiteralExpression);
+
+    if (languageOptionsObject) {
+
+      const parserOptionsProperty = getProperty(languageOptionsObject, "parserOptions") ?? languageOptionsObject.addProperty({
+        kind: StructureKind.PropertyAssignment,
+        name: "parserOptions",
+        initializer: "{}",
+      }) as ObjectLiteralElementLike;
+
+      const parserOptionsObject = parserOptionsProperty.getFirstChildByKind(SyntaxKind.ObjectLiteralExpression);
+
+      if (parserOptionsObject) {
+
+        const projectProperty = getProperty(parserOptionsObject, "projectService")
+          ?? getProperty(parserOptionsObject, "project")
+          ?? getProperty(parserOptionsObject, "EXPERIMENTAL_useProjectService");
+
+        if (projectProperty === undefined) {
+
+          const name = checkDependencyVersion(cwd, "typescript-eslint", ">=8.0.0") ?
+            "projectService" : "project";
+
+          parserOptionsObject.addProperty({
+            kind: StructureKind.PropertyAssignment,
+            name,
+            initializer: "true",
+          });
+
+          const tsconfigProperty = getProperty(languageOptionsObject, "tsconfigRootDir");
+
+          if (tsconfigProperty === undefined) {
+
+            const initializer = isCommonJS ? "__dirname" : "import.meta.dirname";
+
+            parserOptionsObject.addProperty({
+              kind: StructureKind.PropertyAssignment,
+              name: "tsconfigRootDir",
+              initializer,
+            });
+
+          }
+
+        }
+
+      }
+
+    }
 
     for (const [ruleName, ruleErrorConfig] of Object.entries(eslintRules)) {
 
-      if (!rulesRequiringTypeChecking.includes(ruleName) || isTypeChecked) {
+      const ruleProperty = getProperty(rulesObject, ruleName);
 
-        const ruleProperty = getProperty(rulesObject, ruleName);
+      if (ruleProperty) {
+        ruleProperty.getLastChild()?.replaceWithText(ruleErrorConfig);
+      } else {
 
-        if (ruleProperty) {
-          ruleProperty.getLastChild()?.replaceWithText(ruleErrorConfig);
-        } else {
+        const name = `${quote}${ruleName}${quote}`;
+        const spacesReplaceValue = "".padStart(spaces);
+        const initializer = ruleErrorConfig
+          .replaceAll('"', quote)
+          .replaceAll(/\s{2}/g, spacesReplaceValue);
 
-          const name = `${quote}${ruleName}${quote}`;
-          const spacesReplaceValue = "".padStart(spaces);
-          const initializer = ruleErrorConfig
-            .replaceAll('"', quote)
-            .replaceAll(/\s{2}/g, spacesReplaceValue);
-
-          rulesObject.addProperty({
-            kind: StructureKind.PropertyAssignment,
-            name,
-            initializer,
-          });
-
-        }
+        rulesObject.addProperty({
+          kind: StructureKind.PropertyAssignment,
+          name,
+          initializer,
+        });
 
       }
 
