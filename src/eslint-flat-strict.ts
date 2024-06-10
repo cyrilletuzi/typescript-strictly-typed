@@ -81,9 +81,21 @@ export function enableESLintFlatStrict(cwd: string): boolean {
         .getChildAtIndexIfKind(0, SyntaxKind.SyntaxList)
         ?.getFirstChildByKind(SyntaxKind.ExportAssignment);
 
-    const configObjects = exportExpression
+    const configList = exportExpression
       ?.getFirstChildByKind(SyntaxKind.CallExpression)
-      ?.getFirstChildByKind(SyntaxKind.SyntaxList)
+      ?.getFirstChildByKind(SyntaxKind.SyntaxList);
+
+    const configObjectsCheck = configList
+      ?.getChildrenOfKind(SyntaxKind.ObjectLiteralExpression)
+      ?? [];
+
+    if (configObjectsCheck.length === 0) {
+      configList?.addChildText((writer) => {
+        writer.conditionalWrite(configList?.getChildAtIndexIfKind(configList.getChildren().length - 1, SyntaxKind.CommaToken) === undefined, ",").newLine().write("{}");
+      });
+    }
+
+    const configObjects = configList
       ?.getChildrenOfKind(SyntaxKind.ObjectLiteralExpression)
       ?? [];
 
