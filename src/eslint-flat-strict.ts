@@ -253,7 +253,6 @@ export function enableESLintFlatStrict(cwd: string): boolean {
     return true;
 
   } catch (error) {
-    console.log(error);
     logWarning(fallbackErrorMessage);
     return false;
   }
