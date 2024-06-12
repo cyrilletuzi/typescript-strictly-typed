@@ -2,7 +2,7 @@
 
 Configure TypeScript, ESLint or Biome, and optionally Angular to ensure fully typed code. Because `strict` mode is not enough.
 
-A [blog post](https://medium.com/@cyrilletuzi/typescript-strictly-typed-strict-mode-is-not-enough-40df698e2deb?source=friends_link&sk=00f968af095e7615f7220314df280a1b) explains the motivation of this lib.
+A [posts series](https://dev.to/cyrilletuzi/typescript-strictly-typed-5fln) explains the motivation of this lib.
 
 > [!TIP]
 > I am also the author of the [Angular Schematics extension for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=cyrilletuzi.angular-schematics), installed 1 million times. Feel free to give it a try.
