@@ -1,6 +1,6 @@
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { IndentationText, ObjectLiteralExpression, Project, QuoteKind, ScriptTarget, StructureKind, SyntaxKind, type ObjectLiteralElementLike } from "ts-morph";
+import { IndentationText, Project, QuoteKind, ScriptTarget, StructureKind, SyntaxKind, type ObjectLiteralElementLike, type ObjectLiteralExpression } from "ts-morph";
 import { checkDependencyVersion, dependencyExists, findConfig, getSource, isAngularESLint } from "./config-utils.js";
 import { logWarning } from "./log-utils.js";
 
@@ -68,7 +68,7 @@ export function enableESLintFlatStrict(cwd: string): boolean {
 
     const source = project.createSourceFile(filePath, fileContent);
 
-    const isCommonJS: boolean = (fileContent.includes(`require(`) || /require ?['"]/.exec(fileContent) !== null);
+    const isCommonJS: boolean = (fileContent.includes("require(") || /require ?['"]/.exec(fileContent) !== null);
 
     const exportExpression = isCommonJS ?
       /* CommonJS */

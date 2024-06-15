@@ -17,7 +17,7 @@
   },
   "scripts": {
     "build": "rimraf dist && tsc && copyfiles package.json LICENSE bin/cli.js dist && copyfiles -f src/README.md dist",
-    "lint": "eslint src/",
+    "lint": "eslint src/ && npx @biomejs/biome lint src",
     "test": "echo \"Error: no test specified\" && exit 1",
     "release:major": "VERSION=major npm run release",
     "release:minor": "VERSION=minor npm run release",
@@ -43,6 +43,7 @@
     "ts-morph": "^22.0.0"
   },
   "devDependencies": {
+    "@biomejs/biome": "^1.8.1",
     "@types/js-yaml": "^4.0.9",
     "@types/node": "^18.19.34",
     "@types/semver": "^7.5.8",

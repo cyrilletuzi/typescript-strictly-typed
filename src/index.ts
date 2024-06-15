@@ -39,7 +39,7 @@ export async function typescriptStrictlyTyped(cwd: string): Promise<void> {
   }
 
   if (success.length === 0) {
-    logError(`Configuration failed. Please fix the issues and run the command again.\n`);
+    logError("Configuration failed. Please fix the issues and run the command again.\n");
   } else {
     logSuccess(`Configuration finished. It succeeded for: ${success.join(", ")}.\n`);
   }

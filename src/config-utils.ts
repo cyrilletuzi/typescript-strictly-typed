@@ -221,7 +221,9 @@ export function dependencyExists(cwd: string, name: string): boolean {
 
     if (packageJsonConfig?.dependencies && (name in packageJsonConfig.dependencies)) {
       return true;
-    } else if (packageJsonConfig?.devDependencies && (name in packageJsonConfig.devDependencies)) {
+    }
+    
+    if (packageJsonConfig?.devDependencies && (name in packageJsonConfig.devDependencies)) {
       return true;
     }
 

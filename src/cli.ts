@@ -4,5 +4,5 @@ import { logError } from "./log-utils.js";
 
 /* Get the path where the command is invoked */
 typescriptStrictlyTyped(cwd()).catch(() => {
-  logError(`Unknown error.\n`);
+  logError("Unknown error.\n");
 });

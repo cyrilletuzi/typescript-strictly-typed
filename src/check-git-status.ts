@@ -26,7 +26,7 @@ export function isGitStatusDirty(cwd: string): boolean | undefined {
       return false;
     }
 
-    logError(`The git repository is not clean. Please commit or stash any changes before using this command.`);
+    logError("The git repository is not clean. Please commit or stash any changes before using this command.");
     return true;
 
   } catch {

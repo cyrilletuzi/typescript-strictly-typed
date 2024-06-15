@@ -1,4 +1,4 @@
-import { type JSONPath } from "jsonc-parser";
+import type { JSONPath } from "jsonc-parser";
 import { dependencyExists, findConfig, getConfig, getSource, isAngularESLint, modifyJSON, saveConfig, type Config } from "./config-utils.js";
 import { enableESLintFlatStrict } from "./eslint-flat-strict.js";
 import { logInfo, logWarning } from "./log-utils.js";
@@ -136,18 +136,24 @@ export async function enableESLintStrict(cwd: string): Promise<boolean> {
   if (packageJSONConfig) {
     config.raw = modifyJSON(packageJSONConfig.raw, ["eslintConfig"], config.json);
     return saveConfig(cwd, file, packageJSONConfig);
-  } else if (file === "eslint.config.js" || file === "eslint.config.mjs") {
+  }
+  
+  if (file === "eslint.config.js" || file === "eslint.config.mjs") {
     logWarning(`Your project is using the new ${file} format, and it cannot be overwrited directly, as it could mess up with advanced configuration. So the new strict configuration was saved in eslint.config.json. eslint.config.json is not recognized by ESLint, you need to manually copy the options from eslint.config.json to ${file}. Once done, you can delete eslint.config.json.`);
     return saveConfig(cwd, "eslint.config.json", config);
-  } else if (file === ".eslintrc.js") {
-    logWarning(`Your project is using the advanced .eslintrc.js format, and it cannot be overwrited directly, as it could mess up with advanced configuration. So the new strict configuration was saved in .eslintrc.json. As .eslintrc.js has precedence over .eslintrc.json, you need to manually copy the options from .eslintrc.json to .eslintrc.js. Once done, you can delete .eslintrc.json.`);
-    return saveConfig(cwd, ".eslintrc.json", config);
-  } else if (file === ".eslintrc.cjs") {
-    logWarning(`Your project is using the advanced .eslintrc.cjs format, and it cannot be overwrited directly, as it could mess up with advanced configuration. So the new strict configuration was saved in .eslintrc.json. As .eslintrc.cjs has precedence over .eslintrc.json, you need to manually copy the options from .eslintrc.json to .eslintrc.cjs. Once done, you can delete .eslintrc.json.`);
-    return saveConfig(cwd, ".eslintrc.json", config);
-  } else {
-    return saveConfig(cwd, file, config);
   }
+  
+  if (file === ".eslintrc.js") {
+    logWarning("Your project is using the advanced .eslintrc.js format, and it cannot be overwrited directly, as it could mess up with advanced configuration. So the new strict configuration was saved in .eslintrc.json. As .eslintrc.js has precedence over .eslintrc.json, you need to manually copy the options from .eslintrc.json to .eslintrc.js. Once done, you can delete .eslintrc.json.");
+    return saveConfig(cwd, ".eslintrc.json", config);
+  }
+  
+  if (file === ".eslintrc.cjs") {
+    logWarning("Your project is using the advanced .eslintrc.cjs format, and it cannot be overwrited directly, as it could mess up with advanced configuration. So the new strict configuration was saved in .eslintrc.json. As .eslintrc.cjs has precedence over .eslintrc.json, you need to manually copy the options from .eslintrc.json to .eslintrc.cjs. Once done, you can delete .eslintrc.json.");
+    return saveConfig(cwd, ".eslintrc.json", config);
+  }
+  
+  return saveConfig(cwd, file, config);
 
 }
 
