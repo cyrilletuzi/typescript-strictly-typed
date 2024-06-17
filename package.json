@@ -49,7 +49,7 @@
     "@types/semver": "^7.5.8",
     "better-typescript-lib": "^2.7.0",
     "copyfiles": "^2.4.1",
-    "eslint": "^9.4.0",
+    "eslint": "^9.5.0",
     "rimraf": "^5.0.7",
     "typescript": "^5.4.5",
     "typescript-eslint": "^8.0.0-alpha.24"
