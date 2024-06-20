@@ -1,6 +1,7 @@
 import { enableAngularStrict } from "./angular-strict.js";
 import { enableBiomeStrict } from "./biome-strict.js";
 import { isGitStatusDirty } from "./check-git-status.js";
+import { enableDenoStrict } from "./deno-strict.js";
 import { enableESLintStrict } from "./eslint-strict.js";
 import { logError, logSuccess } from "./log-utils.js";
 import { enableTypescriptStrict } from "./typescript-strict.js";
@@ -32,6 +33,10 @@ export async function typescriptStrictlyTyped(cwd: string): Promise<void> {
 
   if (await enableBiomeStrict(cwd)) {
     success.push("Biome");
+  }
+
+  if (await enableDenoStrict(cwd)) {
+    success.push("Deno");
   }
 
   if (await enableAngularStrict(cwd)) {

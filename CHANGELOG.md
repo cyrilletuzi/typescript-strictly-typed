@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.19.0 (2023-06-20)
+
+- Add support for Deno configuration
+
 ## 3.18.0 (2023-06-10)
 
 - Configure TypeScript ESLint type checking automatically
