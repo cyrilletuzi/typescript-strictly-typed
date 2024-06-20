@@ -20,26 +20,28 @@ interface DenoJSON {
     useUnknownInCatchVariables?: boolean;
   };
   lint?: {
-    tags?: ("recommended")[];
-    include?: (
-      "eqeqeq" |
-      "explicit-function-return-type" |
-      "no-explicit-any" | // in recommended
-      "no-non-null-assertion"
-      /**
-       * Missing:
-       * - prefer-arrow-callback
-       * - prefer-template
-       * - no-unsafe-xxx
-       * - prefer-for-of
-       * - prefer-nullish-coalescing
-       * - prefer-optional-chain
-       * - restrict-plus-operands
-       * - restrict-template-expressions
-       * - strict-boolean-expressions
-       * - use-unknown-in-catch-callback-variable
-       */
-    )[];
+    rules?: {
+      tags?: ("recommended")[];
+      include?: (
+        "eqeqeq" |
+        "explicit-function-return-type" |
+        "no-explicit-any" | // in recommended
+        "no-non-null-assertion"
+        /**
+         * Missing:
+         * - prefer-arrow-callback
+         * - prefer-template
+         * - no-unsafe-xxx
+         * - prefer-for-of
+         * - prefer-nullish-coalescing
+         * - prefer-optional-chain
+         * - restrict-plus-operands
+         * - restrict-template-expressions
+         * - strict-boolean-expressions
+         * - use-unknown-in-catch-callback-variable
+         */
+      )[];
+    };
   };
 }
 
@@ -106,21 +108,21 @@ export async function enableDenoStrict(cwd: string): Promise<boolean> {
   config.raw = modifyJSON(config.raw, ["compilerOptions", "useUnknownInCatchVariables"], true);
 
   /* Add recommended lint preset */
-  if (!(config.json.lint?.tags?.includes("recommended") ?? false)) {
-    config.raw = modifyJSON(config.raw, ["lint", "tags"], "recommended", { isArrayInsertion: true });
+  if (!(config.json.lint?.rules?.tags?.includes("recommended") ?? false)) {
+    config.raw = modifyJSON(config.raw, ["lint", "rules", "tags"], "recommended", { isArrayInsertion: true });
   }
 
   /* Add lint rules */
-  if (!(config.json.lint?.include?.includes("eqeqeq") ?? false)) {
-    config.raw = modifyJSON(config.raw, ["lint", "include"], "eqeqeq", { isArrayInsertion: true });
+  if (!(config.json.lint?.rules?.include?.includes("eqeqeq") ?? false)) {
+    config.raw = modifyJSON(config.raw, ["lint", "rules", "include"], "eqeqeq", { isArrayInsertion: true });
   }
   
-  if (!(config.json.lint?.include?.includes("explicit-function-return-type") ?? false)) {
-    config.raw = modifyJSON(config.raw, ["lint", "include"], "explicit-function-return-type", { isArrayInsertion: true });
+  if (!(config.json.lint?.rules?.include?.includes("explicit-function-return-type") ?? false)) {
+    config.raw = modifyJSON(config.raw, ["lint", "rules", "include"], "explicit-function-return-type", { isArrayInsertion: true });
   }
 
-  if (!(config.json.lint?.include?.includes("no-non-null-assertion") ?? false)) {
-    config.raw = modifyJSON(config.raw, ["lint", "include"], "no-non-null-assertion", { isArrayInsertion: true });
+  if (!(config.json.lint?.rules?.include?.includes("no-non-null-assertion") ?? false)) {
+    config.raw = modifyJSON(config.raw, ["lint", "rules", "include"], "no-non-null-assertion", { isArrayInsertion: true });
   }
 
   return saveConfig(cwd, file, config);
