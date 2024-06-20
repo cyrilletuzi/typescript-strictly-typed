@@ -16,20 +16,13 @@ interface TSConfig {
     noImplicitReturns?: boolean;
     noUncheckedIndexedAccess?: boolean;
     noPropertyAccessFromIndexSignature?: boolean;
-    forceConsistentCasingInFileNames?: boolean;
     noImplicitOverride?: boolean;
     exactOptionalPropertyTypes?: boolean;
   };
 }
 
 /**
- * Enable the following TypeScript compiler options:
- * - `strict`
- * - `noFallthroughCasesInSwitch`
- * - `noImplicitReturns`
- * - `forceConsistentCasingInFileNames`
- * - `noImplicitOverride`
- * - `exactOptionalPropertyTypes`
+ * Enable strict TypeScript compiler options
  * {@link https://www.typescriptlang.org/docs/handbook/compiler-options.html}
  *
  * @param cwd Working directory path

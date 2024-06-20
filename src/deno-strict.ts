@@ -16,6 +16,7 @@ interface DenoJSON {
     noFallthroughCasesInSwitch?: boolean;
     noImplicitOverride?: boolean;
     noImplicitReturns?: boolean;
+    noPropertyAccessFromIndexSignature?: boolean;
     noUncheckedIndexedAccess?: boolean;
     useUnknownInCatchVariables?: boolean;
   };
@@ -104,6 +105,7 @@ export async function enableDenoStrict(cwd: string): Promise<boolean> {
   config.raw = modifyJSON(config.raw, ["compilerOptions", "noFallthroughCasesInSwitch"], true);
   config.raw = modifyJSON(config.raw, ["compilerOptions", "noImplicitOverride"], true);
   config.raw = modifyJSON(config.raw, ["compilerOptions", "noImplicitReturns"], true);
+  config.raw = modifyJSON(config.raw, ["compilerOptions", "noPropertyAccessFromIndexSignature"], true);
   config.raw = modifyJSON(config.raw, ["compilerOptions", "noUncheckedIndexedAccess"], true);
   config.raw = modifyJSON(config.raw, ["compilerOptions", "useUnknownInCatchVariables"], true);
 
