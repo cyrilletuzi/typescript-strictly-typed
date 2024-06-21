@@ -29,15 +29,18 @@ interface ESLintRules {
   "@angular-eslint/template/no-any"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
 }
 
+interface ESLintParserOptions {
+  project?: boolean | string | string[];
+}
+
 interface ESLint {
-  parserOptions?: {
-    project?: boolean | string | string[];
-  };
+  parserOptions?: ESLintParserOptions;
   rules?: ESLintRules;
   plugins?: string[];
   extends?: string | string[];
   overrides?: {
     files?: string | string[];
+    parserOptions?: ESLintParserOptions;
     plugins?: string[];
     extends?: string | string[];
     rules?: ESLintRules;
@@ -110,6 +113,10 @@ export async function enableESLintStrict(cwd: string): Promise<boolean> {
 
     if (files.some((fileItem) => fileItem.includes(tsFilesConfig))) {
 
+      if (config.json.overrides?.[indexNumber]?.parserOptions?.project === undefined) {
+        config.raw = modifyJSON(config.raw, ["overrides", indexNumber, "parserOptions", "project"], true);
+      }
+
       addTSConfig(config, ["overrides", indexNumber], config.json.overrides?.[indexNumber]?.rules);
 
       tsConfigAdded = true;
@@ -126,6 +133,11 @@ export async function enableESLintStrict(cwd: string): Promise<boolean> {
 
   /* Add rules at root level */
   if (!tsConfigAdded) {
+    
+    if (config.json.parserOptions?.project === undefined) {
+      config.raw = modifyJSON(config.raw, ["parserOptions", "project"], true);
+    }
+
     addTSConfig(config, [], config.json.rules);
   }
 
@@ -158,10 +170,6 @@ export async function enableESLintStrict(cwd: string): Promise<boolean> {
 }
 
 function addTSConfig(config: Config<ESLint>, path: JSONPath, rules?: ESLint["rules"]): void {
-
-  if (config.json.parserOptions?.project === undefined) {
-    config.raw = modifyJSON(config.raw, [...path, "parserOptions", "project"], true);
-  }
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "eqeqeq"], "error");
 
