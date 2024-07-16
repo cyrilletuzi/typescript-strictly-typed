@@ -113,7 +113,7 @@ export async function enableBiomeStrict(cwd: string): Promise<boolean> {
     return false;
   }
 
-  for (const [ruleName, ruleInfo] of Object.entries(rulesInfo)) {
+  for (const [ruleName, ruleInfo] of Object.entries(rulesInfo as Record<string, BiomeRuleInfo>)) {
 
     if (checkDependencyVersion(cwd, biomePackageName, `>=${ruleInfo.version}`)) {
 
