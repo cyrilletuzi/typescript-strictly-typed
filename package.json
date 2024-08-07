@@ -45,13 +45,13 @@
   "devDependencies": {
     "@biomejs/biome": "^1.8.3",
     "@types/js-yaml": "^4.0.9",
-    "@types/node": "^18.19.42",
+    "@types/node": "^18.19.43",
     "@types/semver": "^7.5.8",
     "better-typescript-lib": "^2.8.0",
     "copyfiles": "^2.4.1",
     "eslint": "^9.8.0",
     "rimraf": "^6.0.1",
     "typescript": "~5.5.2",
-    "typescript-eslint": "^8.0.0"
+    "typescript-eslint": "^8.0.1"
   }
 }
