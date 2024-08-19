@@ -45,7 +45,7 @@
   "devDependencies": {
     "@biomejs/biome": "^1.8.3",
     "@types/js-yaml": "^4.0.9",
-    "@types/node": "^18.19.44",
+    "@types/node": "^18.19.45",
     "@types/semver": "^7.5.8",
     "better-typescript-lib": "^2.8.0",
     "copyfiles": "^2.4.1",
