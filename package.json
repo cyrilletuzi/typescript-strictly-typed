@@ -43,15 +43,15 @@
     "ts-morph": "^23.0.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.9.1",
+    "@biomejs/biome": "^1.9.2",
     "@types/js-yaml": "^4.0.9",
-    "@types/node": "^18.19.50",
+    "@types/node": "^18.19.51",
     "@types/semver": "^7.5.8",
-    "better-typescript-lib": "^2.8.0",
+    "better-typescript-lib": "^2.9.0",
     "copyfiles": "^2.4.1",
-    "eslint": "^9.10.0",
+    "eslint": "^9.11.1",
     "rimraf": "^6.0.1",
     "typescript": "~5.6.2",
-    "typescript-eslint": "^8.6.0"
+    "typescript-eslint": "^8.7.0"
   }
 }
