@@ -22,7 +22,7 @@
     "release:major": "VERSION=major npm run release",
     "release:minor": "VERSION=minor npm run release",
     "release:patch": "VERSION=patch npm run release",
-    "release": "if test $VERSION; then npm run build && npm version $VERSION && npm run build && npm publish ./dist && git push; fi"
+    "release": "if test $VERSION; then deno run build && npm version $VERSION && deno run build && npm publish ./dist && git push; fi"
   },
   "repository": {
     "type": "git",
