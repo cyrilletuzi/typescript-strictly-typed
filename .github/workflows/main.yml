@@ -10,16 +10,14 @@ jobs:
     timeout-minutes: 1
     steps:
     - uses: actions/checkout@v3
-    - name: Setup Node
-      uses: actions/setup-node@v3
+    - name: Setup Deno
+      uses: denoland/setup-deno@v2
       with:
-        node-version: 18
+        deno-version: v2.x
     - name: Install dependencies
-      run: npm ci
-      env:
-        CI: true
+      run: deno install
     - name: Lint check
-      run: npm run lint
+      run: deno run lint
 
   build:
     name: Build check
@@ -27,14 +25,11 @@ jobs:
     timeout-minutes: 1
     steps:
     - uses: actions/checkout@v3
-    - name: Setup Node
-      uses: actions/setup-node@v3
+    - name: Setup Deno
+      uses: denoland/setup-deno@v2
       with:
-        node-version: 18
+        deno-version: v2.x
     - name: Install dependencies
-      run: npm ci
-      env:
-        CI: true
+      run: deno install
     - name: Build check
-      run: npm run build
-
+      run: deno run build
