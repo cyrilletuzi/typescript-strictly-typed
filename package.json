@@ -12,16 +12,16 @@
   },
   "type": "module",
   "engines": {
-    "node": ">=18.12.0",
+    "node": ">=20.9.0",
     "npm": ">=8.19.2"
   },
   "scripts": {
     "build": "rimraf dist && tsc && copyfiles package.json LICENSE bin/cli.js dist && copyfiles -f src/README.md dist",
     "lint": "eslint src/ && npx @biomejs/biome lint src",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "release:major": "VERSION=major npm run release",
-    "release:minor": "VERSION=minor npm run release",
-    "release:patch": "VERSION=patch npm run release",
+    "release:major": "VERSION=major deno run release",
+    "release:minor": "VERSION=minor deno run release",
+    "release:patch": "VERSION=patch deno run release",
     "release": "if test $VERSION; then deno run build && npm version $VERSION && deno run build && npm publish ./dist && git push; fi"
   },
   "repository": {
