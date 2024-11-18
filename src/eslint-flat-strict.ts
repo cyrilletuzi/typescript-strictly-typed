@@ -1,6 +1,6 @@
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { IndentationText, Project, QuoteKind, ScriptTarget, StructureKind, SyntaxKind, type ObjectLiteralElementLike, type ObjectLiteralExpression } from "ts-morph";
+import { IndentationText, type ObjectLiteralElementLike, type ObjectLiteralExpression, Project, QuoteKind, ScriptTarget, StructureKind, SyntaxKind } from "ts-morph";
 import { checkDependencyVersion, dependencyExists, findConfig, getSource, isAngularESLint } from "./config-utils.js";
 import { logWarning } from "./log-utils.js";
 
@@ -112,7 +112,7 @@ export function enableESLintFlatStrict(cwd: string): boolean {
       kind: StructureKind.PropertyAssignment,
       name: "rules",
       initializer: "{}",
-    }) as ObjectLiteralElementLike;
+    });
 
     const rulesObject = rulesProperty.getFirstChildByKind(SyntaxKind.ObjectLiteralExpression);
 
@@ -125,7 +125,7 @@ export function enableESLintFlatStrict(cwd: string): boolean {
       kind: StructureKind.PropertyAssignment,
       name: "languageOptions",
       initializer: "{}",
-    }) as ObjectLiteralElementLike;
+    });
 
     const languageOptionsObject = languageOptionsProperty.getFirstChildByKind(SyntaxKind.ObjectLiteralExpression);
 
@@ -135,7 +135,7 @@ export function enableESLintFlatStrict(cwd: string): boolean {
         kind: StructureKind.PropertyAssignment,
         name: "parserOptions",
         initializer: "{}",
-      }) as ObjectLiteralElementLike;
+      });
 
       const parserOptionsObject = parserOptionsProperty.getFirstChildByKind(SyntaxKind.ObjectLiteralExpression);
 
@@ -210,7 +210,7 @@ export function enableESLintFlatStrict(cwd: string): boolean {
           kind: StructureKind.PropertyAssignment,
           name: "rules",
           initializer: "{}",
-        }) as ObjectLiteralElementLike;
+        });
 
         const angularRulesObject = angularRulesProperty.getFirstChildByKind(SyntaxKind.ObjectLiteralExpression);
 

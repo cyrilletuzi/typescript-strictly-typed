@@ -1,5 +1,5 @@
 import { dump, load } from "js-yaml";
-import { applyEdits, modify, parse, type JSONPath, type ModificationOptions } from "jsonc-parser";
+import { type JSONPath, type ModificationOptions, applyEdits, modify, parse } from "jsonc-parser";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { extname, join } from "node:path";
 import { packageUpSync } from "package-up";
@@ -76,12 +76,14 @@ export async function getConfig<T>(cwd: string, file: string): Promise<Config<T>
       case ".jsonc": {
         config = {
           raw,
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
           json: parse(raw) as T,
         };
         break;
       }
       case ".yaml":
       case ".yml": {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
         const json = load(raw) as T;
         config = {
           raw: JSON.stringify(json) ?? "",
@@ -91,6 +93,7 @@ export async function getConfig<T>(cwd: string, file: string): Promise<Config<T>
       }
       case ".js":
       case ".cjs": {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
         const moduleImport = await import(filePath) as { default: T; };
         const json = moduleImport.default;
         config = {
@@ -186,6 +189,7 @@ export function checkDependencyVersion(cwd: string, name: string, wantedVersion:
 
     const packageJsonFile = readFileSync(filePath, { encoding: "utf8" });
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
     const packageJsonConfig = parse(packageJsonFile) as PackageJSON | undefined;
 
     const prodDependencyVersion = packageJsonConfig?.dependencies?.[name];
@@ -217,6 +221,7 @@ export function dependencyExists(cwd: string, name: string): boolean {
 
     const packageJsonFile = readFileSync(filePath, { encoding: "utf8" });
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
     const packageJsonConfig = parse(packageJsonFile) as PackageJSON | undefined;
 
     if (packageJsonConfig?.dependencies && (name in packageJsonConfig.dependencies)) {
