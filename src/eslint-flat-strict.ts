@@ -17,7 +17,7 @@ function getEslintRules(cwd: string): Record<string, string> {
     "@typescript-eslint/no-unsafe-call": `"error"`,
     "@typescript-eslint/no-unsafe-member-access": `"error"`,
     "@typescript-eslint/no-unsafe-return": `"error"`,
-    ...(checkDependencyVersion(cwd, "@typescript-eslint/eslint-plugin", ">=8.15.0") ? { "@typescript-eslint/no-unsafe-type-assertion": `"error"` } : {}),
+    ...(checkDependencyVersion(cwd, "typescript-eslint", ">=8.15.0") || checkDependencyVersion(cwd, "@typescript-eslint/eslint-plugin", ">=8.15.0") ? { "@typescript-eslint/no-unsafe-type-assertion": `"error"` } : {}),
     "@typescript-eslint/prefer-for-of": `"error"`,
     "@typescript-eslint/prefer-nullish-coalescing": `"error"`,
     "@typescript-eslint/prefer-optional-chain": `"error"`,

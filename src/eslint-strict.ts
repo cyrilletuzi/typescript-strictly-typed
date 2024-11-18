@@ -200,7 +200,7 @@ function addTSConfig(cwd: string, config: Config<ESLint>, path: JSONPath, rules?
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-member-access"], "error");
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-return"], "error");
 
-  if (checkDependencyVersion(cwd, "@typescript-eslint/eslint-plugin", ">=8.15.0")) {
+  if (checkDependencyVersion(cwd, "@typescript-eslint/eslint-plugin", ">=8.15.0") || checkDependencyVersion(cwd, "typescript-eslint", ">=8.15.0")) {
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-type-assertion"], "error");
 }
 
