@@ -51,7 +51,12 @@
     "copyfiles": "^2.4.1",
     "eslint": "^9.21.0",
     "rimraf": "^6.0.1",
-    "typescript": "^5.8.1-rc",
-    "typescript-eslint": "^8.24.1"
+    "typescript": "~5.8.2",
+    "typescript-eslint": "^8.25.0"
+  },
+  "overrides": {
+    "typescript-eslint": {
+      "typescript": ">=5.7.0"
+    }
   }
 }
