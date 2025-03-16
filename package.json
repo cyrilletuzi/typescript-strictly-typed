@@ -47,7 +47,7 @@
     "@types/js-yaml": "^4.0.9",
     "@types/node": "~22.13.1",
     "@types/semver": "^7.5.8",
-    "better-typescript-lib": "^2.10.1",
+    "better-typescript-lib": "~2.11.0",
     "copyfiles": "^2.4.1",
     "eslint": "^9.22.0",
     "rimraf": "^6.0.1",
