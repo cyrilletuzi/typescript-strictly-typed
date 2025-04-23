@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.21.0 (2025-04-23)
+
+- New Angular 20 compiler option: `typeCheckHostBindings`
+
 ## 3.20.0 (2024-11-18)
 
 - New ESLint rule: `@typescript-eslint/no-unsafe-type-assertion`

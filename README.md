@@ -67,6 +67,7 @@ It modifies these configurations:
   - `strictInjectionParameters`
   - `strictInputAccessModifiers`
   - `strictTemplates`
+  - `typeCheckHostBindings`
 - [Angular ESLint options](https://github.com/angular-eslint/angular-eslint)
   - `@angular-eslint/template/no-any`
 - [Deno](https://lint.deno.land)
