@@ -16,7 +16,7 @@
     "npm": ">=8.19.2"
   },
   "scripts": {
-    "build": "rimraf dist && tsc && copyfiles package.json LICENSE bin/cli.js dist && copyfiles -f src/README.md dist",
+    "build": "rimraf dist && tsgo && copyfiles package.json LICENSE bin/cli.js dist && copyfiles -f src/README.md dist",
     "lint": "eslint src/",
     "test": "echo \"Error: no test specified\" && exit 1",
     "release:major": "VERSION=major npm run release",
@@ -46,6 +46,7 @@
     "@types/js-yaml": "^4.0.9",
     "@types/node": "~22.13.1",
     "@types/semver": "^7.7.0",
+    "@typescript/native-preview": "^7.0.0-dev.20250522.2",
     "better-typescript-lib": "~2.11.0",
     "copyfiles": "^2.4.1",
     "eslint": "^9.27.0",

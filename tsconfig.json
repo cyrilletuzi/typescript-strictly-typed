@@ -1,13 +1,14 @@
 {
   "compilerOptions": {
     "outDir": "dist",
-    "module": "Node18",
+    // "module": "node18",
+    "module": "node16",
     "esModuleInterop": true,
     "target": "es2023",
     "lib": [
       "ES2023"
     ],
-    "libReplacement": true,
+    //"libReplacement": true,
     "skipLibCheck": true,
     "strict": true,
     "noUnusedParameters": true,
@@ -20,6 +21,6 @@
     "exactOptionalPropertyTypes": true,
     "isolatedModules": true,
     "verbatimModuleSyntax": true,
-    "erasableSyntaxOnly": true
+    // "erasableSyntaxOnly": true
   }
 }
