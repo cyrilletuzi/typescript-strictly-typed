@@ -35,7 +35,7 @@
   },
   "homepage": "https://github.com/cyrilletuzi/typescript-strictly-typed",
   "dependencies": {
-    "chalk": "^5.4.1",
+    "chalk": "^5.5.0",
     "js-yaml": "^4.1.0",
     "jsonc-parser": "^3.3.1",
     "package-up": "^5.0.0",
@@ -48,9 +48,9 @@
     "@types/semver": "^7.7.0",
     "better-typescript-lib": "~2.11.0",
     "copyfiles": "^2.4.1",
-    "eslint": "^9.27.0",
+    "eslint": "^9.33.0",
     "rimraf": "^6.0.1",
     "typescript": "~5.8.2",
-    "typescript-eslint": "^8.32.1"
+    "typescript-eslint": "^8.39.1"
   }
 }
