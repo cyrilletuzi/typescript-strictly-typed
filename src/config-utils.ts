@@ -170,7 +170,7 @@ export function modifyJSON(json: string, path: JSONPath, value: unknown, otherOp
     ...otherOptions,
   };
 
-  return applyEdits(json, modify(json.toString(), path, value, options));
+  return applyEdits(json, modify(json, path, value, options));
 
 }
 
@@ -227,7 +227,7 @@ export function dependencyExists(cwd: string, name: string): boolean {
     if (packageJsonConfig?.dependencies && (name in packageJsonConfig.dependencies)) {
       return true;
     }
-    
+
     if (packageJsonConfig?.devDependencies && (name in packageJsonConfig.devDependencies)) {
       return true;
     }
