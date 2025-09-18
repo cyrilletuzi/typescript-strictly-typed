@@ -1,10 +1,11 @@
 // @ts-check
 
 import eslint from "@eslint/js";
+import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
 // biome-ignore lint/style/noDefaultExport: required by tool
-export default tseslint.config(
+export default defineConfig(
   eslint.configs.recommended,
   ...tseslint.configs.strictTypeChecked,
   ...tseslint.configs.stylisticTypeChecked,
