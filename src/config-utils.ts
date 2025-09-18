@@ -76,12 +76,14 @@ export async function getConfig<T>(cwd: string, file: string): Promise<Config<T>
       case ".jsonc": {
         config = {
           raw,
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
           json: parse(raw) as T,
         };
         break;
       }
       case ".yaml":
       case ".yml": {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
         const json = load(raw) as T;
         config = {
           raw: JSON.stringify(json),
@@ -91,6 +93,7 @@ export async function getConfig<T>(cwd: string, file: string): Promise<Config<T>
       }
       case ".js":
       case ".cjs": {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
         const moduleImport = await import(filePath) as { default: T; };
         const json = moduleImport.default;
         config = {
@@ -167,7 +170,7 @@ export function modifyJSON(json: string, path: JSONPath, value: unknown, otherOp
     ...otherOptions,
   };
 
-  return applyEdits(json, modify(json.toString(), path, value, options));
+  return applyEdits(json, modify(json, path, value, options));
 
 }
 
@@ -186,6 +189,7 @@ export function checkDependencyVersion(cwd: string, name: string, wantedVersion:
 
     const packageJsonFile = readFileSync(filePath, { encoding: "utf8" });
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
     const packageJsonConfig = parse(packageJsonFile) as PackageJSON | undefined;
 
     const prodDependencyVersion = packageJsonConfig?.dependencies?.[name];
@@ -217,12 +221,13 @@ export function dependencyExists(cwd: string, name: string): boolean {
 
     const packageJsonFile = readFileSync(filePath, { encoding: "utf8" });
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
     const packageJsonConfig = parse(packageJsonFile) as PackageJSON | undefined;
 
     if (packageJsonConfig?.dependencies && (name in packageJsonConfig.dependencies)) {
       return true;
     }
-    
+
     if (packageJsonConfig?.devDependencies && (name in packageJsonConfig.devDependencies)) {
       return true;
     }

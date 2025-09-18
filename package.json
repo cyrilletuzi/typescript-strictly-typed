@@ -1,6 +1,6 @@
 {
   "name": "typescript-strictly-typed",
-  "version": "3.19.3",
+  "version": "3.21.0",
   "description": "Enable configurations for strictly typed TypeScript, ESLint, and optionally Angular.",
   "funding": {
     "type": "github",
@@ -17,7 +17,7 @@
   },
   "scripts": {
     "build": "rimraf dist && tsc && copyfiles package.json LICENSE bin/cli.js dist && copyfiles -f src/README.md dist",
-    "lint": "eslint src/ && npx @biomejs/biome lint src",
+    "lint": "eslint src/",
     "test": "echo \"Error: no test specified\" && exit 1",
     "release:major": "VERSION=major deno run release",
     "release:minor": "VERSION=minor deno run release",
@@ -35,24 +35,22 @@
   },
   "homepage": "https://github.com/cyrilletuzi/typescript-strictly-typed",
   "dependencies": {
-    "chalk": "^5.3.0",
+    "chalk": "^5.5.0",
     "js-yaml": "^4.1.0",
     "jsonc-parser": "^3.3.1",
     "package-up": "^5.0.0",
-    "semver": "^7.6.3",
-    "ts-morph": "^24.0.0"
+    "semver": "^7.7.2",
+    "ts-morph": "^26.0.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.9.3",
-    "@eslint/js": "^9.12.0",
     "@types/js-yaml": "^4.0.9",
-    "@types/node": "^20.16.11",
-    "@types/semver": "^7.5.8",
-    "better-typescript-lib": "^2.9.0",
+    "@types/node": "~22.13.1",
+    "@types/semver": "^7.7.0",
+    "better-typescript-lib": "~2.11.0",
     "copyfiles": "^2.4.1",
-    "eslint": "^9.12.0",
+    "eslint": "^9.33.0",
     "rimraf": "^6.0.1",
-    "typescript": "~5.6.2",
-    "typescript-eslint": "^8.9.0"
+    "typescript": "~5.9.2",
+    "typescript-eslint": "^8.39.1"
   }
 }

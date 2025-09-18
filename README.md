@@ -46,6 +46,7 @@ It modifies these configurations:
   - `@typescript-eslint/no-unsafe-call`
   - `@typescript-eslint/no-unsafe-member-access`
   - `@typescript-eslint/no-unsafe-return`
+  - `@typescript-eslint/no-unsafe-type-assertion`
   - `@typescript-eslint/prefer-for-of`
   - `@typescript-eslint/prefer-nullish-coalescing`
   - `@typescript-eslint/prefer-optional-chain`
@@ -66,6 +67,7 @@ It modifies these configurations:
   - `strictInjectionParameters`
   - `strictInputAccessModifiers`
   - `strictTemplates`
+  - `typeCheckHostBindings`
 - [Angular ESLint options](https://github.com/angular-eslint/angular-eslint)
   - `@angular-eslint/template/no-any`
 - [Deno](https://lint.deno.land)

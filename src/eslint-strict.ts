@@ -1,5 +1,5 @@
 import type { JSONPath } from "jsonc-parser";
-import { dependencyExists, findConfig, getConfig, getSource, isAngularESLint, modifyJSON, saveConfig, type Config } from "./config-utils.js";
+import { type Config, checkDependencyVersion, dependencyExists, findConfig, getConfig, getSource, isAngularESLint, modifyJSON, saveConfig } from "./config-utils.js";
 import { enableESLintFlatStrict } from "./eslint-flat-strict.js";
 import { logInfo, logWarning } from "./log-utils.js";
 
@@ -23,6 +23,7 @@ interface ESLintRules {
   "@typescript-eslint/no-unsafe-call"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?]; // in recommended-type-checked
   "@typescript-eslint/no-unsafe-member-access"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?]; // in recommended-type-checked
   "@typescript-eslint/no-unsafe-return"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?]; // in recommended-type-checked
+  "@typescript-eslint/no-unsafe-type-assertion"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
   "@typescript-eslint/restrict-plus-operands"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
   "@typescript-eslint/restrict-template-expressions"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
   "@typescript-eslint/strict-boolean-expressions"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
@@ -117,7 +118,7 @@ export async function enableESLintStrict(cwd: string): Promise<boolean> {
         config.raw = modifyJSON(config.raw, ["overrides", indexNumber, "parserOptions", "project"], true);
       }
 
-      addTSConfig(config, ["overrides", indexNumber], config.json.overrides?.[indexNumber]?.rules);
+      addTSConfig(cwd, config, ["overrides", indexNumber], config.json.overrides?.[indexNumber]?.rules);
 
       tsConfigAdded = true;
 
@@ -138,7 +139,7 @@ export async function enableESLintStrict(cwd: string): Promise<boolean> {
       config.raw = modifyJSON(config.raw, ["parserOptions", "project"], true);
     }
 
-    addTSConfig(config, [], config.json.rules);
+    addTSConfig(cwd, config, [], config.json.rules);
   }
 
   if (!dependencyExists(cwd, "@typescript-eslint/eslint-plugin") && !dependencyExists(cwd, "typescript-eslint")) {
@@ -169,7 +170,7 @@ export async function enableESLintStrict(cwd: string): Promise<boolean> {
 
 }
 
-function addTSConfig(config: Config<ESLint>, path: JSONPath, rules?: ESLint["rules"]): void {
+function addTSConfig(cwd: string, config: Config<ESLint>, path: JSONPath, rules?: ESLint["rules"]): void {
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "eqeqeq"], "error");
 
@@ -198,6 +199,10 @@ function addTSConfig(config: Config<ESLint>, path: JSONPath, rules?: ESLint["rul
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-call"], "error");
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-member-access"], "error");
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-return"], "error");
+
+  if (checkDependencyVersion(cwd, "@typescript-eslint/eslint-plugin", ">=8.15.0") || checkDependencyVersion(cwd, "typescript-eslint", ">=8.15.0")) {
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-type-assertion"], "error");
+}
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/prefer-for-of"], "error");
 

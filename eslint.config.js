@@ -48,6 +48,7 @@ export default tseslint.config(
           "allowString": false
         }
       ],
+      "@typescript-eslint/no-unsafe-type-assertion": "error",
       "@typescript-eslint/prefer-for-of": "error",
       "@typescript-eslint/prefer-optional-chain": "error",
       "no-shadow": "off",

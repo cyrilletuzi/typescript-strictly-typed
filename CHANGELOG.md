@@ -1,14 +1,22 @@
 # Changelog
 
-## 3.19.0 (2023-06-20)
+## 3.21.0 (2025-04-23)
+
+- New Angular 20 compiler option: `typeCheckHostBindings`
+
+## 3.20.0 (2024-11-18)
+
+- New ESLint rule: `@typescript-eslint/no-unsafe-type-assertion`
+
+## 3.19.0 (2024-06-20)
 
 - Add support for Deno configuration
 
-## 3.18.0 (2023-06-10)
+## 3.18.0 (2024-06-10)
 
 - Configure TypeScript ESLint type checking automatically
 
-## 3.17.0 (2023-06-09)
+## 3.17.0 (2024-06-09)
 
 - New ESLint rules:
   - `@typescript-eslint/no-unsafe-argument`
@@ -18,7 +26,7 @@
   - `@typescript-eslint/no-unsafe-return`
 - Better support for ESLint flat config
 
-## 3.14.0 (2023-06-08)
+## 3.14.0 (2024-06-08)
 
 - Support for Biome. Initial rules:
   - `noDoubleEquals`
@@ -32,13 +40,13 @@
 
   Note that some options are already included in the `recommended` preset, so they are not added if the preset is enabled, to keep configuration concise.
 
-## 3.13.0 (2023-06-06)
+## 3.13.0 (2024-06-06)
 
 - Remove `allowExpression` option in `@typescript-eslint/explicit-function-return-type` as it is less noisy now
 - Enforce sub options if `tsconfig.json` extends another one
 - Fix detection of type checked lint in `eslint.config.js`
 
-## 3.11.0 (2023-05-29)
+## 3.11.0 (2024-05-29)
 
 New lint rules:
 - `@typescript-eslint/strict-boolean-expressions`
@@ -51,7 +59,7 @@ Only add TypeScript ESLint rules which require type checking in configurations w
 
 Enforce lint rules sub-options.
 
-## 3.6.0 (2023-05-17)
+## 3.6.0 (2024-05-17)
 
 - Partial support for ESLint 9 new flat config
 

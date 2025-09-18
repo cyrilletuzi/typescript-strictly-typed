@@ -1,38 +1,41 @@
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { IndentationText, Project, QuoteKind, ScriptTarget, StructureKind, SyntaxKind, type ObjectLiteralElementLike, type ObjectLiteralExpression } from "ts-morph";
+import { IndentationText, type ObjectLiteralElementLike, type ObjectLiteralExpression, Project, QuoteKind, ScriptTarget, StructureKind, SyntaxKind } from "ts-morph";
 import { checkDependencyVersion, dependencyExists, findConfig, getSource, isAngularESLint } from "./config-utils.js";
 import { logWarning } from "./log-utils.js";
 
-const eslintRules: Record<string, string> = {
-  "eqeqeq": `"error"`,
-  "prefer-arrow-callback": `"error"`,
-  "prefer-template": `"error"`,
-  "@typescript-eslint/explicit-function-return-type": `"error"`,
-  "@typescript-eslint/no-explicit-any": `"error"`,
-  "@typescript-eslint/no-non-null-assertion": `"error"`,
-  "@typescript-eslint/no-unsafe-argument": `"error"`,
-  "@typescript-eslint/no-unsafe-assignment": `"error"`,
-  "@typescript-eslint/no-unsafe-call": `"error"`,
-  "@typescript-eslint/no-unsafe-member-access": `"error"`,
-  "@typescript-eslint/no-unsafe-return": `"error"`,
-  "@typescript-eslint/prefer-for-of": `"error"`,
-  "@typescript-eslint/prefer-nullish-coalescing": `"error"`,
-  "@typescript-eslint/prefer-optional-chain": `"error"`,
-  "@typescript-eslint/restrict-plus-operands": `["error", {
-  allowAny: false,
-  allowBoolean: false,
-  allowNullish: false,
-  allowNumberAndString: false,
-  allowRegExp: false,
-}]`,
-  "@typescript-eslint/restrict-template-expressions": `"error"`,
-  "@typescript-eslint/strict-boolean-expressions": `["error", {
-  allowNumber: false,
-  allowString: false,
-}]`,
-  "@typescript-eslint/use-unknown-in-catch-callback-variable": `"error"`,
-};
+function getEslintRules(cwd: string): Record<string, string> {
+  return {
+    "eqeqeq": `"error"`,
+    "prefer-arrow-callback": `"error"`,
+    "prefer-template": `"error"`,
+    "@typescript-eslint/explicit-function-return-type": `"error"`,
+    "@typescript-eslint/no-explicit-any": `"error"`,
+    "@typescript-eslint/no-non-null-assertion": `"error"`,
+    "@typescript-eslint/no-unsafe-argument": `"error"`,
+    "@typescript-eslint/no-unsafe-assignment": `"error"`,
+    "@typescript-eslint/no-unsafe-call": `"error"`,
+    "@typescript-eslint/no-unsafe-member-access": `"error"`,
+    "@typescript-eslint/no-unsafe-return": `"error"`,
+    ...(checkDependencyVersion(cwd, "typescript-eslint", ">=8.15.0") || checkDependencyVersion(cwd, "@typescript-eslint/eslint-plugin", ">=8.15.0") ? { "@typescript-eslint/no-unsafe-type-assertion": `"error"` } : {}),
+    "@typescript-eslint/prefer-for-of": `"error"`,
+    "@typescript-eslint/prefer-nullish-coalescing": `"error"`,
+    "@typescript-eslint/prefer-optional-chain": `"error"`,
+    "@typescript-eslint/restrict-plus-operands": `["error", {
+    allowAny: false,
+    allowBoolean: false,
+    allowNullish: false,
+    allowNumberAndString: false,
+    allowRegExp: false,
+  }]`,
+    "@typescript-eslint/restrict-template-expressions": `"error"`,
+    "@typescript-eslint/strict-boolean-expressions": `["error", {
+    allowNumber: false,
+    allowString: false,
+  }]`,
+    "@typescript-eslint/use-unknown-in-catch-callback-variable": `"error"`,
+  };
+}
 
 export function enableESLintFlatStrict(cwd: string): boolean {
 
@@ -112,7 +115,7 @@ export function enableESLintFlatStrict(cwd: string): boolean {
       kind: StructureKind.PropertyAssignment,
       name: "rules",
       initializer: "{}",
-    }) as ObjectLiteralElementLike;
+    });
 
     const rulesObject = rulesProperty.getFirstChildByKind(SyntaxKind.ObjectLiteralExpression);
 
@@ -125,7 +128,7 @@ export function enableESLintFlatStrict(cwd: string): boolean {
       kind: StructureKind.PropertyAssignment,
       name: "languageOptions",
       initializer: "{}",
-    }) as ObjectLiteralElementLike;
+    });
 
     const languageOptionsObject = languageOptionsProperty.getFirstChildByKind(SyntaxKind.ObjectLiteralExpression);
 
@@ -135,7 +138,7 @@ export function enableESLintFlatStrict(cwd: string): boolean {
         kind: StructureKind.PropertyAssignment,
         name: "parserOptions",
         initializer: "{}",
-      }) as ObjectLiteralElementLike;
+      });
 
       const parserOptionsObject = parserOptionsProperty.getFirstChildByKind(SyntaxKind.ObjectLiteralExpression);
 
@@ -176,7 +179,7 @@ export function enableESLintFlatStrict(cwd: string): boolean {
 
     }
 
-    for (const [ruleName, ruleErrorConfig] of Object.entries(eslintRules)) {
+    for (const [ruleName, ruleErrorConfig] of Object.entries(getEslintRules(cwd))) {
 
       const ruleProperty = getProperty(rulesObject, ruleName);
 
@@ -210,7 +213,7 @@ export function enableESLintFlatStrict(cwd: string): boolean {
           kind: StructureKind.PropertyAssignment,
           name: "rules",
           initializer: "{}",
-        }) as ObjectLiteralElementLike;
+        });
 
         const angularRulesObject = angularRulesProperty.getFirstChildByKind(SyntaxKind.ObjectLiteralExpression);
 
