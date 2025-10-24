@@ -15,7 +15,7 @@ interface TSConfigAngular {
  * - `strictInjectionParameters`
  * - `strictTemplates`
  * - `strictInputAccessModifiers`
- * - `typeCheckHostBindings`
+ * - `typeCheckHostBindings` (Angular 20 only, enabled by default in Angular 21)
  * {@link https://angular.dev/reference/configs/angular-compiler-options}
  *
  * @param cwd Working directory path
@@ -45,7 +45,7 @@ export async function enableAngularStrict(cwd: string): Promise<boolean> {
   config.raw = modifyJSON(config.raw, ["angularCompilerOptions", "strictTemplates"], true);
   config.raw = modifyJSON(config.raw, ["angularCompilerOptions", "strictInputAccessModifiers"], true);
 
-  if (checkDependencyVersion(cwd, "@angular/compiler", ">=20.0.0")) {
+  if (checkDependencyVersion(cwd, "@angular/compiler", ">=20.0.0") && checkDependencyVersion(cwd, "@angular/compiler", "<21.0.0")) {
     config.raw = modifyJSON(config.raw, ["angularCompilerOptions", "typeCheckHostBindings"], true);
   }
 
