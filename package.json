@@ -12,8 +12,8 @@
   },
   "type": "module",
   "engines": {
-    "node": ">=18.12.0",
-    "npm": ">=8.19.2"
+    "node": ">=24.10.0",
+    "npm": ">=11.6.0"
   },
   "scripts": {
     "build": "rimraf dist && tsc && copyfiles package.json LICENSE bin/cli.js dist && copyfiles -f src/README.md dist",
@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "@types/js-yaml": "^4.0.9",
-    "@types/node": "~22.13.1",
+    "@types/node": "~24.9.0",
     "@types/semver": "^7.7.1",
     "better-typescript-lib": "~2.12.0",
     "copyfiles": "^2.4.1",
