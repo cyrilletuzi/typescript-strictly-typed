@@ -2,8 +2,10 @@ name: CI
 
 on: pull_request
 
-jobs:
+permissions:
+  contents: read
 
+jobs:
   lint:
     name: Lint check
     runs-on: ubuntu-latest

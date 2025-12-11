@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.22.0 (2025-10-24)
+
+- Do not add `typeCheckHostBindings` in Angular >=21 projects as it is now the default
+
 ## 3.21.0 (2025-04-23)
 
 - New Angular 20 compiler option: `typeCheckHostBindings`
