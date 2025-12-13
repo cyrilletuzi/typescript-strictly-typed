@@ -1,21 +1,34 @@
 {
   "version": "5",
   "specifiers": {
+    "jsr:@std/fs@1.0.20": "1.0.20",
+    "jsr:@std/internal@^1.0.12": "1.0.12",
+    "jsr:@std/path@^1.1.3": "1.1.3",
     "npm:@types/js-yaml@^4.0.9": "4.0.9",
-    "npm:@types/node@~22.13.1": "22.13.17",
-    "npm:@types/semver@^7.7.0": "7.7.1",
     "npm:better-typescript-lib@2.12": "2.12.0_typescript@5.9.2",
-    "npm:chalk@^5.5.0": "5.6.2",
     "npm:copyfiles@^2.4.1": "2.4.1",
-    "npm:eslint@^9.33.0": "9.35.0",
-    "npm:js-yaml@^4.1.0": "4.1.0",
     "npm:jsonc-parser@^3.3.1": "3.3.1",
     "npm:package-up@5": "5.0.0",
-    "npm:rimraf@^6.0.1": "6.0.1",
     "npm:semver@^7.7.2": "7.7.2",
     "npm:ts-morph@27": "27.0.0",
-    "npm:typescript-eslint@^8.39.1": "8.44.0_eslint@9.35.0_typescript@5.9.2_@typescript-eslint+parser@8.44.0__eslint@9.35.0__typescript@5.9.2",
     "npm:typescript@~5.9.2": "5.9.2"
+  },
+  "jsr": {
+    "@std/fs@1.0.20": {
+      "integrity": "e953206aae48d46ee65e8783ded459f23bec7dd1f3879512911c35e5484ea187",
+      "dependencies": [
+        "jsr:@std/path"
+      ]
+    },
+    "@std/internal@1.0.12": {
+      "integrity": "972a634fd5bc34b242024402972cd5143eac68d8dffaca5eaa4dba30ce17b027"
+    },
+    "@std/path@1.1.3": {
+      "integrity": "b015962d82a5e6daea980c32b82d2c40142149639968549c649031a230b1afb3",
+      "dependencies": [
+        "jsr:@std/internal"
+      ]
+    }
   },
   "npm": {
     "@better-typescript-lib/decorators@2.12.0_typescript@5.9.2": {
@@ -1189,19 +1202,19 @@
     "packageJson": {
       "dependencies": [
         "npm:@types/js-yaml@^4.0.9",
-        "npm:@types/node@~22.13.1",
-        "npm:@types/semver@^7.7.0",
+        "npm:@types/node@24.10",
+        "npm:@types/semver@^7.7.1",
         "npm:better-typescript-lib@2.12",
-        "npm:chalk@^5.5.0",
+        "npm:chalk@^5.6.2",
         "npm:copyfiles@^2.4.1",
-        "npm:eslint@^9.33.0",
-        "npm:js-yaml@^4.1.0",
+        "npm:eslint@^9.39.1",
+        "npm:js-yaml@^4.1.1",
         "npm:jsonc-parser@^3.3.1",
         "npm:package-up@5",
-        "npm:rimraf@^6.0.1",
+        "npm:rimraf@^6.1.2",
         "npm:semver@^7.7.2",
         "npm:ts-morph@27",
-        "npm:typescript-eslint@^8.39.1",
+        "npm:typescript-eslint@^8.49.0",
         "npm:typescript@~5.9.2"
       ]
     }

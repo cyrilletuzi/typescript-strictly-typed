@@ -16,4 +16,5 @@
       "source.organizeImports": "explicit"
     }
   },
+  "deno.enablePaths": ["./deno-scripts"]
 }

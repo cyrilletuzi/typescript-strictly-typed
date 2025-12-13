@@ -10,6 +10,7 @@ export default defineConfig(
   ...tseslint.configs.strictTypeChecked,
   ...tseslint.configs.stylisticTypeChecked,
   {
+    ignores: ["./deno-scripts/**"],
     languageOptions: {
       parserOptions: {
         projectService: true,
