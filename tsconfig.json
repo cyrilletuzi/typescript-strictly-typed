@@ -21,5 +21,8 @@
     "isolatedModules": true,
     "verbatimModuleSyntax": true,
     "erasableSyntaxOnly": true
-  }
+  },
+  "exclude": [
+    "./deno-scripts"
+  ]
 }

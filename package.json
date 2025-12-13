@@ -19,10 +19,10 @@
     "build": "rimraf dist && tsc && copyfiles package.json LICENSE bin/cli.js dist && copyfiles -f src/README.md dist",
     "lint": "eslint src/",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "release:major": "VERSION=major npm run release",
-    "release:minor": "VERSION=minor npm run release",
-    "release:patch": "VERSION=patch npm run release",
-    "release": "if test $VERSION; then npm run build && npm version $VERSION && git push; fi",
+    "release:major": "VERSION=major deno run release",
+    "release:minor": "VERSION=minor deno run release",
+    "release:patch": "VERSION=patch deno run release",
+    "release": "if test $VERSION; then deno run build && npm version $VERSION && deno run build && git push; fi",
     "publish-release": "git push origin v$npm_package_version"
   },
   "repository": {
@@ -40,8 +40,8 @@
     "js-yaml": "^4.1.1",
     "jsonc-parser": "^3.3.1",
     "package-up": "^5.0.0",
-    "semver": "^7.7.3",
-    "ts-morph": "^27.0.2"
+    "semver": "^7.7.2",
+    "ts-morph": "^27.0.0"
   },
   "devDependencies": {
     "@types/js-yaml": "^4.0.9",

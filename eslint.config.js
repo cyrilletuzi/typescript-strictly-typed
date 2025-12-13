@@ -1,13 +1,16 @@
 // @ts-check
 
 import eslint from "@eslint/js";
+import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
-export default tseslint.config(
+// biome-ignore lint/style/noDefaultExport: required by tool
+export default defineConfig(
   eslint.configs.recommended,
   ...tseslint.configs.strictTypeChecked,
   ...tseslint.configs.stylisticTypeChecked,
   {
+    ignores: ["./deno-scripts/**"],
     languageOptions: {
       parserOptions: {
         projectService: true,
