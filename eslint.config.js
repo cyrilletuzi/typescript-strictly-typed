@@ -54,6 +54,7 @@ export default tseslint.config(
       "@typescript-eslint/no-shadow": "error",
       "@typescript-eslint/prefer-readonly": "error",
       "@typescript-eslint/no-useless-empty-export": "error",
+      "@typescript-eslint/no-useless-default-assignment": "error",
       // Force usage of "node:" protocol for Node builtins
       "no-restricted-imports": [
         "error",
