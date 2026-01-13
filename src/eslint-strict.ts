@@ -27,6 +27,7 @@ interface ESLintRules {
   "@typescript-eslint/restrict-plus-operands"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
   "@typescript-eslint/restrict-template-expressions"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
   "@typescript-eslint/strict-boolean-expressions"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
+  "@typescript-eslint/strict-void-return"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
   "@angular-eslint/template/no-any"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
 }
 
@@ -201,8 +202,8 @@ function addTSConfig(cwd: string, config: Config<ESLint>, path: JSONPath, rules?
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-return"], "error");
 
   if (checkDependencyVersion(cwd, "@typescript-eslint/eslint-plugin", ">=8.15.0") || checkDependencyVersion(cwd, "typescript-eslint", ">=8.15.0")) {
-  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-type-assertion"], "error");
-}
+    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-type-assertion"], "error");
+  }
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/prefer-for-of"], "error");
 
@@ -224,6 +225,10 @@ function addTSConfig(cwd: string, config: Config<ESLint>, path: JSONPath, rules?
     allowNumber: false,
     allowString: false
   }]);
+
+  if (checkDependencyVersion(cwd, "@typescript-eslint/eslint-plugin", ">=8.53.0") || checkDependencyVersion(cwd, "typescript-eslint", ">=8.53.0")) {
+    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/strict-void-return"], "error");
+  }
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/use-unknown-in-catch-callback-variable"], "error");
 

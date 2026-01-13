@@ -33,6 +33,7 @@ function getEslintRules(cwd: string): Record<string, string> {
     allowNumber: false,
     allowString: false,
   }]`,
+     ...(checkDependencyVersion(cwd, "typescript-eslint", ">=8.53.0") || checkDependencyVersion(cwd, "@typescript-eslint/eslint-plugin", ">=8.53.0") ? { "@typescript-eslint/strict-void-return": `"error"` } : {}),
     "@typescript-eslint/use-unknown-in-catch-callback-variable": `"error"`,
   };
 }

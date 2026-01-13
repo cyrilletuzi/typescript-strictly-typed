@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.23.0 (2026-01-13)
+
+- New lint rule: `@typescript-eslint/strict-void-return`
+
 ## 3.22.0 (2025-10-24)
 
 - Do not add `typeCheckHostBindings` in Angular >=21 projects as it is now the default

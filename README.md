@@ -53,6 +53,7 @@ It modifies these configurations:
   - `@typescript-eslint/restrict-plus-operands`
   - `@typescript-eslint/restrict-template-expressions`
   - `@typescript-eslint/strict-boolean-expressions`
+  - `@typescript-eslint/strict-void-return`
   - `@typescript-eslint/use-unknown-in-catch-callback-variable`
 - [Biome linter rules](https://biomejs.dev/linter/rules/)
   - `noDoubleEquals`
