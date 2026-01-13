@@ -9,6 +9,7 @@ import { logInfo, logWarning } from "./log-utils.js";
 //   "@typescript-eslint/restrict-plus-operands"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
 //   "@typescript-eslint/restrict-template-expressions"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
 //   "@typescript-eslint/strict-boolean-expressions"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
+//   "@typescript-eslint/strict-void-return"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
 // }
 
 type BiomeErrorLevel = "error" | "warn" | "off";
