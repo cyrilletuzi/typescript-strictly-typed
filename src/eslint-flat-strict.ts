@@ -160,17 +160,22 @@ export function enableESLintFlatStrict(cwd: string): boolean {
             initializer: "true",
           });
 
-          const tsconfigProperty = getProperty(languageOptionsObject, "tsconfigRootDir");
+          /* `tsconfigRootDir` is inferred since v8.38 */
+          if (!checkTypescriptEslintVersion(cwd, ">=8.38.0")) {
 
-          if (tsconfigProperty === undefined) {
+            const tsconfigProperty = getProperty(languageOptionsObject, "tsconfigRootDir");
 
-            const initializer = isCommonJS ? "__dirname" : "import.meta.dirname";
+            if (tsconfigProperty === undefined) {
 
-            parserOptionsObject.addProperty({
-              kind: StructureKind.PropertyAssignment,
-              name: "tsconfigRootDir",
-              initializer,
-            });
+              const initializer = isCommonJS ? "__dirname" : "import.meta.dirname";
+
+              parserOptionsObject.addProperty({
+                kind: StructureKind.PropertyAssignment,
+                name: "tsconfigRootDir",
+                initializer,
+              });
+
+            }
 
           }
 
