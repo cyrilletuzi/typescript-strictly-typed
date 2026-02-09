@@ -56,7 +56,7 @@ export function enableESLintFlatStrict(cwd: string): boolean {
     const quoteMatch = /import .* from (['"])/.exec(fileContent);
     const quote = quoteMatch?.[1] ?? `"`;
 
-    const spacesMatch = /tseslint\.config\(\n(\s)+/.exec(fileContent);
+    const spacesMatch = /defineConfig\(.*\n(\s)+/.exec(fileContent);
     const spaces = spacesMatch?.[1]?.length ?? 2;
 
     const project = new Project({
@@ -89,8 +89,9 @@ export function enableESLintFlatStrict(cwd: string): boolean {
       ?.getFirstChildByKind(SyntaxKind.CallExpression)
       ?.getFirstChildByKind(SyntaxKind.SyntaxList);
 
-    const configObjectsCheck = configList
-      ?.getChildrenOfKind(SyntaxKind.ObjectLiteralExpression)
+    /* `defineConfig()` can contain an array of objects or a spread list of objects */
+    const configObjectsCheck = configList?.getFirstChildByKind(SyntaxKind.ArrayLiteralExpression)?.getChildrenOfKind(SyntaxKind.ObjectLiteralExpression)
+      ?? configList?.getChildrenOfKind(SyntaxKind.ObjectLiteralExpression)
       ?? [];
 
     if (configObjectsCheck.length === 0) {
@@ -99,8 +100,8 @@ export function enableESLintFlatStrict(cwd: string): boolean {
       });
     }
 
-    const configObjects = configList
-      ?.getChildrenOfKind(SyntaxKind.ObjectLiteralExpression)
+    const configObjects = configList?.getFirstChildByKind(SyntaxKind.ArrayLiteralExpression)?.getChildrenOfKind(SyntaxKind.ObjectLiteralExpression)
+      ?? configList?.getChildrenOfKind(SyntaxKind.ObjectLiteralExpression)
       ?? [];
 
     const configObject = configObjects.find((config) => getProperty(config, "files")?.getLastChildByKind(SyntaxKind.ArrayLiteralExpression)?.getFullText().includes(".ts") ?? false)
