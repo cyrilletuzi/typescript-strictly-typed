@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.24.0 (2026-02-09)
+
+- Support array configuration in `defineConfig()`
+- Do not set `tsconfigRootDir` when TypeScript ESLint version is >= 8.38, as it is now automatically inferred
+- Internal: remove `chalk` dependency in favor of native Node `styleText`
+
 ## 3.23.0 (2026-01-13)
 
 - New lint rule: `@typescript-eslint/strict-void-return`
