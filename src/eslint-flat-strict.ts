@@ -1,7 +1,7 @@
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { IndentationText, type ObjectLiteralElementLike, type ObjectLiteralExpression, Project, QuoteKind, ScriptTarget, StructureKind, SyntaxKind } from "ts-morph";
-import { checkDependencyVersion, dependencyExists, findConfig, getSource, isAngularESLint } from "./config-utils.js";
+import { checkTypescriptEslintVersion, dependencyExists, findConfig, getSource, isAngularESLint } from "./config-utils.js";
 import { logWarning } from "./log-utils.js";
 
 function getEslintRules(cwd: string): Record<string, string> {
@@ -17,7 +17,7 @@ function getEslintRules(cwd: string): Record<string, string> {
     "@typescript-eslint/no-unsafe-call": `"error"`,
     "@typescript-eslint/no-unsafe-member-access": `"error"`,
     "@typescript-eslint/no-unsafe-return": `"error"`,
-    ...(checkDependencyVersion(cwd, "typescript-eslint", ">=8.15.0") || checkDependencyVersion(cwd, "@typescript-eslint/eslint-plugin", ">=8.15.0") ? { "@typescript-eslint/no-unsafe-type-assertion": `"error"` } : {}),
+    ...(checkTypescriptEslintVersion(cwd, ">=8.15.0") ? { "@typescript-eslint/no-unsafe-type-assertion": `"error"` } : {}),
     "@typescript-eslint/prefer-for-of": `"error"`,
     "@typescript-eslint/prefer-nullish-coalescing": `"error"`,
     "@typescript-eslint/prefer-optional-chain": `"error"`,
@@ -33,7 +33,7 @@ function getEslintRules(cwd: string): Record<string, string> {
     allowNumber: false,
     allowString: false,
   }]`,
-     ...(checkDependencyVersion(cwd, "typescript-eslint", ">=8.53.0") || checkDependencyVersion(cwd, "@typescript-eslint/eslint-plugin", ">=8.53.0") ? { "@typescript-eslint/strict-void-return": `"error"` } : {}),
+    ...(checkTypescriptEslintVersion(cwd, ">=8.53.0") ? { "@typescript-eslint/strict-void-return": `"error"` } : {}),
     "@typescript-eslint/use-unknown-in-catch-callback-variable": `"error"`,
   };
 }
@@ -151,7 +151,7 @@ export function enableESLintFlatStrict(cwd: string): boolean {
 
         if (projectProperty === undefined) {
 
-          const name = checkDependencyVersion(cwd, "typescript-eslint", ">=8.0.0") ?
+          const name = checkTypescriptEslintVersion(cwd, ">=8.0.0") ?
             "projectService" : "project";
 
           parserOptionsObject.addProperty({

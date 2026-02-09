@@ -1,5 +1,5 @@
 import type { JSONPath } from "jsonc-parser";
-import { type Config, checkDependencyVersion, dependencyExists, findConfig, getConfig, getSource, isAngularESLint, modifyJSON, saveConfig } from "./config-utils.js";
+import { type Config, checkTypescriptEslintVersion, dependencyExists, findConfig, getConfig, getSource, isAngularESLint, modifyJSON, saveConfig } from "./config-utils.js";
 import { enableESLintFlatStrict } from "./eslint-flat-strict.js";
 import { logInfo, logWarning } from "./log-utils.js";
 
@@ -135,7 +135,7 @@ export async function enableESLintStrict(cwd: string): Promise<boolean> {
 
   /* Add rules at root level */
   if (!tsConfigAdded) {
-    
+
     if (config.json.parserOptions?.project === undefined) {
       config.raw = modifyJSON(config.raw, ["parserOptions", "project"], true);
     }
@@ -151,22 +151,22 @@ export async function enableESLintStrict(cwd: string): Promise<boolean> {
     config.raw = modifyJSON(packageJSONConfig.raw, ["eslintConfig"], config.json);
     return saveConfig(cwd, file, packageJSONConfig);
   }
-  
+
   if (file === "eslint.config.js" || file === "eslint.config.mjs") {
     logWarning(`Your project is using the new ${file} format, and it cannot be overwrited directly, as it could mess up with advanced configuration. So the new strict configuration was saved in eslint.config.json. eslint.config.json is not recognized by ESLint, you need to manually copy the options from eslint.config.json to ${file}. Once done, you can delete eslint.config.json.`);
     return saveConfig(cwd, "eslint.config.json", config);
   }
-  
+
   if (file === ".eslintrc.js") {
     logWarning("Your project is using the advanced .eslintrc.js format, and it cannot be overwrited directly, as it could mess up with advanced configuration. So the new strict configuration was saved in .eslintrc.json. As .eslintrc.js has precedence over .eslintrc.json, you need to manually copy the options from .eslintrc.json to .eslintrc.js. Once done, you can delete .eslintrc.json.");
     return saveConfig(cwd, ".eslintrc.json", config);
   }
-  
+
   if (file === ".eslintrc.cjs") {
     logWarning("Your project is using the advanced .eslintrc.cjs format, and it cannot be overwrited directly, as it could mess up with advanced configuration. So the new strict configuration was saved in .eslintrc.json. As .eslintrc.cjs has precedence over .eslintrc.json, you need to manually copy the options from .eslintrc.json to .eslintrc.cjs. Once done, you can delete .eslintrc.json.");
     return saveConfig(cwd, ".eslintrc.json", config);
   }
-  
+
   return saveConfig(cwd, file, config);
 
 }
@@ -201,7 +201,7 @@ function addTSConfig(cwd: string, config: Config<ESLint>, path: JSONPath, rules?
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-member-access"], "error");
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-return"], "error");
 
-  if (checkDependencyVersion(cwd, "@typescript-eslint/eslint-plugin", ">=8.15.0") || checkDependencyVersion(cwd, "typescript-eslint", ">=8.15.0")) {
+  if (checkTypescriptEslintVersion(cwd, ">=8.15.0")) {
     config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-type-assertion"], "error");
   }
 
@@ -226,7 +226,7 @@ function addTSConfig(cwd: string, config: Config<ESLint>, path: JSONPath, rules?
     allowString: false
   }]);
 
-  if (checkDependencyVersion(cwd, "@typescript-eslint/eslint-plugin", ">=8.53.0") || checkDependencyVersion(cwd, "typescript-eslint", ">=8.53.0")) {
+  if (checkTypescriptEslintVersion(cwd, ">=8.53.0")) {
     config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/strict-void-return"], "error");
   }
 

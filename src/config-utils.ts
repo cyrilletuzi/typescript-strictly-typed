@@ -238,6 +238,16 @@ export function dependencyExists(cwd: string, name: string): boolean {
 
 }
 
+/**
+ * Check the TypeScript ESLint version version
+ *
+ * @param cwd Working directory path
+ * @param wantedVersion Wanted version, eg. `>=2.1.0`
+ */
+export function checkTypescriptEslintVersion(cwd: string, wantedVersion: string): boolean {
+  return checkDependencyVersion(cwd, "typescript-eslint", wantedVersion) || checkDependencyVersion(cwd, "@typescript-eslint/eslint-plugin", wantedVersion);
+}
+
 export function isAngularESLint(cwd: string): boolean {
 
   return dependencyExists(cwd, "angular-eslint") || dependencyExists(cwd, "@angular-eslint/eslint-plugin-template");
