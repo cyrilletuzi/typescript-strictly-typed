@@ -1,15 +1,18 @@
 {
   "compilerOptions": {
+    "rootDir": "./src",
     "outDir": "dist",
     "module": "node20",
-    "esModuleInterop": true,
     "target": "es2024",
     "lib": [
       "es2024"
     ],
+    "types": [
+      "node"
+    ],
     "libReplacement": true,
     "skipLibCheck": true,
-    "strict": true,
+    "strict": true, // Not needed anymore, delete when TypeScript ESLint is up to date
     "noUnusedParameters": true,
     "noUnusedLocals": true,
     "noImplicitReturns": true,
