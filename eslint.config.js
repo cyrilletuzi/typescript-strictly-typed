@@ -56,6 +56,19 @@ export default defineConfig(
       "@typescript-eslint/no-useless-empty-export": "error",
       "@typescript-eslint/no-useless-default-assignment": "error",
       "@typescript-eslint/strict-void-return": "error",
+      // Loosen some annoying and inadequate empty rules
+      "no-empty": [
+        "error",
+        {
+          allowEmptyCatch: true, // `catch` is required after a `try`, but there is not always something to do inside
+        },
+      ],
+      "@typescript-eslint/no-empty-function": [
+        "error",
+        {
+          allow: ["arrowFunctions"], // some callbacks are required (like in promises `.catch()`), but there is not always something to do inside
+        },
+      ],
       // Force usage of "node:" protocol for Node builtins
       "no-restricted-imports": [
         "error",
