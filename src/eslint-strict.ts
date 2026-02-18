@@ -71,7 +71,7 @@ export async function enableESLintStrict(cwd: string): Promise<boolean> {
   const tsFilesConfig = "*.ts";
   const htmlFilesConfig = "*.html";
 
-  let config: Config<ESLint> | null = null;
+  let config: Config<ESLint> | null | undefined;
   let packageJSONConfig: Config<PackageJSON> | null = null;
 
   const file = findConfig(cwd, possibleConfigFiles);
@@ -81,7 +81,6 @@ export async function enableESLintStrict(cwd: string): Promise<boolean> {
   }
 
   if (file === "eslint.config.js" || file === "eslint.config.mjs") {
-
     config = {
       source: getSource(cwd, file),
       raw: JSON.stringify({ rules: {} }),
