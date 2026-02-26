@@ -50,7 +50,7 @@ export async function enableOxlintStrict(cwd: string): Promise<boolean> {
   let config: Config<Oxlint> | null | undefined;
 
   const file = findConfig(cwd, possibleConfigFiles);
-  if (file === null && !dependencyExists(cwd, 'oxlint')) {
+  if (file === null && !dependencyExists(cwd, "oxlint")) {
     logInfo(`Can't find an Oxlint config file or dependency. Skipping this configuration.`);
     return false;
   }
