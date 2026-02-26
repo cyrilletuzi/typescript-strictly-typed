@@ -1,0 +1,38 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "rules": {
+    "eqeqeq": "deny",
+    "prefer-template": "deny",
+    "typescript/explicit-function-return-type": "deny",
+    "typescript/no-explicit-any": "deny",
+    "typescript/no-non-null-assertion": "deny",
+    "typescript/no-unsafe-argument": "deny",
+    "typescript/no-unsafe-assignment": "deny",
+    "typescript/no-unsafe-call": "deny",
+    "typescript/no-unsafe-member-access": "deny",
+    "typescript/no-unsafe-return": "deny",
+    "typescript/no-unsafe-type-assertion": "deny",
+    "typescript/prefer-for-of": "deny",
+    "typescript/prefer-nullish-coalescing": "deny",
+    "typescript/prefer-optional-chain": "deny",
+    "typescript/restrict-plus-operands": [
+      "deny",
+      {
+        "allowAny": false,
+        "allowBoolean": false,
+        "allowNullish": false,
+        "allowNumberAndString": false,
+        "allowRegExp": false,
+      }
+    ],
+    "typescript/restrict-template-expressions": "deny",
+    "typescript/strict-boolean-expressions": [
+      "deny",
+      {
+        "allowNumber": false,
+        "allowString": false,
+      }
+    ],
+    "typescript/use-unknown-in-catch-callback-variable": "deny"
+  }
+}
