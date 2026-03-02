@@ -38,63 +38,6 @@ interface Oxlint {
   rules?: OxlintRules;
 }
 
-/**
- * Enable strict Oxlint rules
- * {@link https://oxc.rs/docs/guide/usage/linter/rules.html}
- *
- * @param cwd Working directory path
- *
- * @returns A boolean for success or failure
- */
-export async function enableOxlintStrict(cwd: string): Promise<boolean> {
-
-  const possibleConfigFiles = [".oxlintrc.json", "oxlint.config.ts"];
-
-  let config: Config<Oxlint> | null | undefined;
-
-  const file = findConfig(cwd, possibleConfigFiles);
-  if (file === null && !dependencyExists(cwd, "oxlint")) {
-    logInfo(`Can't find an Oxlint config file or dependency. Skipping this configuration.`);
-    return false;
-  }
-
-  if (file === null || file === "oxlint.config.ts") {
-    const json: Oxlint = {
-      $schema: "./node_modules/oxlint/configuration_schema.json",
-      rules: {},
-    };
-    config = {
-      raw: JSON.stringify(json),
-      json,
-    };
-  } else {
-    config = await getConfig<Oxlint>(cwd, file);
-  }
-
-  if (!config) {
-    return false;
-  }
-
-  config.raw = modifyJSON(config.raw, ["options", "typeAware"], true);
-
-  if (!checkDependencyVersion(cwd, "oxlint", ">=1.51")) {
-    logWarning(`Some Oxlint lint rules require the "typeAware" option, which requires "oxlint" version >= 1.51. The detected version appears to be lower, "oxlint" should be updated.`);
-  }
-
-  addRulesConfig(config, [], config.json.rules);
-
-  if (!dependencyExists(cwd, "oxlint-tsgolint")) {
-    logWarning(`Some Oxlint lint rules require type-aware linting, and the "oxlint-tsgolint" dependency required for it seems to be missing. See https://oxc.rs/docs/guide/usage/linter/type-aware.html`);
-  }
-
-  if (file === "oxlint.config.ts") {
-    logWarning(`The project is using the Oxlint "oxlint.config.ts" configuration format, which is too complicated to be manipulated directly. So the new strict configuration will be saved in ".oxlintrc.json"; then it is needed to manually copy the rules from ".oxlintrc.json" to "oxlint.config.ts". Once done, the ".oxlintrc.json" file must be deleted.`);
-  }
-
-  return saveConfig(cwd, ".oxlintrc.json", config);
-
-}
-
 function addRulesConfig(config: Config<Oxlint>, path: JSONPath, rules?: Oxlint["rules"]): void {
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "eqeqeq"], "deny");
@@ -150,5 +93,62 @@ function addRulesConfig(config: Config<Oxlint>, path: JSONPath, rules?: Oxlint["
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/strict-void-return"], "deny");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/use-unknown-in-catch-callback-variable"], "deny");
+
+}
+
+/**
+ * Enable strict Oxlint rules
+ * {@link https://oxc.rs/docs/guide/usage/linter/rules.html}
+ *
+ * @param cwd Working directory path
+ *
+ * @returns A boolean for success or failure
+ */
+export async function enableOxlintStrict(cwd: string): Promise<boolean> {
+
+  const possibleConfigFiles = [".oxlintrc.json", "oxlint.config.ts"];
+
+  let config: Config<Oxlint> | null | undefined;
+
+  const file = findConfig(cwd, possibleConfigFiles);
+  if (file === null && !dependencyExists(cwd, "oxlint")) {
+    logInfo(`Can't find an Oxlint config file or dependency. Skipping this configuration.`);
+    return false;
+  }
+
+  if (file === null || file === "oxlint.config.ts") {
+    const json: Oxlint = {
+      $schema: "./node_modules/oxlint/configuration_schema.json",
+      rules: {},
+    };
+    config = {
+      raw: JSON.stringify(json),
+      json,
+    };
+  } else {
+    config = await getConfig<Oxlint>(cwd, file);
+  }
+
+  if (!config) {
+    return false;
+  }
+
+  config.raw = modifyJSON(config.raw, ["options", "typeAware"], true);
+
+  if (!checkDependencyVersion(cwd, "oxlint", ">=1.51")) {
+    logWarning(`Some Oxlint lint rules require the "typeAware" option, which requires "oxlint" version >= 1.51. The detected version appears to be lower, "oxlint" should be updated.`);
+  }
+
+  addRulesConfig(config, [], config.json.rules);
+
+  if (!dependencyExists(cwd, "oxlint-tsgolint")) {
+    logWarning(`Some Oxlint lint rules require type-aware linting, and the "oxlint-tsgolint" dependency required for it seems to be missing. See https://oxc.rs/docs/guide/usage/linter/type-aware.html`);
+  }
+
+  if (file === "oxlint.config.ts") {
+    logWarning(`The project is using the Oxlint "oxlint.config.ts" configuration format, which is too complicated to be manipulated directly. So the new strict configuration will be saved in ".oxlintrc.json"; then it is needed to manually copy the rules from ".oxlintrc.json" to "oxlint.config.ts". Once done, the ".oxlintrc.json" file must be deleted.`);
+  }
+
+  return saveConfig(cwd, ".oxlintrc.json", config);
 
 }

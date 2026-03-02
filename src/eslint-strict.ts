@@ -53,6 +53,84 @@ interface PackageJSON {
   eslintConfig?: ESLint;
 }
 
+
+function addTSConfig(cwd: string, config: Config<ESLint>, path: JSONPath, rules?: ESLint["rules"]): void {
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "eqeqeq"], "error");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-arrow-callback"], "error");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-template"], "error");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/explicit-function-return-type"], "error");
+
+  if (Array.isArray(rules?.["@typescript-eslint/no-explicit-any"])) {
+
+    const ruleValue = rules["@typescript-eslint/no-explicit-any"];
+
+    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-explicit-any", 0], ["error", (ruleValue[1]?.fixToUnknown === undefined ? {} : { fixToUnknown: ruleValue[1].fixToUnknown })]);
+
+  } else {
+    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-explicit-any"], "error");
+  }
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-non-null-assertion"], "error");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-argument"], "error");
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-assignment"], "error");
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-call"], "error");
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-member-access"], "error");
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-return"], "error");
+
+  if (checkTypescriptEslintVersion(cwd, ">=8.15.0")) {
+    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-type-assertion"], "error");
+  }
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/prefer-for-of"], "error");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/prefer-nullish-coalescing"], "error");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/prefer-optional-chain"], "error");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/restrict-plus-operands"], ["error", {
+    allowAny: false,
+    allowBoolean: false,
+    allowNullish: false,
+    allowNumberAndString: false,
+    allowRegExp: false,
+  }]);
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/restrict-template-expressions"], "error");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/strict-boolean-expressions"], ["error", {
+    allowNumber: false,
+    allowString: false
+  }]);
+
+  if (checkTypescriptEslintVersion(cwd, ">=8.53.0")) {
+    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/strict-void-return"], "error");
+  }
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/use-unknown-in-catch-callback-variable"], "error");
+
+}
+
+function addAngularHTMLConfig(config: Config<ESLint>, path: JSONPath): void {
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@angular-eslint/template/no-any"], "error");
+
+}
+
+function normalizeConfigToArray(config?: string | string[]): string[] {
+
+  if (Array.isArray(config)) {
+    return config;
+  }
+
+  return config === undefined ? [] : [config];
+
+}
+
 /**
  * Enable strict ESLint rules
  * {@link https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin}
@@ -167,82 +245,5 @@ export async function enableESLintStrict(cwd: string): Promise<boolean> {
   }
 
   return saveConfig(cwd, file, config);
-
-}
-
-function addTSConfig(cwd: string, config: Config<ESLint>, path: JSONPath, rules?: ESLint["rules"]): void {
-
-  config.raw = modifyJSON(config.raw, [...path, "rules", "eqeqeq"], "error");
-
-  config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-arrow-callback"], "error");
-
-  config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-template"], "error");
-
-  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/explicit-function-return-type"], "error");
-
-  if (Array.isArray(rules?.["@typescript-eslint/no-explicit-any"])) {
-
-    const ruleValue = rules["@typescript-eslint/no-explicit-any"];
-
-    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-explicit-any", 0], ["error", (ruleValue[1]?.fixToUnknown === undefined ? {} : { fixToUnknown: ruleValue[1].fixToUnknown })]);
-
-  } else {
-    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-explicit-any"], "error");
-  }
-
-  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-non-null-assertion"], "error");
-
-  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-argument"], "error");
-  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-assignment"], "error");
-  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-call"], "error");
-  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-member-access"], "error");
-  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-return"], "error");
-
-  if (checkTypescriptEslintVersion(cwd, ">=8.15.0")) {
-    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-type-assertion"], "error");
-  }
-
-  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/prefer-for-of"], "error");
-
-  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/prefer-nullish-coalescing"], "error");
-
-  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/prefer-optional-chain"], "error");
-
-  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/restrict-plus-operands"], ["error", {
-    allowAny: false,
-    allowBoolean: false,
-    allowNullish: false,
-    allowNumberAndString: false,
-    allowRegExp: false,
-  }]);
-
-  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/restrict-template-expressions"], "error");
-
-  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/strict-boolean-expressions"], ["error", {
-    allowNumber: false,
-    allowString: false
-  }]);
-
-  if (checkTypescriptEslintVersion(cwd, ">=8.53.0")) {
-    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/strict-void-return"], "error");
-  }
-
-  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/use-unknown-in-catch-callback-variable"], "error");
-
-}
-
-function addAngularHTMLConfig(config: Config<ESLint>, path: JSONPath): void {
-
-  config.raw = modifyJSON(config.raw, [...path, "rules", "@angular-eslint/template/no-any"], "error");
-
-}
-
-function normalizeConfigToArray(config?: string | string[]): string[] {
-
-  if (Array.isArray(config)) {
-    return config;
-  }
-
-  return config === undefined ? [] : [config];
 
 }
