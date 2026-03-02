@@ -6,11 +6,25 @@
   "categories": {
     "correctness": "deny",
     "nursery": "deny",
+    "pedantic": "deny",
     "perf": "deny",
     "suspicious": "deny"
   },
   "rules": {
-    "typescript/prefer-readonly-parameter-types": "allow",
+    // Loosen some "nursery" rules
+    "typescript/prefer-readonly-parameter-types": "allow", // seems buggy
+    // Loosen some "pedantic" rules
+    "max-lines-per-function": "allow", // tolerable in this project
+    "max-depth": "allow", // tolerable in this project
+    "no-inline-comments": "allow", // wanted in this project
+    "unicorn/no-useless-undefined": [
+      "error",
+      {
+        "checkArguments": false // required for modifyJSON()
+      }
+    ],
+    "unicorn/prefer-top-level-await": "allow", // required for Node bin
+    // Enforce strict typing
     "eqeqeq": "deny",
     "prefer-template": "deny",
     "typescript/explicit-function-return-type": "deny",

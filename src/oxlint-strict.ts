@@ -110,7 +110,7 @@ function addRulesConfig(config: Config<Oxlint>, path: JSONPath, rules?: Oxlint["
 
     const ruleValue = rules["typescript/no-explicit-any"];
 
-    config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-explicit-any", 0], ["deny", (ruleValue[1]?.fixToUnknown !== undefined ? { fixToUnknown: ruleValue[1].fixToUnknown } : {})]);
+    config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-explicit-any", 0], ["deny", (ruleValue[1]?.fixToUnknown === undefined ? {} : { fixToUnknown: ruleValue[1].fixToUnknown })]);
 
   } else {
     config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-explicit-any"], "deny");
