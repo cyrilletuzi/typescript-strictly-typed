@@ -1,6 +1,6 @@
 # TypeScript Strictly Typed
 
-Configure TypeScript, ESLint, Biome, Deno and/or Angular to ensure fully typed code. Because `strict` mode is not enough.
+Configure TypeScript, ESLint, Deno and/or Angular to ensure fully typed code. Because `strict` mode is not enough.
 
 A [posts series](https://dev.to/cyrilletuzi/typescript-strictly-typed-5fln) explains the motivation of this lib.
 
@@ -55,15 +55,8 @@ It modifies these configurations:
   - `@typescript-eslint/strict-boolean-expressions`
   - `@typescript-eslint/strict-void-return`
   - `@typescript-eslint/use-unknown-in-catch-callback-variable`
-- [Biome linter rules](https://biomejs.dev/linter/rules/)
-  - `noDoubleEquals`
-  - `noExplicitAny`
-  - `noImplicitAnyLet`
-  - `noNonNullAssertion`
-  - `useArrowFunction`
-  - `useForOf`
-  - `useOptionalChain`
-  - `useTemplate`
+- [Oxlint rules](https://oxc.rs/docs/guide/usage/linter/rules.html)
+  - same as ESLint rules + TypeScript ESlint rules (except the missing `prefer-arrow-callback` for now)
 - [Angular compiler options](https://angular.dev/reference/configs/angular-compiler-options)
   - `strictInjectionParameters`
   - `strictInputAccessModifiers`
@@ -75,8 +68,20 @@ It modifies these configurations:
   - add the same compiler options as for TypeScript
   - add the same lint rules as for ESLint (the ones which exist in Deno)
 
+> [!IMPORTANT]
+> For Oxlint, many of the rules require type-aware linting, which require:
+> - [additional setup](https://oxc.rs/docs/guide/usage/linter/type-aware.html)
+> - to activate it each time you launch the command: `npx oxlint --type-aware`
+
 > [!NOTE]
-> To keep configuration concise, you may not see all TypeScript, Biome and Deno options added, if they are already enabled by an existing preset. All ESLint rules will be added, as ESLint configuration is too complex to detect presets.
+> To keep configuration concise, you may not see all TypeScript and Deno options added, if they are already enabled by an existing preset. All ESLint rules will be added, as ESLint configuration is too complex to detect presets.
+
+> [!NOTE]
+> Why not Biome?
+> 
+> Biome initially planned feature parity with ESLint. Unfortunately, this goal has been [abandoned](https://github.com/biomejs/biome/discussions/3). It means that a lot of the lint rules required to enforce strict typing are missing in Biome.
+>
+> As a consequence, for a project where strict typing is a goal, Biome is probably not the adequate choice, and support for it has been removed from this tool. If one is looking for an alternative to ESLint and an equivalent of Biome, [Oxlint](https://oxc.rs/docs/guide/usage/linter) seems the new way to go.
 
 ## License
 

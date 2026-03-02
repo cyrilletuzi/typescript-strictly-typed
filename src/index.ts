@@ -1,16 +1,16 @@
 import { enableAngularStrict } from "./angular-strict.js";
-import { enableBiomeStrict } from "./biome-strict.js";
 import { isGitStatusDirty } from "./check-git-status.js";
 import { enableDenoStrict } from "./deno-strict.js";
 import { enableESLintStrict } from "./eslint-strict.js";
 import { logError, logSuccess } from "./log-utils.js";
+import { enableOxlintStrict } from "./oxlint-strict.js";
 import { enableTypescriptStrict } from "./typescript-strict.js";
 
 /**
  * Enable strictly typed configurations for:
  * - TypeScript compiler
  * - ESLint rules
- * - Biome rules
+ * - Oxlint rules
  * - Angular compiler (if `angular.json` is detected)
  *
  * @param cwd Working directory path
@@ -31,8 +31,8 @@ export async function typescriptStrictlyTyped(cwd: string): Promise<void> {
     success.push("ESLint");
   }
 
-  if (await enableBiomeStrict(cwd)) {
-    success.push("Biome");
+  if (await enableOxlintStrict(cwd)) {
+    success.push("Oxlint");
   }
 
   if (await enableDenoStrict(cwd)) {

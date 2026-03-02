@@ -1,5 +1,17 @@
 # Changelog
 
+## 3.25.0 (2026-02-26)
+
+- Add support for Oxlint
+
+Note that many Oxlint rules require type-aware linting, which require [additional setup](https://oxc.rs/docs/guide/usage/linter/type-aware.html), and to activate it each time you launch the command: `npx oxlint --type-aware`.
+
+- Remove support for Biome
+
+Why? Biome initially planned feature parity with ESLint. Unfortunately, this goal has been [abandoned](https://github.com/biomejs/biome/discussions/3). It means that a lot of the lint rules required to enforce strict typing are missing in Biome.
+
+As a consequence, for a project where strict typing is a goal, Biome is probably not the adequate choice, and support for it has been removed from this tool. If one is looking for an alternative to ESLint and an equivalent of Biome, [Oxlint](https://oxc.rs/docs/guide/usage/linter) seems the new way to go.
+
 ## 3.24.0 (2026-02-09)
 
 - Support array configuration in `defineConfig()`
