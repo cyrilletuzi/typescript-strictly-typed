@@ -3,7 +3,14 @@
   "options": {
     "typeAware": true
   },
+  "categories": {
+    "correctness": "deny",
+    "nursery": "deny",
+    "perf": "deny",
+    "suspicious": "deny"
+  },
   "rules": {
+    "typescript/prefer-readonly-parameter-types": "allow",
     "eqeqeq": "deny",
     "prefer-template": "deny",
     "typescript/explicit-function-return-type": "deny",

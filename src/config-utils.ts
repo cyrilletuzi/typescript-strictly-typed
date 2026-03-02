@@ -86,6 +86,7 @@ export async function getConfig<T>(cwd: string, file: string): Promise<Config<T>
         // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
         const json = load(raw) as T;
         config = {
+          // oxlint-disable-next-line typescript/no-unnecessary-condition -- Will be solved with TS 6.0
           raw: JSON.stringify(json) ?? "",
           json,
         };
@@ -97,6 +98,7 @@ export async function getConfig<T>(cwd: string, file: string): Promise<Config<T>
         const moduleImport = await import(filePath) as { default: T; };
         const json = moduleImport.default;
         config = {
+          // oxlint-disable-next-line typescript/no-unnecessary-condition -- Will be solved with TS 6.0
           raw: JSON.stringify(json) ?? "",
           json,
         };
