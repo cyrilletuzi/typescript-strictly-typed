@@ -1,9 +1,22 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "ignorePatterns": [
+    "bin/cli.js",
+    "eslint.config.js"
+  ],
   "options": {
     "typeAware": true
   },
-  // "plugins": ["node"],
+  "plugins": [
+    "eslint",
+    "import",
+    "jsdoc",
+    "node",
+    "oxc",
+    "promise",
+    "typescript",
+    "unicorn"
+  ],
   "categories": {
     "correctness": "deny",
     "nursery": "deny",
@@ -19,6 +32,9 @@
     "max-depth": "allow", // tolerable in this project
     "max-lines-per-function": "allow", // tolerable in this project
     "no-inline-comments": "allow", // wanted in this project
+    "jsdoc/require-param-type": "allow", // not needed with TypeScript
+    "jsdoc/require-returns": "allow", // tolerable in this project
+    "jsdoc/require-returns-type": "allow", // not needed with TypeScript
     "unicorn/no-useless-undefined": [
       "error",
       {
@@ -39,6 +55,12 @@
     "no-ternary": "allow", // perhaps learn some basic programming?
     "sort-imports": "allow", // already managed by VS Code
     "sort-keys": "allow", // no, a logical order is often better
+    "import/consistent-type-specifier-style": "allow", // managed by TypeScript and VS Code
+    "import/exports-last": "allow", // no
+    "import/group-exports": "allow", // no
+    "import/prefer-default-export": "allow", // no
+    "import/no-named-export": "allow", // and no
+    "import/no-nodejs-modules": "allow", // this is a Node project
     "unicorn/no-null": "allow", // null and undefined are not the same
     // Add relevant "restriction" rules
     "class-methods-use-this": "deny",
@@ -59,6 +81,8 @@
     "import/unambiguous": "deny",
     "jsdoc/check-access": "deny",
     "jsdoc/empty-tags": "deny",
+    "node/no-new-require": "deny",
+    "node/no-process-env": "deny",
     "oxc/bad-bitwise-operator": "deny",
     "oxc/no-barrel-file": "deny",
     "oxc/no-const-enum": "deny",
@@ -79,15 +103,8 @@
     "unicorn/no-array-reduce": "deny",
     "unicorn/prefer-modern-math-apis": "deny",
     "unicorn/prefer-module": "deny",
-    "unicorn/prefer-node-protocol": "deny", // for Node projects only
+    "unicorn/prefer-node-protocol": "deny",
     "unicorn/prefer-number-properties": "deny",
-    // "complexity": "deny",
-    // "default-case": "deny",
-    // "no-alert": "deny",
-    // "no-console": "deny",
-    // no-document-cookie
-    // "node/no-new-require": "error"
-    // node/no-process-env
     // Enforce strict typing
     "eqeqeq": "deny", // in "pedantic"
     "prefer-template": "deny", // in "style"
