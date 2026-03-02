@@ -40,21 +40,21 @@
     "init-declarations": "allow", // contradictory with the "no-useless-assignment", and TypeScript manages this correctly
     "capitalized-comments": "allow", // mind your own business
     // Enforce strict typing
-    "eqeqeq": "deny",
-    "prefer-template": "deny",
-    "typescript/explicit-function-return-type": "deny",
-    "typescript/no-explicit-any": "deny",
-    "typescript/no-non-null-assertion": "deny",
-    "typescript/no-unsafe-argument": "deny",
-    "typescript/no-unsafe-assignment": "deny",
-    "typescript/no-unsafe-call": "deny",
-    "typescript/no-unsafe-member-access": "deny",
-    "typescript/no-unsafe-return": "deny",
-    "typescript/no-unsafe-type-assertion": "deny",
-    "typescript/prefer-for-of": "deny",
-    "typescript/prefer-nullish-coalescing": "deny",
-    "typescript/prefer-optional-chain": "deny",
-    "typescript/restrict-plus-operands": [
+    "eqeqeq": "deny", // in "pedantic"
+    "prefer-template": "deny", // in "style"
+    "typescript/explicit-function-return-type": "deny", // in "restriction"
+    "typescript/no-explicit-any": "deny", // in "restriction"
+    "typescript/no-non-null-assertion": "deny", // in "restriction"
+    "typescript/no-unsafe-argument": "deny", // in "pedantic"
+    "typescript/no-unsafe-assignment": "deny", // in "pedantic"
+    "typescript/no-unsafe-call": "deny", // in "pedantic"
+    "typescript/no-unsafe-member-access": "deny", // in "pedantic"
+    "typescript/no-unsafe-return": "deny", // in "pedantic"
+    "typescript/no-unsafe-type-assertion": "deny", // in "suspicious"
+    "typescript/prefer-for-of": "deny", // in "style"
+    "typescript/prefer-nullish-coalescing": "deny", // in "pedantic"
+    "typescript/prefer-optional-chain": "deny", // in "nursery"
+    "typescript/restrict-plus-operands": [ // in "pedantic"
       "deny",
       {
         "allowAny": false,
@@ -64,14 +64,14 @@
         "allowRegExp": false,
       }
     ],
-    "typescript/restrict-template-expressions": "deny",
-    "typescript/strict-boolean-expressions": [
+    "typescript/restrict-template-expressions": "deny", // in "correctness" and default
+    "typescript/strict-boolean-expressions": [ // in "pedantic"
       "deny",
       {
         "allowNumber": false,
         "allowString": false,
       }
     ],
-    "typescript/use-unknown-in-catch-callback-variable": "deny"
+    "typescript/use-unknown-in-catch-callback-variable": "deny" // in "restriction"
   }
 }
