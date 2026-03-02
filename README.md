@@ -9,7 +9,7 @@ A [posts series](https://dev.to/cyrilletuzi/typescript-strictly-typed-5fln) expl
 
 ## Getting started
 
-Just run the following commands in your terminal:
+Just run the following commands in a terminal:
 
 ```bash
 cd path/to/my-project-with-tsconfig
@@ -68,13 +68,13 @@ It modifies these configurations:
   - add the same compiler options as for TypeScript
   - add the same lint rules as for ESLint (the ones which exist in Deno)
 
-> [!IMPORTANT]
+> [!NOTE]
 > For Oxlint, many of the rules require type-aware linting, which require:
 > - [additional setup](https://oxc.rs/docs/guide/usage/linter/type-aware.html)
-> - to activate it each time you launch the command: `npx oxlint --type-aware`
+> - version >= 1.51
 
 > [!NOTE]
-> To keep configuration concise, you may not see all TypeScript and Deno options added, if they are already enabled by an existing preset. All ESLint rules will be added, as ESLint configuration is too complex to detect presets.
+> To keep configuration concise, not all TypeScript and Deno options may be added, if they are already enabled by an existing preset. All ESLint rules will be added, as ESLint configuration is too complex to detect presets.
 
 > [!NOTE]
 > Why not Biome?
