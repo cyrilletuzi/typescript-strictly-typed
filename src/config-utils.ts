@@ -6,9 +6,9 @@ import { packageUpSync } from "package-up";
 import { coerce, satisfies } from "semver";
 import { logError } from "./log-utils.js";
 
-export interface Config<T> {
+export interface Config<ConfigType> {
   raw: string;
-  json: T;
+  json: ConfigType;
   source?: string;
 }
 
@@ -60,7 +60,7 @@ export function getSource(cwd: string, file: string): string {
  *
  * @returns The config in raw (string) and JSON formats, or `null`
  */
-export async function getConfig<T>(cwd: string, file: string): Promise<Config<T> | null> {
+export async function getConfig<ConfigType>(cwd: string, file: string): Promise<Config<ConfigType> | null> {
 
   const filePath = join(cwd, file);
 
@@ -68,7 +68,7 @@ export async function getConfig<T>(cwd: string, file: string): Promise<Config<T>
 
   const fileType = extname(file);
 
-  let config: Config<T> | null = null;
+  let config: Config<ConfigType> | null = null;
   try {
 
     switch (fileType) {
@@ -77,14 +77,14 @@ export async function getConfig<T>(cwd: string, file: string): Promise<Config<T>
         config = {
           raw,
           // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
-          json: parse(raw) as T,
+          json: parse(raw) as ConfigType,
         };
         break;
       }
       case ".yaml":
       case ".yml": {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
-        const json = load(raw) as T;
+        const json = load(raw) as ConfigType;
         config = {
           // oxlint-disable-next-line typescript/no-unnecessary-condition -- Will be solved with TS 6.0
           raw: JSON.stringify(json) ?? "",
@@ -95,7 +95,7 @@ export async function getConfig<T>(cwd: string, file: string): Promise<Config<T>
       case ".js":
       case ".cjs": {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
-        const moduleImport = await import(filePath) as { default: T; };
+        const moduleImport = await import(filePath) as { default: ConfigType; };
         const json = moduleImport.default;
         config = {
           // oxlint-disable-next-line typescript/no-unnecessary-condition -- Will be solved with TS 6.0
@@ -133,13 +133,15 @@ export function saveConfig(cwd: string, file: string, config: Config<unknown>): 
 
     switch (fileType) {
       case ".json":
-      case ".jsonc":
+      case ".jsonc": {
         configStringified = config.raw;
         break;
+      }
       case ".yaml":
-      case ".yml":
+      case ".yml": {
         configStringified = dump(config.json, { indent: 2 });
         break;
+      }
     }
 
   } catch {

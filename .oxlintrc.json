@@ -8,7 +8,8 @@
     "nursery": "deny",
     "pedantic": "deny",
     "perf": "deny",
-    "suspicious": "deny"
+    "suspicious": "deny",
+    "style": "deny"
   },
   "rules": {
     // Loosen some "nursery" rules
@@ -24,6 +25,20 @@
       }
     ],
     "unicorn/prefer-top-level-await": "allow", // required for Node bin
+    // Loosen some "style" rules
+    "sort-keys": "allow", // no, a logical order is often better
+    "unicorn/no-null": "allow", // null and undefined are not the same
+    "sort-imports": "allow", // already managed by VS Code
+    "no-ternary": "allow", // perhaps learn some basic programming?
+    "no-magic-numbers": "allow", // let use numbers, please?
+    "max-statements": "allow", // tolerable in this project
+    "func-style": [
+      "error",
+      "declaration" // "expression" by default, which should be punished by law
+    ],
+    "max-params": "allow", // tolerable in this project
+    "init-declarations": "allow", // contradictory with the "no-useless-assignment", and TypeScript manages this correctly
+    "capitalized-comments": "allow", // mind your own business
     // Enforce strict typing
     "eqeqeq": "deny",
     "prefer-template": "deny",

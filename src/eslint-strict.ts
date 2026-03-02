@@ -239,6 +239,10 @@ function addAngularHTMLConfig(config: Config<ESLint>, path: JSONPath): void {
 
 function normalizeConfigToArray(config?: string | string[]): string[] {
 
-  return Array.isArray(config) ? config : (config === undefined ? [] : [config]);
+  if (Array.isArray(config)) {
+    return config;
+  }
+
+  return config === undefined ? [] : [config];
 
 }
