@@ -1,5 +1,5 @@
 import type { JSONPath } from "jsonc-parser";
-import { type Config, dependencyExists, findConfig, getConfig, modifyJSON, saveConfig } from "./config-utils.js";
+import { checkDependencyVersion, type Config, dependencyExists, findConfig, getConfig, modifyJSON, saveConfig } from "./config-utils.js";
 import { logInfo, logWarning } from "./log-utils.js";
 
 type OxlintErrorLevel = "error" | "warn" | "off" | "deny" | "allow";
@@ -32,6 +32,9 @@ interface OxlintRules {
 
 interface Oxlint {
   $schema?: "./node_modules/oxlint/configuration_schema.json",
+  options?: {
+    typeAware: boolean;
+  },
   rules?: OxlintRules;
 }
 
@@ -72,6 +75,12 @@ export async function enableOxlintStrict(cwd: string): Promise<boolean> {
     return false;
   }
 
+  config.raw = modifyJSON(config.raw, ["options", "typeAware"], true);
+
+  if (!checkDependencyVersion(cwd, "oxlint", ">=1.51")) {
+    logWarning(`Some Oxlint lint rules require the "typeAware" option, which requires "oxlint" version >= 1.51. The detected version appears to be lower, "oxlint" should be updated.`);
+  }
+
   addRulesConfig(config, [], config.json.rules);
 
   if (!dependencyExists(cwd, "oxlint-tsgolint")) {
@@ -79,7 +88,7 @@ export async function enableOxlintStrict(cwd: string): Promise<boolean> {
   }
 
   if (file === "oxlint.config.ts") {
-    logWarning(`Your project is using the Oxlint "oxlint.config.ts" configuration format, which is too complicated to be manipulated directly. So the new strict configuration will be saved in ".oxlintrc.json"; then you need to manually copy the rules from ".oxlintrc.json" to "oxlint.config.ts". Once done, delete the ".oxlintrc.json" file.`);
+    logWarning(`The project is using the Oxlint "oxlint.config.ts" configuration format, which is too complicated to be manipulated directly. So the new strict configuration will be saved in ".oxlintrc.json"; then it is needed to manually copy the rules from ".oxlintrc.json" to "oxlint.config.ts". Once done, the ".oxlintrc.json" file must be deleted.`);
   }
 
   return saveConfig(cwd, ".oxlintrc.json", config);

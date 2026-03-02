@@ -1,10 +1,14 @@
 # Changelog
 
+## 3.26.0 (2026-03-02)
+
+- Set `typeAware` in oxlint configuration (version >= 1.51)
+
 ## 3.25.0 (2026-02-26)
 
 - Add support for Oxlint
 
-Note that many Oxlint rules require type-aware linting, which require [additional setup](https://oxc.rs/docs/guide/usage/linter/type-aware.html), and to activate it each time you launch the command: `npx oxlint --type-aware`.
+Note that many Oxlint rules require type-aware linting, which require [additional setup](https://oxc.rs/docs/guide/usage/linter/type-aware.html), and to activate it each time the command is launched: `npx oxlint --type-aware`.
 
 - Remove support for Biome
 
@@ -116,8 +120,8 @@ New lint rules:
 
 - Requires Node >= 16
 - Only add `forceConsistentCasingInFileNames` in TypeScript <= 4.9, as it is now true by default in TypeScript >= 5.0.
-- Add back `exactOptionalPropertyTypes`. It is reliable for your own code. Issues are only because of some libraries, so if a library is not correct regarding this check, report it to the lib repo, and temporarily add `skipLibCheck` to your `tsconfig.json`.
-- Add back `noUncheckedIndexedAccess` if TypeScript >= 5.0. It was reverted because the compiler is not smart enough in some cases. First case was dynamic objects (`Record` or `{ [key: string]: string }`): but now TypeScript >= 5.0 infers correctly if you check before (`if ('someProperty' in someObject)`). Second case is still there and is when accessing directly a speficic array value (`myArray[2]`) but those cases mainly happen because of old JavaScript syntaxes, there are easily avoided with modern syntaxes (like `for...of`, `?.`, `??`).
+- Add back `exactOptionalPropertyTypes`. It is reliable for owned code. Issues are only because of some libraries, so if a library is not correct regarding this check, it should be reported to the lib repo, and temporarily add `skipLibCheck` to `tsconfig.json`.
+- Add back `noUncheckedIndexedAccess` if TypeScript >= 5.0. It was reverted because the compiler is not smart enough in some cases. First case was dynamic objects (`Record` or `{ [key: string]: string }`): but now TypeScript >= 5.0 infers correctly if is checked before (`if ('someProperty' in someObject)`). Second case is still there and is when accessing directly a speficic array value (`myArray[2]`) but those cases mainly happen because of old JavaScript syntaxes, there are easily avoided with modern syntaxes (like `for...of`, `?.`, `??`).
 
 ## 2.13.0 (2022-04-11)
 
