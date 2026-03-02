@@ -152,17 +152,17 @@ export async function enableESLintStrict(cwd: string): Promise<boolean> {
   }
 
   if (file === "eslint.config.js" || file === "eslint.config.mjs") {
-    logWarning(`Your project is using the new ${file} format, and it cannot be overwrited directly, as it could mess up with advanced configuration. So the new strict configuration was saved in eslint.config.json. eslint.config.json is not recognized by ESLint, you need to manually copy the options from eslint.config.json to ${file}. Once done, you can delete eslint.config.json.`);
+    logWarning(`The project is using the new ${file} format, and it cannot be overwrited directly, as it could mess up with advanced configuration. So the new strict configuration was saved in eslint.config.json. eslint.config.json is not recognized by ESLint, it is needed to manually copy the options from eslint.config.json to ${file}. Once done, eslint.config.json can be deleted.`);
     return saveConfig(cwd, "eslint.config.json", config);
   }
 
   if (file === ".eslintrc.js") {
-    logWarning("Your project is using the advanced .eslintrc.js format, and it cannot be overwrited directly, as it could mess up with advanced configuration. So the new strict configuration was saved in .eslintrc.json. As .eslintrc.js has precedence over .eslintrc.json, you need to manually copy the options from .eslintrc.json to .eslintrc.js. Once done, you can delete .eslintrc.json.");
+    logWarning("The project is using the advanced .eslintrc.js format, and it cannot be overwrited directly, as it could mess up with advanced configuration. So the new strict configuration was saved in .eslintrc.json. As .eslintrc.js has precedence over .eslintrc.json, it is needed to manually copy the options from .eslintrc.json to .eslintrc.js. Once done, .eslintrc.json can be deleted.");
     return saveConfig(cwd, ".eslintrc.json", config);
   }
 
   if (file === ".eslintrc.cjs") {
-    logWarning("Your project is using the advanced .eslintrc.cjs format, and it cannot be overwrited directly, as it could mess up with advanced configuration. So the new strict configuration was saved in .eslintrc.json. As .eslintrc.cjs has precedence over .eslintrc.json, you need to manually copy the options from .eslintrc.json to .eslintrc.cjs. Once done, you can delete .eslintrc.json.");
+    logWarning("The project is using the advanced .eslintrc.cjs format, and it cannot be overwrited directly, as it could mess up with advanced configuration. So the new strict configuration was saved in .eslintrc.json. As .eslintrc.cjs has precedence over .eslintrc.json, it is needed to manually copy the options from .eslintrc.json to .eslintrc.cjs. Once done, .eslintrc.json can be deleted.");
     return saveConfig(cwd, ".eslintrc.json", config);
   }
 
