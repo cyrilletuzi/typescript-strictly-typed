@@ -27,7 +27,7 @@
   },
   "rules": {
     // Loosen some "nursery" rules
-    "typescript/prefer-readonly-parameter-types": "allow", // seems buggy
+    "typescript/prefer-readonly-parameter-types": "allow", // tolerable in this project, and seems buggy
     // Loosen some "pedantic" rules
     "max-depth": "allow", // tolerable in this project
     "max-lines-per-function": "allow", // tolerable in this project
