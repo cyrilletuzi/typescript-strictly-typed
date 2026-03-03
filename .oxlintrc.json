@@ -27,7 +27,28 @@
   },
   "rules": {
     // Loosen some "nursery" rules
-    "typescript/prefer-readonly-parameter-types": "allow", // tolerable in this project, and seems buggy
+    "typescript/prefer-readonly-parameter-types": [
+      "deny",
+      {
+        "allow": [
+          {
+            "from": "package",
+            "name": "ModificationOptions",
+            "package": "jsonc-parser"
+          },
+          {
+            "from": "package",
+            "name": "CodeBlockWriter",
+            "package": "ts-morph"
+          },
+          {
+            "from": "package",
+            "name": "ObjectLiteralExpression",
+            "package": "ts-morph"
+          },
+        ]
+      }
+    ],
     // Loosen some "pedantic" rules
     "max-depth": "allow", // tolerable in this project
     "max-lines-per-function": "allow", // tolerable in this project

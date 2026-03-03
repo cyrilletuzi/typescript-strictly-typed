@@ -6,46 +6,46 @@ import { logInfo, logWarning } from "./log-utils.js";
 type ESLintErrorLevel = "error" | "warn" | "off";
 
 interface ESLintRules {
-  "eqeqeq"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
-  "prefer-arrow-callback"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
-  "prefer-template"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
-  "@typescript-eslint/no-explicit-any"?: ESLintErrorLevel | [ESLintErrorLevel, {
-    fixToUnknown?: boolean;
+  readonly "eqeqeq"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  readonly "prefer-arrow-callback"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  readonly "prefer-template"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  readonly "@typescript-eslint/no-explicit-any"?: ESLintErrorLevel | readonly [ESLintErrorLevel, {
+    readonly fixToUnknown?: boolean;
   }?];
-  "@typescript-eslint/explicit-function-return-type"?: ESLintErrorLevel | [ESLintErrorLevel, unknown];
-  "@typescript-eslint/prefer-for-of"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
-  "@typescript-eslint/prefer-nullish-coalescing"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
-  "@typescript-eslint/prefer-optional-chain"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
-  "@typescript-eslint/use-unknown-in-catch-callback-variable"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
-  "@typescript-eslint/no-non-null-assertion"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
-  "@typescript-eslint/no-unsafe-argument"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?]; // in recommended-type-checked
-  "@typescript-eslint/no-unsafe-assignment"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?]; // in recommended-type-checked
-  "@typescript-eslint/no-unsafe-call"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?]; // in recommended-type-checked
-  "@typescript-eslint/no-unsafe-member-access"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?]; // in recommended-type-checked
-  "@typescript-eslint/no-unsafe-return"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?]; // in recommended-type-checked
-  "@typescript-eslint/no-unsafe-type-assertion"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
-  "@typescript-eslint/restrict-plus-operands"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
-  "@typescript-eslint/restrict-template-expressions"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
-  "@typescript-eslint/strict-boolean-expressions"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
-  "@typescript-eslint/strict-void-return"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
-  "@angular-eslint/template/no-any"?: ESLintErrorLevel | [ESLintErrorLevel, unknown?];
+  readonly "@typescript-eslint/explicit-function-return-type"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown];
+  readonly "@typescript-eslint/prefer-for-of"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  readonly "@typescript-eslint/prefer-nullish-coalescing"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  readonly "@typescript-eslint/prefer-optional-chain"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  readonly "@typescript-eslint/use-unknown-in-catch-callback-variable"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  readonly "@typescript-eslint/no-non-null-assertion"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  readonly "@typescript-eslint/no-unsafe-argument"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?]; // in recommended-type-checked
+  readonly "@typescript-eslint/no-unsafe-assignment"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?]; // in recommended-type-checked
+  readonly "@typescript-eslint/no-unsafe-call"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?]; // in recommended-type-checked
+  readonly "@typescript-eslint/no-unsafe-member-access"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?]; // in recommended-type-checked
+  readonly "@typescript-eslint/no-unsafe-return"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?]; // in recommended-type-checked
+  readonly "@typescript-eslint/no-unsafe-type-assertion"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  readonly "@typescript-eslint/restrict-plus-operands"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  readonly "@typescript-eslint/restrict-template-expressions"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  readonly "@typescript-eslint/strict-boolean-expressions"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  readonly "@typescript-eslint/strict-void-return"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  readonly "@angular-eslint/template/no-any"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
 }
 
 interface ESLintParserOptions {
-  project?: boolean | string | string[];
+  readonly project?: boolean | string | string[];
 }
 
 interface ESLint {
-  parserOptions?: ESLintParserOptions;
-  rules?: ESLintRules;
-  plugins?: string[];
-  extends?: string | string[];
-  overrides?: {
-    files?: string | string[];
-    parserOptions?: ESLintParserOptions;
-    plugins?: string[];
-    extends?: string | string[];
-    rules?: ESLintRules;
+  readonly parserOptions?: ESLintParserOptions;
+  readonly rules?: ESLintRules;
+  readonly plugins?: readonly string[];
+  readonly extends?: string | readonly string[];
+  readonly overrides?: readonly {
+    readonly files?: string | readonly string[];
+    readonly parserOptions?: ESLintParserOptions;
+    readonly plugins?: readonly string[];
+    readonly extends?: string | readonly string[];
+    readonly rules?: ESLintRules;
   }[];
 }
 
@@ -54,7 +54,13 @@ interface PackageJSON {
 }
 
 
-function addTSConfig(cwd: string, config: Config<ESLint>, path: JSONPath, rules?: ESLint["rules"]): void {
+function addTSConfig(
+  cwd: string,
+  // oxlint-disable-next-line typescript/prefer-readonly-parameter-types -- Mutability wanted here
+  config: Config<ESLint>,
+  path: Readonly<JSONPath>,
+  rules?: ESLint["rules"],
+): void {
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "eqeqeq"], "error");
 
@@ -66,7 +72,10 @@ function addTSConfig(cwd: string, config: Config<ESLint>, path: JSONPath, rules?
 
   if (Array.isArray(rules?.["@typescript-eslint/no-explicit-any"])) {
 
-    const ruleValue = rules["@typescript-eslint/no-explicit-any"];
+    // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Type is lost by Array.isArray()
+    const ruleValue = rules["@typescript-eslint/no-explicit-any"] as readonly [ESLintErrorLevel, {
+      readonly fixToUnknown?: boolean;
+    }?];
 
     config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-explicit-any", 0], ["error", (ruleValue[1]?.fixToUnknown === undefined ? {} : { fixToUnknown: ruleValue[1].fixToUnknown })]);
 
@@ -115,19 +124,24 @@ function addTSConfig(cwd: string, config: Config<ESLint>, path: JSONPath, rules?
 
 }
 
-function addAngularHTMLConfig(config: Config<ESLint>, path: JSONPath): void {
+function addAngularHTMLConfig(
+  // oxlint-disable-next-line typescript/prefer-readonly-parameter-types -- Mutability wanted here
+  config: Config<ESLint>,
+  path: Readonly<JSONPath>,
+): void {
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "@angular-eslint/template/no-any"], "error");
 
 }
 
-function normalizeConfigToArray(config?: string | string[]): string[] {
+function normalizeConfigToArray(config?: string | readonly string[]): string[] {
 
   if (Array.isArray(config)) {
-    return config;
+    // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Type lost by Array.isArray()
+    return config as string[];
   }
 
-  return config === undefined ? [] : [config];
+  return typeof config === "string" ? [config] : [];
 
 }
 

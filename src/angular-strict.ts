@@ -2,11 +2,11 @@ import { checkDependencyVersion, dependencyExists, findConfig, getConfig, modify
 import { logInfo } from "./log-utils.js";
 
 interface TSConfigAngular {
-  angularCompilerOptions?: {
-    strictInjectionParameters?: boolean;
-    strictTemplates?: boolean;
-    strictInputAccessModifiers?: boolean;
-    typeCheckHostBindings?: boolean;
+  readonly angularCompilerOptions?: {
+    readonly strictInjectionParameters?: boolean;
+    readonly strictTemplates?: boolean;
+    readonly strictInputAccessModifiers?: boolean;
+    readonly typeCheckHostBindings?: boolean;
   };
 }
 

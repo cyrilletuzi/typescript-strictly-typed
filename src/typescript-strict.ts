@@ -1,23 +1,23 @@
 import { checkDependencyVersion, findConfig, getConfig, modifyJSON, saveConfig } from "./config-utils.js";
 
 interface TSConfig {
-  extends?: string | string[];
-  compilerOptions?: {
-    strict?: boolean;
-    noImplicitAny?: boolean;
-    strictNullChecks?: boolean;
-    noImplicitThis?: boolean;
-    alwaysStrict?: boolean | undefined;
-    strictBindCallApply?: boolean;
-    strictFunctionTypes?: boolean;
-    strictPropertyInitialization?: boolean;
-    useUnknownInCatchVariables?: boolean;
-    noFallthroughCasesInSwitch?: boolean;
-    noImplicitReturns?: boolean;
-    noUncheckedIndexedAccess?: boolean;
-    noPropertyAccessFromIndexSignature?: boolean;
-    noImplicitOverride?: boolean;
-    exactOptionalPropertyTypes?: boolean;
+  readonly extends?: string | readonly string[];
+  readonly compilerOptions?: {
+    readonly strict?: boolean;
+    readonly noImplicitAny?: boolean;
+    readonly strictNullChecks?: boolean;
+    readonly noImplicitThis?: boolean;
+    readonly alwaysStrict?: boolean | undefined;
+    readonly strictBindCallApply?: boolean;
+    readonly strictFunctionTypes?: boolean;
+    readonly strictPropertyInitialization?: boolean;
+    readonly useUnknownInCatchVariables?: boolean;
+    readonly noFallthroughCasesInSwitch?: boolean;
+    readonly noImplicitReturns?: boolean;
+    readonly noUncheckedIndexedAccess?: boolean;
+    readonly noPropertyAccessFromIndexSignature?: boolean;
+    readonly noImplicitOverride?: boolean;
+    readonly exactOptionalPropertyTypes?: boolean;
   };
 }
 

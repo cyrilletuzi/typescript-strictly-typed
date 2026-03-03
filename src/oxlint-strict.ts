@@ -5,40 +5,45 @@ import { logInfo, logWarning } from "./log-utils.js";
 type OxlintErrorLevel = "error" | "warn" | "off" | "deny" | "allow";
 
 interface OxlintRules {
-  "eqeqeq"?: OxlintErrorLevel | [OxlintErrorLevel, unknown?];
+  readonly "eqeqeq"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   // Missing from Oxlint for now
-  // "prefer-arrow-callback"?: OxlintErrorLevel | [OxlintErrorLevel, unknown?];
-  "prefer-template"?: OxlintErrorLevel | [OxlintErrorLevel, unknown?]; // v1.12
-  "typescript/no-explicit-any"?: OxlintErrorLevel | [OxlintErrorLevel, {
-    fixToUnknown?: boolean;
+  // readonly "prefer-arrow-callback"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  readonly "prefer-template"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?]; // v1.12
+  readonly "typescript/no-explicit-any"?: OxlintErrorLevel | readonly [OxlintErrorLevel, {
+    readonly fixToUnknown?: boolean;
   }?];
-  "typescript/explicit-function-return-type"?: OxlintErrorLevel | [OxlintErrorLevel, unknown];
-  "typescript/prefer-for-of"?: OxlintErrorLevel | [OxlintErrorLevel, unknown?];
-  "typescript/prefer-nullish-coalescing"?: OxlintErrorLevel | [OxlintErrorLevel, unknown?]; // v1.33
-  "typescript/prefer-optional-chain"?: OxlintErrorLevel | [OxlintErrorLevel, unknown?]; // v.1.39
-  "typescript/use-unknown-in-catch-callback-variable"?: OxlintErrorLevel | [OxlintErrorLevel, unknown?];
-  "typescript/no-non-null-assertion"?: OxlintErrorLevel | [OxlintErrorLevel, unknown?];
-  "typescript/no-unsafe-argument"?: OxlintErrorLevel | [OxlintErrorLevel, unknown?];
-  "typescript/no-unsafe-assignment"?: OxlintErrorLevel | [OxlintErrorLevel, unknown?];
-  "typescript/no-unsafe-call"?: OxlintErrorLevel | [OxlintErrorLevel, unknown?];
-  "typescript/no-unsafe-member-access"?: OxlintErrorLevel | [OxlintErrorLevel, unknown?];
-  "typescript/no-unsafe-return"?: OxlintErrorLevel | [OxlintErrorLevel, unknown?];
-  "typescript/no-unsafe-type-assertion"?: OxlintErrorLevel | [OxlintErrorLevel, unknown?];
-  "typescript/restrict-plus-operands"?: OxlintErrorLevel | [OxlintErrorLevel, unknown?];
-  "typescript/restrict-template-expressions"?: OxlintErrorLevel | [OxlintErrorLevel, unknown?]; // enabled by default
-  "typescript/strict-boolean-expressions"?: OxlintErrorLevel | [OxlintErrorLevel, unknown?];
-  "typescript/strict-void-return"?: OxlintErrorLevel | [OxlintErrorLevel, unknown?]; // v.1.49
+  readonly "typescript/explicit-function-return-type"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown];
+  readonly "typescript/prefer-for-of"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  readonly "typescript/prefer-nullish-coalescing"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?]; // v1.33
+  readonly "typescript/prefer-optional-chain"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?]; // v.1.39
+  readonly "typescript/use-unknown-in-catch-callback-variable"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  readonly "typescript/no-non-null-assertion"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  readonly "typescript/no-unsafe-argument"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  readonly "typescript/no-unsafe-assignment"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  readonly "typescript/no-unsafe-call"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  readonly "typescript/no-unsafe-member-access"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  readonly "typescript/no-unsafe-return"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  readonly "typescript/no-unsafe-type-assertion"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  readonly "typescript/restrict-plus-operands"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  readonly "typescript/restrict-template-expressions"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?]; // enabled by default
+  readonly "typescript/strict-boolean-expressions"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  readonly "typescript/strict-void-return"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?]; // v.1.49
 }
 
 interface Oxlint {
-  $schema?: "./node_modules/oxlint/configuration_schema.json",
-  options?: {
-    typeAware: boolean;
+  readonly $schema?: "./node_modules/oxlint/configuration_schema.json",
+  readonly options?: {
+    readonly typeAware: boolean;
   },
-  rules?: OxlintRules;
+  readonly rules?: OxlintRules;
 }
 
-function addRulesConfig(config: Config<Oxlint>, path: JSONPath, rules?: Oxlint["rules"]): void {
+function addRulesConfig(
+  // oxlint-disable-next-line typescript/prefer-readonly-parameter-types -- Mutability wanted here
+  config: Config<Oxlint>,
+  path: Readonly<JSONPath>,
+  rules?: Oxlint["rules"],
+): void {
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "eqeqeq"], "deny");
 
@@ -51,7 +56,10 @@ function addRulesConfig(config: Config<Oxlint>, path: JSONPath, rules?: Oxlint["
 
   if (Array.isArray(rules?.["typescript/no-explicit-any"])) {
 
-    const ruleValue = rules["typescript/no-explicit-any"];
+    // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Array.isArray() loses the type
+    const ruleValue = rules["typescript/no-explicit-any"] as readonly [OxlintErrorLevel, {
+      readonly fixToUnknown?: boolean;
+    }?];
 
     config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-explicit-any", 0], ["deny", (ruleValue[1]?.fixToUnknown === undefined ? {} : { fixToUnknown: ruleValue[1].fixToUnknown })]);
 

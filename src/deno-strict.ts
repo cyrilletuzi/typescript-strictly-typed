@@ -1,29 +1,29 @@
 import { findConfig, getConfig, modifyJSON, saveConfig } from "./config-utils.js";
 
 interface DenoJSON {
-  compilerOptions?: {
+  readonly compilerOptions?: {
     /* Enabled by default */
-    strict?: boolean;
-    alwaysStrict?: boolean;
-    noImplicitAny?: boolean;
-    noImplicitThis?: boolean;
-    strictBindCallApply?: boolean;
-    strictFunctionTypes?: boolean;
-    strictNullChecks?: boolean;
-    strictPropertyInitialization?: boolean;
+    readonly strict?: boolean;
+    readonly alwaysStrict?: boolean;
+    readonly noImplicitAny?: boolean;
+    readonly noImplicitThis?: boolean;
+    readonly strictBindCallApply?: boolean;
+    readonly strictFunctionTypes?: boolean;
+    readonly strictNullChecks?: boolean;
+    readonly strictPropertyInitialization?: boolean;
     /* Disabled by default */
-    exactOptionalPropertyTypes?: boolean;
-    noFallthroughCasesInSwitch?: boolean;
-    noImplicitOverride?: boolean;
-    noImplicitReturns?: boolean;
-    noPropertyAccessFromIndexSignature?: boolean;
-    noUncheckedIndexedAccess?: boolean;
-    useUnknownInCatchVariables?: boolean;
+    readonly exactOptionalPropertyTypes?: boolean;
+    readonly noFallthroughCasesInSwitch?: boolean;
+    readonly noImplicitOverride?: boolean;
+    readonly noImplicitReturns?: boolean;
+    readonly noPropertyAccessFromIndexSignature?: boolean;
+    readonly noUncheckedIndexedAccess?: boolean;
+    readonly useUnknownInCatchVariables?: boolean;
   };
-  lint?: {
-    rules?: {
-      tags?: ("recommended")[];
-      include?: (
+  readonly lint?: {
+    readonly rules?: {
+      readonly tags?: readonly ("recommended")[];
+      readonly include?: readonly (
         "eqeqeq" |
         "explicit-function-return-type" |
         "no-explicit-any" | // in recommended
@@ -118,7 +118,7 @@ export async function enableDenoStrict(cwd: string): Promise<boolean> {
   if (!(config.json.lint?.rules?.include?.includes("eqeqeq") ?? false)) {
     config.raw = modifyJSON(config.raw, ["lint", "rules", "include"], "eqeqeq", { isArrayInsertion: true });
   }
-  
+
   if (!(config.json.lint?.rules?.include?.includes("explicit-function-return-type") ?? false)) {
     config.raw = modifyJSON(config.raw, ["lint", "rules", "include"], "explicit-function-return-type", { isArrayInsertion: true });
   }

@@ -8,13 +8,13 @@ import { logError } from "./log-utils.js";
 
 export interface Config<ConfigType> {
   raw: string;
-  json: ConfigType;
-  source?: string;
+  readonly json: ConfigType;
+  readonly source?: string;
 }
 
 interface PackageJSON {
-  dependencies?: Record<string, string>;
-  devDependencies?: Record<string, string>;
+  readonly dependencies?: Record<string, string>;
+  readonly devDependencies?: Record<string, string>;
 }
 
 /**
@@ -25,7 +25,7 @@ interface PackageJSON {
  *
  * @returns The first config file found, or `null`
  */
-export function findConfig(cwd: string, files: string[]): string | null {
+export function findConfig(cwd: string, files: readonly string[]): string | null {
 
   for (const file of files) {
 
@@ -123,7 +123,12 @@ export async function getConfig<ConfigType>(cwd: string, file: string): Promise<
  *
  * @returns A boolean for success or failure
  */
-export function saveConfig(cwd: string, file: string, config: Config<unknown>): boolean {
+export function saveConfig(
+  cwd: string,
+  file: string,
+  // oxlint-disable-next-line typescript/prefer-readonly-parameter-types -- Mutability wanted here
+  config: Config<unknown>,
+): boolean {
 
   const filePath = join(cwd, file);
   const fileType = extname(file);
@@ -164,7 +169,7 @@ export function saveConfig(cwd: string, file: string, config: Config<unknown>): 
 
 }
 
-export function modifyJSON(json: string, path: JSONPath, value: unknown, otherOptions?: ModificationOptions): string {
+export function modifyJSON(json: string, path: Readonly<JSONPath>, value: unknown, otherOptions?: ModificationOptions): string {
 
   const options: ModificationOptions = {
     formattingOptions: {
@@ -174,7 +179,7 @@ export function modifyJSON(json: string, path: JSONPath, value: unknown, otherOp
     ...otherOptions,
   };
 
-  return applyEdits(json, modify(json, path, value, options));
+  return applyEdits(json, modify(json, [...path], value, options));
 
 }
 
