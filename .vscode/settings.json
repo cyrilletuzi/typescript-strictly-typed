@@ -16,4 +16,5 @@
       "source.organizeImports": "explicit"
     }
   },
+  "oxc.typeAware": true
 }

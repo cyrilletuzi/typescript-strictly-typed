@@ -1,0 +1,143 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "ignorePatterns": [
+    "bin/cli.js",
+    "eslint.config.js"
+  ],
+  "options": {
+    "typeAware": true
+  },
+  "plugins": [
+    "eslint",
+    "import",
+    "jsdoc",
+    "node",
+    "oxc",
+    "promise",
+    "typescript",
+    "unicorn"
+  ],
+  "categories": {
+    "correctness": "deny",
+    "nursery": "deny",
+    "pedantic": "deny",
+    "perf": "deny",
+    "suspicious": "deny",
+    "style": "deny"
+  },
+  "rules": {
+    // Loosen some "nursery" rules
+    "typescript/prefer-readonly-parameter-types": "allow", // tolerable in this project, and seems buggy
+    // Loosen some "pedantic" rules
+    "max-depth": "allow", // tolerable in this project
+    "max-lines-per-function": "allow", // tolerable in this project
+    "no-inline-comments": "allow", // wanted in this project
+    "jsdoc/require-param-type": "allow", // not needed with TypeScript
+    "jsdoc/require-returns": "allow", // tolerable in this project
+    "jsdoc/require-returns-type": "allow", // not needed with TypeScript
+    "unicorn/no-useless-undefined": [
+      "error",
+      {
+        "checkArguments": false // required for modifyJSON()
+      }
+    ],
+    "unicorn/prefer-top-level-await": "allow", // required for Node bin
+    // Loosen some "style" rules
+    "capitalized-comments": "allow", // mind your own business
+    "func-style": [
+      "error",
+      "declaration" // "expression" by default, which should be punished by law
+    ],
+    "init-declarations": "allow", // contradictory with the "no-useless-assignment", and TypeScript manages this correctly
+    "max-params": "allow", // tolerable in this project
+    "max-statements": "allow", // tolerable in this project
+    "no-magic-numbers": "allow", // let use numbers, please?
+    "no-ternary": "allow", // perhaps learn some basic programming?
+    "sort-imports": "allow", // already managed by VS Code
+    "sort-keys": "allow", // no, a logical order is often better
+    "import/consistent-type-specifier-style": "allow", // managed by TypeScript and VS Code
+    "import/exports-last": "allow", // no
+    "import/group-exports": "allow", // no
+    "import/prefer-default-export": "allow", // no
+    "import/no-named-export": "allow", // and no
+    "import/no-nodejs-modules": "allow", // this is a Node project
+    "unicorn/no-null": "allow", // null and undefined are not the same
+    // Add relevant "restriction" rules
+    "class-methods-use-this": "deny",
+    "no-bitwise": "deny",
+    "no-empty": "deny",
+    "no-empty-function": "deny",
+    "no-plusplus": "deny",
+    "no-proto": "deny",
+    "no-regex-spaces": "deny",
+    "no-sequences": "deny",
+    "no-use-before-define": "deny",
+    "no-var": "deny",
+    "no-void": "deny",
+    "import/extensions": "deny",
+    "import/no-commonjs": "deny",
+    "import/no-cycle": "deny",
+    "import/no-default-export": "deny",
+    "import/unambiguous": "deny",
+    "jsdoc/check-access": "deny",
+    "jsdoc/empty-tags": "deny",
+    "node/no-new-require": "deny",
+    "node/no-process-env": "deny",
+    "oxc/bad-bitwise-operator": "deny",
+    "oxc/no-barrel-file": "deny",
+    "oxc/no-const-enum": "deny",
+    "promise/catch-or-return": "deny",
+    "promise/spec-only": "deny",
+    "typescript/explicit-module-boundary-types": "deny",
+    "typescript/no-dynamic-delete": "deny",
+    "typescript/no-empty-object-type": "deny",
+    "typescript/no-invalid-void-type": "deny",
+    "typescript/no-namespace": "deny",
+    "typescript/no-require-imports": "deny",
+    "typescript/non-nullable-type-assertion-style": "deny",
+    "typescript/prefer-literal-enum-member": "deny",
+    "typescript/promise-function-async": "deny",
+    "unicorn/no-abusive-eslint-disable": "deny",
+    "unicorn/no-anonymous-default-export": "deny",
+    "unicorn/no-array-for-each": "deny",
+    "unicorn/no-array-reduce": "deny",
+    "unicorn/prefer-modern-math-apis": "deny",
+    "unicorn/prefer-module": "deny",
+    "unicorn/prefer-node-protocol": "deny",
+    "unicorn/prefer-number-properties": "deny",
+    // Enforce strict typing
+    "eqeqeq": "deny", // in "pedantic"
+    "prefer-template": "deny", // in "style"
+    "typescript/explicit-function-return-type": "deny", // in "restriction"
+    "typescript/no-explicit-any": "deny", // in "restriction"
+    "typescript/no-non-null-assertion": "deny", // in "restriction"
+    "typescript/no-unsafe-argument": "deny", // in "pedantic"
+    "typescript/no-unsafe-assignment": "deny", // in "pedantic"
+    "typescript/no-unsafe-call": "deny", // in "pedantic"
+    "typescript/no-unsafe-member-access": "deny", // in "pedantic"
+    "typescript/no-unsafe-return": "deny", // in "pedantic"
+    "typescript/no-unsafe-type-assertion": "deny", // in "suspicious"
+    "typescript/prefer-for-of": "deny", // in "style"
+    "typescript/prefer-nullish-coalescing": "deny", // in "pedantic"
+    "typescript/prefer-optional-chain": "deny", // in "nursery"
+    "typescript/restrict-plus-operands": [ // in "pedantic"
+      "deny",
+      {
+        "allowAny": false,
+        "allowBoolean": false,
+        "allowNullish": false,
+        "allowNumberAndString": false,
+        "allowRegExp": false,
+      }
+    ],
+    "typescript/restrict-template-expressions": "deny", // in "correctness" and default
+    "typescript/strict-boolean-expressions": [ // in "pedantic"
+      "deny",
+      {
+        "allowNumber": false,
+        "allowString": false,
+      }
+    ],
+    "typescript/use-unknown-in-catch-callback-variable": "deny" // in "restriction"
+  }
+}

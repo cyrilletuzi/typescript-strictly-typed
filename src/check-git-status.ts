@@ -7,14 +7,14 @@ export function isGitStatusDirty(cwd: string): boolean | undefined {
   try {
     execSync("git --version", { cwd, encoding: "utf8" });
   } catch {
-    return;
+    return undefined;
   }
 
   // Check if the working directory is a git repo
   try {
     execSync("git rev-parse --is-inside-work-tree", { cwd, encoding: "utf8" });
   } catch {
-    return;
+    return undefined;
   }
 
   // Check if the repo is clean
@@ -30,7 +30,7 @@ export function isGitStatusDirty(cwd: string): boolean | undefined {
     return true;
 
   } catch {
-    return;
+    return undefined;
   }
 
 }

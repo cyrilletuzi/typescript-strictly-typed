@@ -66,20 +66,9 @@ export async function enableTypescriptStrict(cwd: string): Promise<boolean> {
     config.raw = modifyJSON(config.raw, ["compilerOptions", "noUncheckedIndexedAccess"], true);
   }
 
-  /* If the configuration is extending another one, specific flags could be disabled
-   * in the parent configuration, so we enable them individually */
-  if (config.json.extends !== undefined) {
-    config.raw = modifyJSON(config.raw, ["compilerOptions", "alwaysStrict"], true);
-    config.raw = modifyJSON(config.raw, ["compilerOptions", "noImplicitAny"], true);
-    config.raw = modifyJSON(config.raw, ["compilerOptions", "noImplicitThis"], true);
-    config.raw = modifyJSON(config.raw, ["compilerOptions", "strictBindCallApply"], true);
-    config.raw = modifyJSON(config.raw, ["compilerOptions", "strictFunctionTypes"], true);
-    config.raw = modifyJSON(config.raw, ["compilerOptions", "strictNullChecks"], true);
-    config.raw = modifyJSON(config.raw, ["compilerOptions", "strictPropertyInitialization"], true);
-    config.raw = modifyJSON(config.raw, ["compilerOptions", "useUnknownInCatchVariables"], true);
-  }
-  /* Otherwise, clean up options included in strict mode to keep configuration small */
-  else {
+  /* If the configuration is not extending another one,
+   * clean up options included in strict mode to keep configuration small */
+  if (config.json.extends === undefined) {
     config.raw = modifyJSON(config.raw, ["compilerOptions", "alwaysStrict"], undefined);
     config.raw = modifyJSON(config.raw, ["compilerOptions", "noImplicitAny"], undefined);
     config.raw = modifyJSON(config.raw, ["compilerOptions", "noImplicitThis"], undefined);
@@ -88,6 +77,17 @@ export async function enableTypescriptStrict(cwd: string): Promise<boolean> {
     config.raw = modifyJSON(config.raw, ["compilerOptions", "strictNullChecks"], undefined);
     config.raw = modifyJSON(config.raw, ["compilerOptions", "strictPropertyInitialization"], undefined);
     config.raw = modifyJSON(config.raw, ["compilerOptions", "useUnknownInCatchVariables"], undefined);
+  }
+  /* Otherwise, specific flags could be disabled in the parent configuration, so we enable them individually */
+  else {
+    config.raw = modifyJSON(config.raw, ["compilerOptions", "alwaysStrict"], true);
+    config.raw = modifyJSON(config.raw, ["compilerOptions", "noImplicitAny"], true);
+    config.raw = modifyJSON(config.raw, ["compilerOptions", "noImplicitThis"], true);
+    config.raw = modifyJSON(config.raw, ["compilerOptions", "strictBindCallApply"], true);
+    config.raw = modifyJSON(config.raw, ["compilerOptions", "strictFunctionTypes"], true);
+    config.raw = modifyJSON(config.raw, ["compilerOptions", "strictNullChecks"], true);
+    config.raw = modifyJSON(config.raw, ["compilerOptions", "strictPropertyInitialization"], true);
+    config.raw = modifyJSON(config.raw, ["compilerOptions", "useUnknownInCatchVariables"], true);
   }
 
   return saveConfig(cwd, file, config);

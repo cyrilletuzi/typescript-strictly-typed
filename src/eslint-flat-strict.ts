@@ -38,6 +38,12 @@ function getEslintRules(cwd: string): Record<string, string> {
   };
 }
 
+function getProperty(objectLiteralExpression: ObjectLiteralExpression, propertyName: string): ObjectLiteralElementLike | undefined {
+  return objectLiteralExpression.getProperty(propertyName) ??
+    objectLiteralExpression.getProperty(`"${propertyName}"`) ??
+    objectLiteralExpression.getProperty(`'${propertyName}'`);
+}
+
 export function enableESLintFlatStrict(cwd: string): boolean {
 
   const fileName = findConfig(cwd, ["eslint.config.mjs", "eslint.config.js"]);
@@ -267,10 +273,4 @@ export function enableESLintFlatStrict(cwd: string): boolean {
     return false;
   }
 
-}
-
-function getProperty(objectLiteralExpression: ObjectLiteralExpression, propertyName: string): ObjectLiteralElementLike | undefined {
-  return objectLiteralExpression.getProperty(propertyName) ??
-    objectLiteralExpression.getProperty(`"${propertyName}"`) ??
-    objectLiteralExpression.getProperty(`'${propertyName}'`);
 }

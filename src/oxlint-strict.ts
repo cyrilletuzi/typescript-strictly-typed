@@ -38,6 +38,64 @@ interface Oxlint {
   rules?: OxlintRules;
 }
 
+function addRulesConfig(config: Config<Oxlint>, path: JSONPath, rules?: Oxlint["rules"]): void {
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "eqeqeq"], "deny");
+
+  // Missing for now
+  // config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-arrow-callback"], "deny");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-template"], "deny");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/explicit-function-return-type"], "deny");
+
+  if (Array.isArray(rules?.["typescript/no-explicit-any"])) {
+
+    const ruleValue = rules["typescript/no-explicit-any"];
+
+    config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-explicit-any", 0], ["deny", (ruleValue[1]?.fixToUnknown === undefined ? {} : { fixToUnknown: ruleValue[1].fixToUnknown })]);
+
+  } else {
+    config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-explicit-any"], "deny");
+  }
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-non-null-assertion"], "deny");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-argument"], "deny");
+  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-assignment"], "deny");
+  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-call"], "deny");
+  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-member-access"], "deny");
+  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-return"], "deny");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-type-assertion"], "deny");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/prefer-for-of"], "deny");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/prefer-nullish-coalescing"], "deny");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/prefer-optional-chain"], "deny");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/restrict-plus-operands"], ["deny", {
+    allowAny: false,
+    allowBoolean: false,
+    allowNullish: false,
+    allowNumberAndString: false,
+    allowRegExp: false,
+  }]);
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/restrict-template-expressions"], "deny");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/strict-boolean-expressions"], ["deny", {
+    allowNumber: false,
+    allowString: false
+  }]);
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/strict-void-return"], "deny");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/use-unknown-in-catch-callback-variable"], "deny");
+
+}
+
 /**
  * Enable strict Oxlint rules
  * {@link https://oxc.rs/docs/guide/usage/linter/rules.html}
@@ -92,63 +150,5 @@ export async function enableOxlintStrict(cwd: string): Promise<boolean> {
   }
 
   return saveConfig(cwd, ".oxlintrc.json", config);
-
-}
-
-function addRulesConfig(config: Config<Oxlint>, path: JSONPath, rules?: Oxlint["rules"]): void {
-
-  config.raw = modifyJSON(config.raw, [...path, "rules", "eqeqeq"], "deny");
-
-  // Missing for now
-  // config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-arrow-callback"], "deny");
-
-  config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-template"], "deny");
-
-  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/explicit-function-return-type"], "deny");
-
-  if (Array.isArray(rules?.["typescript/no-explicit-any"])) {
-
-    const ruleValue = rules["typescript/no-explicit-any"];
-
-    config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-explicit-any", 0], ["deny", (ruleValue[1]?.fixToUnknown !== undefined ? { fixToUnknown: ruleValue[1].fixToUnknown } : {})]);
-
-  } else {
-    config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-explicit-any"], "deny");
-  }
-
-  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-non-null-assertion"], "deny");
-
-  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-argument"], "deny");
-  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-assignment"], "deny");
-  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-call"], "deny");
-  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-member-access"], "deny");
-  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-return"], "deny");
-
-  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-type-assertion"], "deny");
-
-  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/prefer-for-of"], "deny");
-
-  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/prefer-nullish-coalescing"], "deny");
-
-  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/prefer-optional-chain"], "deny");
-
-  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/restrict-plus-operands"], ["deny", {
-    allowAny: false,
-    allowBoolean: false,
-    allowNullish: false,
-    allowNumberAndString: false,
-    allowRegExp: false,
-  }]);
-
-  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/restrict-template-expressions"], "deny");
-
-  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/strict-boolean-expressions"], ["deny", {
-    allowNumber: false,
-    allowString: false
-  }]);
-
-  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/strict-void-return"], "deny");
-
-  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/use-unknown-in-catch-callback-variable"], "deny");
 
 }
