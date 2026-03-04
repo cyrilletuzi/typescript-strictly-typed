@@ -13,5 +13,13 @@
       "source.organizeImports": "explicit"
     }
   },
+  // Inlay hints (display type information when already known)
+  "js/ts.inlayHints.variableTypes.enabled": true,
+  "js/ts.inlayHints.propertyDeclarationTypes.enabled": true,
+  "js/ts.inlayHints.parameterTypes.enabled": true,
+  "js/ts.inlayHints.functionLikeReturnTypes.enabled": true,
+  "js/ts.inlayHints.enumMemberValues.enabled": true,
+  "js/ts.inlayHints.parameterNames.enabled": "all",
+  "js/ts.inlayHints.variableTypes.suppressWhenTypeMatchesName": false,
   "oxc.typeAware": true
 }
