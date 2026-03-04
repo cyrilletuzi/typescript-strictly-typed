@@ -26,29 +26,6 @@
     "style": "deny"
   },
   "rules": {
-    // Loosen some "nursery" rules
-    "typescript/prefer-readonly-parameter-types": [
-      "deny",
-      {
-        "allow": [
-          {
-            "from": "package",
-            "name": "ModificationOptions",
-            "package": "jsonc-parser"
-          },
-          {
-            "from": "package",
-            "name": "CodeBlockWriter",
-            "package": "ts-morph"
-          },
-          {
-            "from": "package",
-            "name": "ObjectLiteralExpression",
-            "package": "ts-morph"
-          },
-        ]
-      }
-    ],
     // Loosen some "pedantic" rules
     "max-depth": "allow", // tolerable in this project
     "max-lines-per-function": "allow", // tolerable in this project
@@ -93,7 +70,6 @@
     "no-regex-spaces": "deny",
     "no-sequences": "deny",
     "no-use-before-define": "deny",
-    "no-var": "deny",
     "no-void": "deny",
     "import/extensions": "deny",
     "import/no-commonjs": "deny",
@@ -126,6 +102,8 @@
     "unicorn/prefer-module": "deny",
     "unicorn/prefer-node-protocol": "deny",
     "unicorn/prefer-number-properties": "deny",
+    // Enforce modern JavaScript
+    "no-var": "deny",
     // Enforce strict typing
     "eqeqeq": "deny", // in "pedantic"
     "prefer-template": "deny", // in "style"
@@ -159,6 +137,32 @@
         "allowString": false,
       }
     ],
-    "typescript/use-unknown-in-catch-callback-variable": "deny" // in "restriction"
+    "typescript/use-unknown-in-catch-callback-variable": "deny", // in "restriction"
+    // Enforce immutability
+    "no-shadow": "deny", // in "suspicious"
+    "prefer-const": "deny", // in "style"
+    "prefer-readonly": "deny", // in "nursery"
+    "typescript/prefer-readonly-parameter-types": [ // in "nursery"
+      "deny",
+      {
+        "allow": [
+          {
+            "from": "package",
+            "name": "ModificationOptions",
+            "package": "jsonc-parser"
+          },
+          {
+            "from": "package",
+            "name": "CodeBlockWriter",
+            "package": "ts-morph"
+          },
+          {
+            "from": "package",
+            "name": "ObjectLiteralExpression",
+            "package": "ts-morph"
+          },
+        ]
+      }
+    ],
   }
 }
