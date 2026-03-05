@@ -1,5 +1,5 @@
 import type { JSONPath } from "jsonc-parser";
-import { type Config, checkTypescriptEslintVersion, dependencyExists, findConfig, getConfig, getSource, isAngularESLint, modifyJSON, saveConfig } from "./config-utils.js";
+import { type Config, checkAngularEslintVersion, checkTypescriptEslintVersion, dependencyExists, findConfig, getConfig, getSource, isAngularESLint, modifyJSON, saveConfig } from "./config-utils.js";
 import { enableESLintFlatStrict } from "./eslint-flat-strict.js";
 import { logInfo, logWarning } from "./log-utils.js";
 
@@ -29,6 +29,7 @@ interface ESLintRules {
   readonly "@typescript-eslint/strict-boolean-expressions"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/strict-void-return"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@angular-eslint/template/no-any"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  readonly "@angular-eslint/template/no-non-null-assertion"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
 }
 
 interface ESLintParserOptions {
@@ -125,12 +126,17 @@ function addTSConfig(
 }
 
 function addAngularHTMLConfig(
+  cwd: string,
   // oxlint-disable-next-line typescript/prefer-readonly-parameter-types -- Mutability wanted here
   config: Config<ESLint>,
   path: Readonly<JSONPath>,
 ): void {
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "@angular-eslint/template/no-any"], "error");
+
+  if (checkAngularEslintVersion(cwd, ">=21.3.0")) {
+    config.raw = modifyJSON(config.raw, [...path, "rules", "@angular-eslint/template/no-non-null-assertion"], "error");
+  }
 
 }
 
@@ -218,7 +224,7 @@ export async function enableESLintStrict(cwd: string): Promise<boolean> {
 
     if (isAngularESLint(cwd) && files.some((fileItem) => fileItem.includes(htmlFilesConfig))) {
 
-      addAngularHTMLConfig(config, ["overrides", indexNumber]);
+      addAngularHTMLConfig(cwd, config, ["overrides", indexNumber]);
 
     }
 

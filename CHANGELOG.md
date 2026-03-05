@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.27.0 (2026-03-05)
+
+- New `@angular-eslint/template/no-non-null-assertion` rule (Angular ESLint version >= 21.3)
+
 ## 3.26.0 (2026-03-02)
 
 - Set `typeAware` in oxlint configuration (version >= 1.51)

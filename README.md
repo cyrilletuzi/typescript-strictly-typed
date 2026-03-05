@@ -64,6 +64,7 @@ It modifies these configurations:
   - `typeCheckHostBindings`
 - [Angular ESLint options](https://github.com/angular-eslint/angular-eslint)
   - `@angular-eslint/template/no-any`
+  - `@angular-eslint/template/no-non-null-assertion`
 - [Deno](https://lint.deno.land)
   - add the same compiler options as for TypeScript
   - add the same lint rules as for ESLint (the ones which exist in Deno)
