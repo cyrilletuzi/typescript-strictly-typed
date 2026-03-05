@@ -1,7 +1,7 @@
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { IndentationText, type ObjectLiteralElementLike, type ObjectLiteralExpression, Project, QuoteKind, ScriptTarget, StructureKind, SyntaxKind } from "ts-morph";
-import { checkTypescriptEslintVersion, dependencyExists, findConfig, getSource, isAngularESLint } from "./config-utils.js";
+import { checkAngularEslintVersion, checkTypescriptEslintVersion, dependencyExists, findConfig, getSource, isAngularESLint } from "./config-utils.js";
 import { logWarning } from "./log-utils.js";
 
 function getEslintRules(cwd: string): Record<string, string> {
@@ -36,6 +36,13 @@ function getEslintRules(cwd: string): Record<string, string> {
     ...(checkTypescriptEslintVersion(cwd, ">=8.53.0") ? { "@typescript-eslint/strict-void-return": `"error"` } : {}),
     "@typescript-eslint/use-unknown-in-catch-callback-variable": `"error"`,
   };
+}
+
+function getAngularEslintTemplateRulesNames(cwd: string): readonly string[] {
+  return [
+    "@angular-eslint/template/no-any",
+    ...(checkAngularEslintVersion(cwd, ">=21.3.0") ? ["@angular-eslint/template/no-non-null-assertion"] : []),
+  ];
 }
 
 function getProperty(objectLiteralExpression: ObjectLiteralExpression, propertyName: string): ObjectLiteralElementLike | undefined {
@@ -232,25 +239,30 @@ export function enableESLintFlatStrict(cwd: string): boolean {
 
         if (angularRulesObject) {
 
-          const ruleName = "@angular-eslint/template/no-any";
-          const ruleErrorConfig = `"error"`;
-          const ruleProperty = getProperty(angularRulesObject, ruleName);
+          const angularTemplateRulesNames = getAngularEslintTemplateRulesNames(cwd);
 
-          if (ruleProperty) {
-            ruleProperty.getLastChild()?.replaceWithText(ruleErrorConfig);
-          } else {
+          for (const ruleName of angularTemplateRulesNames) {
 
-            const name = `${quote}${ruleName}${quote}`;
-            const spacesReplaceValue = "".padStart(spaces);
-            const initializer = ruleErrorConfig
-              .replaceAll('"', quote)
-              .replaceAll(/\s{2}/g, spacesReplaceValue);
+            const ruleErrorConfig = `"error"`;
+            const ruleProperty = getProperty(angularRulesObject, ruleName);
 
-            angularRulesObject.addProperty({
-              kind: StructureKind.PropertyAssignment,
-              name,
-              initializer,
-            });
+            if (ruleProperty) {
+              ruleProperty.getLastChild()?.replaceWithText(ruleErrorConfig);
+            } else {
+
+              const name = `${quote}${ruleName}${quote}`;
+              const spacesReplaceValue = "".padStart(spaces);
+              const initializer = ruleErrorConfig
+                .replaceAll('"', quote)
+                .replaceAll(/\s{2}/g, spacesReplaceValue);
+
+              angularRulesObject.addProperty({
+                kind: StructureKind.PropertyAssignment,
+                name,
+                initializer,
+              });
+
+            }
 
           }
 
