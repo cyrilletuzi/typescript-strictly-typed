@@ -20,6 +20,5 @@
   "js/ts.inlayHints.functionLikeReturnTypes.enabled": true,
   "js/ts.inlayHints.enumMemberValues.enabled": true,
   "js/ts.inlayHints.parameterNames.enabled": "all",
-  "js/ts.inlayHints.variableTypes.suppressWhenTypeMatchesName": false,
-  "oxc.typeAware": true
+  "js/ts.inlayHints.variableTypes.suppressWhenTypeMatchesName": false
 }
