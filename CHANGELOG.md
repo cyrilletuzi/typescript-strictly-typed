@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.28.0 (2026-03-11)
+
+- Support `.oxlintrc.jsonc`
+
 ## 3.27.0 (2026-03-05)
 
 - New `@angular-eslint/template/no-non-null-assertion` rule (Angular ESLint version >= 21.3)

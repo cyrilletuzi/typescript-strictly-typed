@@ -114,7 +114,7 @@ function addRulesConfig(
  */
 export async function enableOxlintStrict(cwd: string): Promise<boolean> {
 
-  const possibleConfigFiles = [".oxlintrc.json", "oxlint.config.ts"];
+  const possibleConfigFiles = [".oxlintrc.json", ".oxlintrc.jsonc", "oxlint.config.ts"];
 
   let config: Config<Oxlint> | null | undefined;
 
@@ -153,10 +153,12 @@ export async function enableOxlintStrict(cwd: string): Promise<boolean> {
     logWarning(`Some Oxlint lint rules require type-aware linting, and the "oxlint-tsgolint" dependency required for it seems to be missing. See https://oxc.rs/docs/guide/usage/linter/type-aware.html`);
   }
 
+  const saveFile: string = file === "oxlint.config.ts" || file === null ? ".oxlintrc.json" : file;
+
   if (file === "oxlint.config.ts") {
     logWarning(`The project is using the Oxlint "oxlint.config.ts" configuration format, which is too complicated to be manipulated directly. So the new strict configuration will be saved in ".oxlintrc.json"; then it is needed to manually copy the rules from ".oxlintrc.json" to "oxlint.config.ts". Once done, the ".oxlintrc.json" file must be deleted.`);
   }
 
-  return saveConfig(cwd, ".oxlintrc.json", config);
+  return saveConfig(cwd, saveFile, config);
 
 }
