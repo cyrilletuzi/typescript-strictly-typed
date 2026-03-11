@@ -5,7 +5,8 @@
     "eslint.config.js"
   ],
   "options": {
-    "typeAware": true
+    "typeAware": true,
+    "reportUnusedDisableDirectives": "deny"
   },
   "plugins": [
     "eslint",
