@@ -17,14 +17,37 @@ export default defineConfig(
     rules: {
       "@typescript-eslint/prefer-nullish-coalescing": "error",
       // Enforce modern JavaScript
-      "prefer-template": "error",
-      "prefer-arrow-callback": "error",
-      // Stricter JavaScript
+      "prefer-object-has-own": "error", // ES2022+
+      "prefer-object-spread": "error",
+      "object-shorthand": "error",
+      // Security
+      "no-eval": "error",
+      "no-script-url": "error",
+      "no-extend-native": "error",
+      // Performance
+      "no-await-in-loop": "error",
+      // Disallow confusing syntaxes
       "no-new-native-nonconstructor": "error",
       "no-constant-binary-expression": "error",
-      "prefer-object-has-own": "error", // ES2022+
+      "no-bitwise": "error",
+      "no-caller": "error",
+      "array-callback-return": "error",
+      "no-new-wrappers": "error",
+      "no-self-compare": "error",
+      "no-template-curly-in-string": "error",
+      "no-unmodified-loop-condition": "error",
+      "curly": "error",
+      "no-alert": "error",
+      "no-use-before-define": "off",
+      "@typescript-eslint/no-use-before-define": "error",
+      "no-shadow": "off",
+      "@typescript-eslint/no-shadow": "error",
+      "no-invalid-this": "off",
+      "@typescript-eslint/no-invalid-this": "error",
       // Strict types
       "eqeqeq": "error",
+      "prefer-template": "error",
+      "prefer-arrow-callback": "error",
       "@typescript-eslint/explicit-function-return-type": "error",
       "@typescript-eslint/no-explicit-any": "error",
       "@typescript-eslint/use-unknown-in-catch-callback-variable": "error",
@@ -50,8 +73,6 @@ export default defineConfig(
       "@typescript-eslint/no-unsafe-type-assertion": "error",
       "@typescript-eslint/prefer-for-of": "error",
       "@typescript-eslint/prefer-optional-chain": "error",
-      "no-shadow": "off",
-      "@typescript-eslint/no-shadow": "error",
       "@typescript-eslint/prefer-readonly": "error",
       "@typescript-eslint/no-useless-empty-export": "error",
       "@typescript-eslint/no-useless-default-assignment": "error",
