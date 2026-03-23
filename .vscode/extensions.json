@@ -6,6 +6,7 @@
     "GitHub.vscode-pull-request-github",
     "github.vscode-github-actions",
     "oxc.oxc-vscode",
+    "typescriptteam.native-preview",
   ],
   // List of extensions recommended by VS Code that should not be recommended for users of this workspace.
   "unwantedRecommendations": [],
