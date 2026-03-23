@@ -7,6 +7,9 @@
     "lib": [
       "es2024"
     ],
+    "types": [
+      "node"
+    ],
     "libReplacement": true,
     "skipLibCheck": true,
     "strict": true,
