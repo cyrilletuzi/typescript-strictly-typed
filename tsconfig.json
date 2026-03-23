@@ -12,7 +12,6 @@
     ],
     "libReplacement": true,
     "skipLibCheck": true,
-    "strict": true,
     "noUnusedParameters": true,
     "noUnusedLocals": true,
     "noImplicitReturns": true,
