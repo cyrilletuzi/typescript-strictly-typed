@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "outDir": "dist",
+    "rootDir": "./src",
     "module": "node20",
     "esModuleInterop": true,
     "target": "es2024",
