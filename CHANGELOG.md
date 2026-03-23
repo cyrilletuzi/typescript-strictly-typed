@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.29.0 (2026-03-23)
+
+- Take into account `strict` is enabled by default in TypeScript version >= 6
+
 ## 3.28.0 (2026-03-11)
 
 - Support `.oxlintrc.jsonc`
