@@ -3,7 +3,6 @@
     "outDir": "dist",
     "rootDir": "./src",
     "module": "node20",
-    "esModuleInterop": true,
     "target": "es2024",
     "lib": [
       "es2024"
