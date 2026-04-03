@@ -72,13 +72,21 @@ export async function enableTypescriptStrict(cwd: string): Promise<boolean> {
   /* If the configuration is not extending another one,
    * clean up options included in strict mode to keep configuration small */
   if (config.json.extends === undefined) {
+    // oxlint-disable-next-line unicorn/no-useless-undefined -- This how `modifyJSON()` works
     config.raw = modifyJSON(config.raw, ["compilerOptions", "alwaysStrict"], undefined);
+    // oxlint-disable-next-line unicorn/no-useless-undefined -- This how `modifyJSON()` works
     config.raw = modifyJSON(config.raw, ["compilerOptions", "noImplicitAny"], undefined);
+    // oxlint-disable-next-line unicorn/no-useless-undefined -- This how `modifyJSON()` works
     config.raw = modifyJSON(config.raw, ["compilerOptions", "noImplicitThis"], undefined);
+    // oxlint-disable-next-line unicorn/no-useless-undefined -- This how `modifyJSON()` works
     config.raw = modifyJSON(config.raw, ["compilerOptions", "strictBindCallApply"], undefined);
+    // oxlint-disable-next-line unicorn/no-useless-undefined -- This how `modifyJSON()` works
     config.raw = modifyJSON(config.raw, ["compilerOptions", "strictFunctionTypes"], undefined);
+    // oxlint-disable-next-line unicorn/no-useless-undefined -- This how `modifyJSON()` works
     config.raw = modifyJSON(config.raw, ["compilerOptions", "strictNullChecks"], undefined);
+    // oxlint-disable-next-line unicorn/no-useless-undefined -- This how `modifyJSON()` works
     config.raw = modifyJSON(config.raw, ["compilerOptions", "strictPropertyInitialization"], undefined);
+    // oxlint-disable-next-line unicorn/no-useless-undefined -- This how `modifyJSON()` works
     config.raw = modifyJSON(config.raw, ["compilerOptions", "useUnknownInCatchVariables"], undefined);
   }
   /* Otherwise, specific flags could be disabled in the parent configuration, so we enable them individually */
