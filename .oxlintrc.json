@@ -34,7 +34,6 @@
     "jsdoc/require-param-type": "allow", // not needed with TypeScript
     "jsdoc/require-returns": "allow", // tolerable in this project
     "jsdoc/require-returns-type": "allow", // not needed with TypeScript
-    "unicorn/prefer-top-level-await": "allow", // required for Node bin
     // Loosen some "style" rules
     "capitalized-comments": "allow", // mind your own business
     "func-style": [
