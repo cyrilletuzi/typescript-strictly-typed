@@ -82,6 +82,7 @@
     "typescript/explicit-module-boundary-types": "deny",
     "typescript/no-dynamic-delete": "deny",
     "typescript/no-empty-object-type": "deny",
+    "typescript/no-import-type-side-effects": "deny",
     "typescript/no-invalid-void-type": "deny",
     "typescript/no-namespace": "deny",
     "typescript/no-require-imports": "deny",
