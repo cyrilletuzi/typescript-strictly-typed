@@ -20,7 +20,6 @@
   ],
   "categories": {
     "correctness": "deny",
-    "nursery": "deny",
     "pedantic": "deny",
     "perf": "deny",
     "suspicious": "deny",
@@ -96,6 +95,7 @@
         "allowString": false,
       }
     ],
+    "typescript/strict-void-return": "deny", // in "nursery"
     "typescript/use-unknown-in-catch-callback-variable": "deny", // in "restriction"
     // Enforce immutability
     "no-shadow": "deny", // in "suspicious"
@@ -169,5 +169,20 @@
     "unicorn/prefer-module": "deny",
     "unicorn/prefer-node-protocol": "deny",
     "unicorn/prefer-number-properties": "deny",
+    // Enable rules still in "nursery" category
+    "getter-return": "deny",
+    "no-undef": "deny",
+    "no-unreachable": "deny",
+    "import/export": "deny",
+    "import/named": "deny",
+    "oxc/branches-sharing-code": "deny",
+    "promise/no-return-in-finally": "deny",
+    "typescript/consistent-return": "deny",
+    "typescript/dot-notation": "deny",
+    "typescript/no-unnecessary-condition": "deny",
+    "typescript/no-unnecessary-qualifier": "deny",
+    "typescript/no-unnecessary-type-conversion": "deny",
+    "typescript/no-unnecessary-type-parameters": "deny",
+    "typescript/no-useless-default-assignment": "deny"
   }
 }
