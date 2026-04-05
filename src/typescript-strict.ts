@@ -42,7 +42,7 @@ export async function enableTypescriptStrict(cwd: string): Promise<boolean> {
     return false;
   }
 
-  /* strict is already enabled by default in TypeScript >= 6 */
+  /* Strict is already enabled by default in TypeScript >= 6 */
   if (config.json.extends !== undefined || checkDependencyVersion(cwd, "typescript", "<6.0.0")) {
     config.raw = modifyJSON(config.raw, ["compilerOptions", "strict"], true);
   }

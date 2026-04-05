@@ -7,17 +7,17 @@ type OxlintErrorLevel = "error" | "warn" | "off" | "deny" | "allow";
 interface OxlintRules {
   readonly "eqeqeq"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   // Missing from Oxlint for now
-  // readonly "prefer-arrow-callback"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
-  // v1.12
+  // Readonly "prefer-arrow-callback"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  // V1.12
   readonly "prefer-template"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/no-explicit-any"?: OxlintErrorLevel | readonly [OxlintErrorLevel, {
     readonly fixToUnknown?: boolean;
   }?];
   readonly "typescript/explicit-function-return-type"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown];
   readonly "typescript/prefer-for-of"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
-  // v1.33
+  // V1.33
   readonly "typescript/prefer-nullish-coalescing"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
-  // v.1.39
+  // V.1.39
   readonly "typescript/prefer-optional-chain"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/use-unknown-in-catch-callback-variable"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/no-non-null-assertion"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
@@ -28,10 +28,10 @@ interface OxlintRules {
   readonly "typescript/no-unsafe-return"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/no-unsafe-type-assertion"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/restrict-plus-operands"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
-  // enabled by default
+  // Enabled by default
   readonly "typescript/restrict-template-expressions"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/strict-boolean-expressions"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
-  // v.1.49
+  // V.1.49
   readonly "typescript/strict-void-return"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
 }
 
@@ -53,7 +53,7 @@ function addRulesConfig(
   config.raw = modifyJSON(config.raw, [...path, "rules", "eqeqeq"], "deny");
 
   // Missing for now
-  // config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-arrow-callback"], "deny");
+  // Config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-arrow-callback"], "deny");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-template"], "deny");
 

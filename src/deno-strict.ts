@@ -26,7 +26,7 @@ interface DenoJSON {
       readonly include?: readonly (
         "eqeqeq" |
         "explicit-function-return-type" |
-        // in recommended
+        // In recommended
         "no-explicit-any" |
         "no-non-null-assertion"
         /**
