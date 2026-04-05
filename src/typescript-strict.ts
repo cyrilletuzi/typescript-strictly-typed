@@ -33,7 +33,7 @@ export async function enableTypescriptStrict(cwd: string): Promise<boolean> {
 
   const file = findConfig(cwd, ["tsconfig.base.json", "tsconfig.json"]);
 
-  if (file === null) {
+  if (file === undefined) {
     return false;
   }
 

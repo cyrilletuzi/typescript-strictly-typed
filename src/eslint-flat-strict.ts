@@ -55,7 +55,7 @@ export function enableESLintFlatStrict(cwd: string): boolean {
 
   const fileName = findConfig(cwd, ["eslint.config.mjs", "eslint.config.js"]);
 
-  if (fileName === null) {
+  if (fileName === undefined) {
     return false;
   }
 
@@ -70,11 +70,13 @@ export function enableESLintFlatStrict(cwd: string): boolean {
     const quote = quoteMatch?.[1] ?? `"`;
 
     const spacesMatch = /defineConfig\(.*\n(\s)+/.exec(fileContent);
+    // oxlint-disable-next-line no-magic-numbers -- No need to store the value here
     const spaces = spacesMatch?.[1]?.length ?? 2;
 
     const project = new Project({
       manipulationSettings: {
         quoteKind: quote === "'" ? QuoteKind.Single : QuoteKind.Double,
+        // oxlint-disable-next-line no-magic-numbers -- No need to store the value here
         indentationText: spaces === 4 ? IndentationText.FourSpaces : IndentationText.TwoSpaces,
       },
       compilerOptions: {

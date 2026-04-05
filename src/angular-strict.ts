@@ -24,14 +24,14 @@ interface TSConfigAngular {
  */
 export async function enableAngularStrict(cwd: string): Promise<boolean> {
 
-  if ((findConfig(cwd, ["angular.json", ".angular.json"]) === null) && !dependencyExists(cwd, "@angular/core")) {
+  if ((findConfig(cwd, ["angular.json", ".angular.json"]) === undefined) && !dependencyExists(cwd, "@angular/core")) {
     logInfo(`Can't find an Angular config file. Skipping this configuration.`);
     return false;
   }
 
   const file = findConfig(cwd, ["tsconfig.base.json", "tsconfig.json"]);
 
-  if (file === null) {
+  if (file === undefined) {
     return false;
   }
 

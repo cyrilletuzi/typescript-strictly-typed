@@ -59,7 +59,7 @@ export async function enableDenoStrict(cwd: string): Promise<boolean> {
 
   const file = findConfig(cwd, ["deno.json", "deno.jsonc"]);
 
-  if (file === null) {
+  if (file === undefined) {
     return false;
   }
 

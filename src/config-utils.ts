@@ -6,15 +6,15 @@ import { packageUpSync } from "package-up";
 import { coerce, satisfies } from "semver";
 import { logError } from "./log-utils.js";
 
+interface PackageJSON {
+  readonly dependencies?: Record<string, string>;
+  readonly devDependencies?: Record<string, string>;
+}
+
 export interface Config<ConfigType> {
   raw: string;
   readonly json: ConfigType;
   readonly source?: string;
-}
-
-interface PackageJSON {
-  readonly dependencies?: Record<string, string>;
-  readonly devDependencies?: Record<string, string>;
 }
 
 /**
@@ -25,7 +25,7 @@ interface PackageJSON {
  *
  * @returns The first config file found, or `null`
  */
-export function findConfig(cwd: string, files: readonly string[]): string | null {
+export function findConfig(cwd: string, files: readonly string[]): string | undefined {
 
   for (const file of files) {
 
@@ -37,7 +37,7 @@ export function findConfig(cwd: string, files: readonly string[]): string | null
 
   }
 
-  return null;
+  return undefined;
 
 }
 
@@ -60,7 +60,7 @@ export function getSource(cwd: string, file: string): string {
  *
  * @returns The config in raw (string) and JSON formats, or `null`
  */
-export async function getConfig<ConfigType>(cwd: string, file: string): Promise<Config<ConfigType> | null> {
+export async function getConfig<ConfigType>(cwd: string, file: string): Promise<Config<ConfigType> | undefined> {
 
   const filePath = join(cwd, file);
 
@@ -68,7 +68,7 @@ export async function getConfig<ConfigType>(cwd: string, file: string): Promise<
 
   const fileType = extname(file);
 
-  let config: Config<ConfigType> | null = null;
+  let config: Config<ConfigType> | undefined;
   try {
 
     switch (fileType) {
@@ -133,7 +133,7 @@ export function saveConfig(
   const filePath = join(cwd, file);
   const fileType = extname(file);
 
-  let configStringified: string | null = null;
+  let configStringified: string | undefined;
   try {
 
     switch (fileType) {
@@ -154,7 +154,7 @@ export function saveConfig(
     return false;
   }
 
-  if (configStringified === null) {
+  if (configStringified === undefined) {
     logError(`Can't save ${file} config.`);
     return false;
   }

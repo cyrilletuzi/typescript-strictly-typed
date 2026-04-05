@@ -175,10 +175,10 @@ export async function enableESLintStrict(cwd: string): Promise<boolean> {
   const htmlFilesConfig = "*.html";
 
   let config: Config<ESLint> | null | undefined;
-  let packageJSONConfig: Config<PackageJSON> | null = null;
+  let packageJSONConfig: Config<PackageJSON> | undefined = undefined;
 
   const file = findConfig(cwd, possibleConfigFiles);
-  if (file === null) {
+  if (file === undefined) {
     logInfo(`Can't find an ESLint config file. Skipping this configuration.`);
     return false;
   }

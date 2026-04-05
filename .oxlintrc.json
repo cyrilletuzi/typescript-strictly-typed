@@ -27,31 +27,43 @@
     "style": "deny"
   },
   "rules": {
-    // Loosen some "pedantic" rules
-    "max-depth": "allow", // tolerable in this project (it would require a refactor in classes)
-    "max-lines-per-function": "allow", // tolerable in this project (it would require a refactor in classes)
-    "jsdoc/require-param-type": "allow", // already managed by TypeScript
-    "jsdoc/require-returns-type": "allow", // already managed by TypeScript
-    // Loosen some "style" rules
-    "func-style": [
-      "error",
-      "declaration" // "expression" by default, which should be punished by law
+    // Exceptionnally disable some rules aimed to enforce small functions and the single responsibility principle,
+    // because it is not relevant for this project and it would require a refactor in classes
+    "max-depth": "allow", // in "pedantic"
+    "max-lines-per-function": "allow", // in "pedantic"
+    "max-params": "allow", // in "style"
+    "max-statements": "allow", // in "style"
+    // Disable rules conflicting with Node
+    "import/no-nodejs-modules": "allow", // in "style", this is a Node project
+    // Disable rules already managed by TypeScript directly
+    "init-declarations": "allow", // in "style"
+    "jsdoc/require-param-type": "allow", // in "pedantic"
+    "jsdoc/require-returns-type": "allow", // in "pedantic"
+    // Disable formatting rules
+    "sort-imports": "allow", // in "style", already managed by TypeScript and VS Code
+    "sort-keys": "allow", //  in "style", and a logical order is often better
+    "import/consistent-type-specifier-style": "allow", // in "style", managed by TypeScript and VS Code
+    // Disable or loosen some crazy defaults
+    "func-style": [ // in "style"
+      "deny",
+      "declaration" // the default is "expression", which is a bad practice, a function is a function, not a variable
     ],
-    "init-declarations": "allow", // contradictory with the "no-useless-assignment", and TypeScript manages this correctly
-    "max-params": "allow", // tolerable in this project
-    "max-statements": "allow", // tolerable in this project
-    "no-magic-numbers": "allow", // let use numbers, please?
-    "no-ternary": "allow", // perhaps learn some basic programming?
-    "sort-imports": "allow", // already managed by VS Code
-    "sort-keys": "allow", // no, a logical order is often better
-    "import/consistent-type-specifier-style": "allow", // managed by TypeScript and VS Code
-    "import/exports-last": "allow", // no
-    "import/group-exports": "allow", // no
-    "import/prefer-default-export": "allow", // no
-    "import/no-named-export": "allow", // and no
-    "import/no-nodejs-modules": "allow", // this is a Node project
-    "unicorn/no-null": "allow", // null and undefined are not the same
-    // Add relevant "restriction" rules
+    "no-magic-numbers": [ // in "style"
+      "deny",
+      {
+        "ignore": [
+          0, // often used to check the length of an array or access the first element of a list
+          1 // often used to increment or decrement
+        ]
+      }
+    ],
+    "no-ternary": "allow", // in "style", perhaps learn some basic programming?
+    "import/group-exports": "allow", // in "style", "import/exports-last" already ensures that exports are grouped, no need to complexify
+    "import/prefer-default-export": "allow", // in "style", hell no, this is a bad practice
+    "import/no-named-export": "allow", // in "style", hell no, this is a bad practice
+    // Enable relevant "restriction" rules: the restriction category cannot be enabled by default like the others,
+    // as some rules are for example to restrict syntaxes for very old browser compatibility,
+    // so we need to manually choose the relevant restrictions for the project
     "class-methods-use-this": "deny",
     "no-bitwise": "deny",
     "no-empty": "deny",

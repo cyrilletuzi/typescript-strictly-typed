@@ -124,12 +124,12 @@ export async function enableOxlintStrict(cwd: string): Promise<boolean> {
   let config: Config<Oxlint> | null | undefined;
 
   const file = findConfig(cwd, possibleConfigFiles);
-  if (file === null && !dependencyExists(cwd, "oxlint")) {
+  if (file === undefined && !dependencyExists(cwd, "oxlint")) {
     logInfo(`Can't find an Oxlint config file or dependency. Skipping this configuration.`);
     return false;
   }
 
-  if (file === null || file === "oxlint.config.ts") {
+  if (file === undefined || file === "oxlint.config.ts") {
     const json: Oxlint = {
       $schema: "./node_modules/oxlint/configuration_schema.json",
       rules: {},
@@ -158,7 +158,7 @@ export async function enableOxlintStrict(cwd: string): Promise<boolean> {
     logWarning(`Some Oxlint lint rules require type-aware linting, and the "oxlint-tsgolint" dependency required for it seems to be missing. See https://oxc.rs/docs/guide/usage/linter/type-aware.html`);
   }
 
-  const saveFile: string = file === "oxlint.config.ts" || file === null ? ".oxlintrc.json" : file;
+  const saveFile: string = file === "oxlint.config.ts" || file === undefined ? ".oxlintrc.json" : file;
 
   if (file === "oxlint.config.ts") {
     logWarning(`The project is using the Oxlint "oxlint.config.ts" configuration format, which is too complicated to be manipulated directly. So the new strict configuration will be saved in ".oxlintrc.json"; then it is needed to manually copy the rules from ".oxlintrc.json" to "oxlint.config.ts". Once done, the ".oxlintrc.json" file must be deleted.`);
