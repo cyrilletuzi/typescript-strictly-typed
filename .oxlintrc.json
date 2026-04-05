@@ -28,11 +28,10 @@
   },
   "rules": {
     // Loosen some "pedantic" rules
-    "max-depth": "allow", // tolerable in this project
-    "max-lines-per-function": "allow", // this is the role of a formatting tool
-    "jsdoc/require-param-type": "allow", // not needed with TypeScript
-    "jsdoc/require-returns": "allow", // tolerable in this project
-    "jsdoc/require-returns-type": "allow", // not needed with TypeScript
+    "max-depth": "allow", // tolerable in this project (it would require a refactor in classes)
+    "max-lines-per-function": "allow", // tolerable in this project
+    "jsdoc/require-param-type": "allow", // already managed by TypeScript
+    "jsdoc/require-returns-type": "allow", // already managed by TypeScript
     // Loosen some "style" rules
     "capitalized-comments": "allow", // mind your own business
     "func-style": [

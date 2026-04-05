@@ -189,6 +189,7 @@ export function modifyJSON(json: string, path: Readonly<JSONPath>, value: unknow
  * @param cwd Working directory path
  * @param name Dependency name to check
  * @param wantedVersion Wanted version, eg. `>=2.1.0`
+ * @returns A boolean telling if the dependency is installed in the wanted version
  */
 export function checkDependencyVersion(cwd: string, name: string, wantedVersion: string): boolean {
 
@@ -221,6 +222,7 @@ export function checkDependencyVersion(cwd: string, name: string, wantedVersion:
  *
  * @param cwd Working directory path
  * @param name Dependency name to check
+ * @returns A boolean telling if the dependency is installed
  */
 export function dependencyExists(cwd: string, name: string): boolean {
 
@@ -248,10 +250,11 @@ export function dependencyExists(cwd: string, name: string): boolean {
 }
 
 /**
- * Check the TypeScript ESLint version version
+ * Check the TypeScript ESLint version version (legacy or new package)
  *
  * @param cwd Working directory path
  * @param wantedVersion Wanted version, eg. `>=2.1.0`
+ * @returns A boolean telling if the wanted version of TypeScript ESLint is installed
  */
 export function checkTypescriptEslintVersion(cwd: string, wantedVersion: string): boolean {
   return checkDependencyVersion(cwd, "typescript-eslint", wantedVersion) || checkDependencyVersion(cwd, "@typescript-eslint/eslint-plugin", wantedVersion);
@@ -264,10 +267,11 @@ export function isAngularESLint(cwd: string): boolean {
 }
 
 /**
- * Check the Angular ESLint version version
+ * Check the Angular ESLint version (legacy or new package)
  *
  * @param cwd Working directory path
  * @param wantedVersion Wanted version, eg. `>=2.1.0`
+ * @returns A boolean telling if the wanted version of Angular ESLint is installed
  */
 export function checkAngularEslintVersion(cwd: string, wantedVersion: string): boolean {
   return checkDependencyVersion(cwd, "angular-eslint", wantedVersion) || checkDependencyVersion(cwd, "@angular-eslint/eslint-plugin-template", wantedVersion);
