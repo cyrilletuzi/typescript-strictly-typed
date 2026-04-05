@@ -100,7 +100,7 @@
     // Enforce immutability
     "no-shadow": "deny", // in "suspicious"
     "prefer-const": "deny", // in "style"
-    "prefer-readonly": "deny", // in "nursery"
+    "prefer-readonly": "deny", // in "style"
     "typescript/prefer-readonly-parameter-types": [ // in "nursery"
       "deny",
       {
