@@ -29,8 +29,7 @@
   "rules": {
     // Loosen some "pedantic" rules
     "max-depth": "allow", // tolerable in this project
-    "max-lines-per-function": "allow", // tolerable in this project
-    "no-inline-comments": "allow", // wanted in this project
+    "max-lines-per-function": "allow", // this is the role of a formatting tool
     "jsdoc/require-param-type": "allow", // not needed with TypeScript
     "jsdoc/require-returns": "allow", // tolerable in this project
     "jsdoc/require-returns-type": "allow", // not needed with TypeScript

@@ -18,11 +18,16 @@ interface ESLintRules {
   readonly "@typescript-eslint/prefer-optional-chain"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/use-unknown-in-catch-callback-variable"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/no-non-null-assertion"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
-  readonly "@typescript-eslint/no-unsafe-argument"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?]; // in recommended-type-checked
-  readonly "@typescript-eslint/no-unsafe-assignment"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?]; // in recommended-type-checked
-  readonly "@typescript-eslint/no-unsafe-call"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?]; // in recommended-type-checked
-  readonly "@typescript-eslint/no-unsafe-member-access"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?]; // in recommended-type-checked
-  readonly "@typescript-eslint/no-unsafe-return"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?]; // in recommended-type-checked
+  // in recommended-type-checked
+  readonly "@typescript-eslint/no-unsafe-argument"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  // in recommended-type-checked
+  readonly "@typescript-eslint/no-unsafe-assignment"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  // in recommended-type-checked
+  readonly "@typescript-eslint/no-unsafe-call"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  // in recommended-type-checked
+  readonly "@typescript-eslint/no-unsafe-member-access"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  // in recommended-type-checked
+  readonly "@typescript-eslint/no-unsafe-return"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/no-unsafe-type-assertion"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/restrict-plus-operands"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/restrict-template-expressions"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];

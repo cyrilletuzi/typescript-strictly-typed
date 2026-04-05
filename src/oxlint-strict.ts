@@ -8,14 +8,17 @@ interface OxlintRules {
   readonly "eqeqeq"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   // Missing from Oxlint for now
   // readonly "prefer-arrow-callback"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
-  readonly "prefer-template"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?]; // v1.12
+  // v1.12
+  readonly "prefer-template"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/no-explicit-any"?: OxlintErrorLevel | readonly [OxlintErrorLevel, {
     readonly fixToUnknown?: boolean;
   }?];
   readonly "typescript/explicit-function-return-type"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown];
   readonly "typescript/prefer-for-of"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
-  readonly "typescript/prefer-nullish-coalescing"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?]; // v1.33
-  readonly "typescript/prefer-optional-chain"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?]; // v.1.39
+  // v1.33
+  readonly "typescript/prefer-nullish-coalescing"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  // v.1.39
+  readonly "typescript/prefer-optional-chain"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/use-unknown-in-catch-callback-variable"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/no-non-null-assertion"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/no-unsafe-argument"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
@@ -25,9 +28,11 @@ interface OxlintRules {
   readonly "typescript/no-unsafe-return"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/no-unsafe-type-assertion"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/restrict-plus-operands"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
-  readonly "typescript/restrict-template-expressions"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?]; // enabled by default
+  // enabled by default
+  readonly "typescript/restrict-template-expressions"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/strict-boolean-expressions"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
-  readonly "typescript/strict-void-return"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?]; // v.1.49
+  // v.1.49
+  readonly "typescript/strict-void-return"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
 }
 
 interface Oxlint {
