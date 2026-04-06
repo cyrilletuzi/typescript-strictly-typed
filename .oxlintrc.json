@@ -43,36 +43,35 @@
     "node/no-new-require": "deny", // in "restriction"
     "node/no-process-env": "deny", // in "restriction"
     "unicorn/prefer-node-protocol": "deny", // in "restriction"
-    // Enforce ESM and prevent CommonJS
-    "import/no-commonjs": "deny", // in "restriction"
-    "import/unambiguous": "deny", // in "restriction"
-    "typescript/no-require-imports": "deny", // in "restriction"
-    "unicorn/prefer-module": "deny", // in "restriction"
+    // "restriction" to ESM and prevent CommonJS
+    "import/no-commonjs": "deny",
+    "import/unambiguous": "deny",
+    "typescript/no-require-imports": "deny",
+    "unicorn/prefer-module": "deny",
     // Enforce named exports and prevent default exports
     "import/prefer-default-export": "allow", // in "style"
     "import/no-default-export": "deny", // in "restriction"
     "import/no-named-export": "allow", // in "style"
-    // Prevent imports bad practices which can lead to build and performance issues
+    // "restriction" to prevent imports bad practices which can lead to build and performance issues
     "import/export": "deny", // in "nursery"
-    "import/group-exports": "allow", // in "style", "import/exports-last" already ensures that exports are grouped, no need to complexify
     "import/named": "deny", // in "nursery"
-    "import/no-cycle": "deny", // in "restriction"
-    "oxc/no-barrel-file": "deny", // in "restriction"
-    "typescript/no-import-type-side-effects": "deny", // in "restriction", important when using TypeScript "isolatedModules" and "verbatimModuleSyntax" to prevent empty build files
+    "import/no-cycle": "deny",
+    "oxc/no-barrel-file": "deny",
+    "typescript/no-import-type-side-effects": "deny", // important when using TypeScript "isolatedModules" and "verbatimModuleSyntax" to prevent empty build files
     // Disable rules already managed by TypeScript directly
     "init-declarations": "allow", // in "style"
     "jsdoc/require-param-type": "allow", // in "pedantic"
     "jsdoc/require-returns-type": "allow", // in "pedantic"
-    // Disable formatting rules
-    "sort-imports": "allow", // in "style", already managed by TypeScript and VS Code
-    "sort-keys": "allow", //  in "style", and a logical order is often better
-    "import/consistent-type-specifier-style": "allow", // in "style", managed by TypeScript and VS Code
-    // Disable or loosen some crazy defaults
-    "func-style": [ // in "style"
+    // Disable "style" formatting rules
+    "sort-imports": "allow", // already managed by TypeScript and VS Code
+    "sort-keys": "allow", // a logical order is often better
+    "import/consistent-type-specifier-style": "allow", // managed by TypeScript and VS Code
+    // Disable or loosen some crazy "style" defaults
+    "func-style": [
       "deny",
       "declaration" // the default is "expression", which is a bad practice, a function is a function, not a variable
     ],
-    "no-magic-numbers": [ // in "style"
+    "no-magic-numbers": [
       "deny",
       {
         "ignore": [
@@ -81,12 +80,13 @@
         ]
       }
     ],
-    "no-ternary": "allow", // in "style", perhaps learn some basic programming?
-    // Enforce modern JavaScript
+    "no-ternary": "allow",
+    "import/group-exports": "allow", // "import/exports-last" already ensures that exports are grouped, no need to complexify
+    // "restriction" to modern JavaScript
     "no-var": "deny",
-    "no-proto": "deny", // in "restriction"
-    "unicorn/prefer-modern-math-apis": "deny", // in "restriction"
-    "unicorn/prefer-number-properties": "deny", // in "restriction"
+    "no-proto": "deny",
+    "unicorn/prefer-modern-math-apis": "deny",
+    "unicorn/prefer-number-properties": "deny",
     // Enforce strict typing
     "eqeqeq": "deny", // in "pedantic"
     "prefer-template": "deny", // in "style"
@@ -149,41 +149,41 @@
         ]
       }
     ],
-    // Prevent error prone syntaxes
+    // "restriction" of error prone syntaxes
     "getter-return": "deny", // in "nursery"
-    "no-bitwise": "deny", // in "restriction"
-    "no-plusplus": "deny", // in "restriction"
-    "no-regex-spaces": "deny", // in "restriction"
-    "no-sequences": "deny", // in "restriction"
+    "no-bitwise": "deny",
+    "no-plusplus": "deny",
+    "no-regex-spaces": "deny",
+    "no-sequences": "deny",
     "no-undef": "deny", // in "nursery"
     "no-unreachable": "deny", // in "nursery"
-    "no-use-before-define": "deny", // in "restriction"
-    "no-void": "deny", // in "restriction"
-    "jsdoc/check-access": "deny", // in "restriction"
-    "oxc/bad-bitwise-operator": "deny", // in "restriction"
-    "oxc/no-const-enum": "deny", // in "restriction"
-    "promise/catch-or-return": "deny", // in "restriction"
+    "no-use-before-define": "deny",
+    "no-void": "deny",
+    "jsdoc/check-access": "deny",
+    "oxc/bad-bitwise-operator": "deny",
+    "oxc/no-const-enum": "deny",
+    "promise/catch-or-return": "deny",
     "promise/no-return-in-finally": "deny", // in "nursery"
-    "promise/spec-only": "deny", // in "restriction"
+    "promise/spec-only": "deny",
     "typescript/consistent-return": "deny", // in "nursery"
     "typescript/dot-notation": "deny", // in "nursery"
-    "typescript/no-dynamic-delete": "deny", // in "restriction"
-    "typescript/no-empty-object-type": "deny", // in "restriction"
-    "typescript/no-invalid-void-type": "deny", // in "restriction"
-    "typescript/no-namespace": "deny", // in "restriction"
-    "typescript/non-nullable-type-assertion-style": "deny", // in "restriction"
-    "typescript/prefer-literal-enum-member": "deny", // in "restriction"
-    "typescript/promise-function-async": "deny", // in "restriction"
-    "unicorn/no-array-for-each": "deny", // in "restriction"
-    "unicorn/no-array-reduce": "deny", // in "restriction"
-    "unicorn/no-abusive-eslint-disable": "deny", // in "restriction"
-    // Enforce good practices
-    "class-methods-use-this": "deny", // in "restriction"
+    "typescript/no-dynamic-delete": "deny",
+    "typescript/no-empty-object-type": "deny",
+    "typescript/no-invalid-void-type": "deny",
+    "typescript/no-namespace": "deny",
+    "typescript/non-nullable-type-assertion-style": "deny",
+    "typescript/prefer-literal-enum-member": "deny",
+    "typescript/promise-function-async": "deny",
+    "unicorn/no-array-for-each": "deny",
+    "unicorn/no-array-reduce": "deny",
+    "unicorn/no-abusive-eslint-disable": "deny",
+    // "restriction" to good practices
+    "class-methods-use-this": "deny",
     "oxc/branches-sharing-code": "deny", // in "nursery"
-    // Prevent empty or unnecessary elements
-    "no-empty": "deny", // in "restriction"
-    "no-empty-function": "deny", // in "restriction"
-    "jsdoc/empty-tags": "deny", // in "restriction"
+    // "restriction" to prevent empty or unnecessary elements
+    "no-empty": "deny",
+    "no-empty-function": "deny",
+    "jsdoc/empty-tags": "deny",
     "typescript/no-unnecessary-condition": "deny", // in "nursery"
     "typescript/no-unnecessary-qualifier": "deny", // in "nursery"
     "typescript/no-unnecessary-type-conversion": "deny", // in "nursery"
