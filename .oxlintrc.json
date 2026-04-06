@@ -8,6 +8,9 @@
     "typeAware": true,
     "reportUnusedDisableDirectives": "deny"
   },
+  "env": {
+    "node": true
+  },
   "plugins": [
     "eslint",
     "import",
@@ -71,10 +74,13 @@
       "deny",
       "declaration" // the default is "expression", which is a bad practice, a function is a function, not a variable
     ],
+    "prefer-destructuring": "allow",
     "no-magic-numbers": [
       "deny",
       {
+        "ignoreReadonlyClassProperties": true,
         "ignore": [
+          -1, // often used for comparisons
           0, // often used to check the length of an array or access the first element of a list
           1 // often used to increment or decrement
         ]
@@ -82,6 +88,8 @@
     ],
     "no-ternary": "allow",
     "import/group-exports": "allow", // "import/exports-last" already ensures that exports are grouped, no need to complexify
+    "unicorn/prefer-string-slice": "allow", // in "pedantic"
+    "unicorn/numeric-separators-style": "allow",
     // "restriction" to modern JavaScript
     "no-var": "deny",
     "no-proto": "deny",
