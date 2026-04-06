@@ -70,11 +70,24 @@
     "sort-keys": "allow", // a logical order is often better
     "import/consistent-type-specifier-style": "allow", // managed by TypeScript and VS Code
     // Disable or loosen some crazy "style" defaults
+    "capitalized-comments": "allow",
     "func-style": [
       "deny",
       "declaration" // the default is "expression", which is a bad practice, a function is a function, not a variable
     ],
-    "prefer-destructuring": "allow",
+    "id-length": [
+      "deny",
+      {
+        "checkGeneric": true,
+        "exceptions": [
+          "a", // used for array methods like .toSorted()
+          "b", // used for array methods like .toSorted()
+          "_", // used in TypeScript for unused params,
+          "T" // used in TypeScript when only one generic
+        ]
+      }
+    ],
+    "max-dependencies": "allow", // in "pedantic"
     "no-magic-numbers": [
       "deny",
       {
@@ -87,9 +100,12 @@
       }
     ],
     "no-ternary": "allow",
+    "prefer-destructuring": "allow",
     "import/group-exports": "allow", // "import/exports-last" already ensures that exports are grouped, no need to complexify
     "unicorn/prefer-string-slice": "allow", // in "pedantic"
+    "unicorn/no-useless-undefined": "allow", // in "pedantic", sometimes incorrect, and conflicting with other rules
     "unicorn/numeric-separators-style": "allow",
+    "unicorn/prefer-spread": "allow", // `Array.from()` is totally OK and more understandable
     // "restriction" to modern JavaScript
     "no-var": "deny",
     "no-proto": "deny",
