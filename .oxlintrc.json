@@ -189,8 +189,20 @@
     "class-methods-use-this": "deny",
     "oxc/branches-sharing-code": "deny", // in "nursery"
     // "restriction" to prevent empty or unnecessary elements
-    "no-empty": "deny",
-    "no-empty-function": "deny",
+    "no-empty": [
+      "deny",
+      {
+        "allowEmptyCatch": true // `catch` is required after a `try`, but there is not always something to do inside
+      }
+    ],
+    "no-empty-function": [
+      "deny",
+      {
+        "allow": [
+          "arrowFunctions" // some callbacks are required (like in promises `.catch()`), but there is not always something to do inside
+        ],
+      },
+    ],
     "jsdoc/empty-tags": "deny",
     "typescript/no-unnecessary-condition": "deny", // in "nursery"
     "typescript/no-unnecessary-qualifier": "deny", // in "nursery"
