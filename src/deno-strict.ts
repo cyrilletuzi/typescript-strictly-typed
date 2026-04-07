@@ -70,42 +70,34 @@ export async function enableDenoStrict(cwd: string): Promise<boolean> {
 
   /* Delete compiler options disabled by user which are enabled by default */
   if (config.json.compilerOptions?.strict === false) {
-    // oxlint-disable-next-line unicorn/no-useless-undefined -- This how `modifyJSON()` works
     config.raw = modifyJSON(config.raw, ["compilerOptions", "strict"], undefined);
   }
 
   if (config.json.compilerOptions?.alwaysStrict === false) {
-    // oxlint-disable-next-line unicorn/no-useless-undefined -- This how `modifyJSON()` works
     config.raw = modifyJSON(config.raw, ["compilerOptions", "alwaysStrict"], undefined);
   }
 
   if (config.json.compilerOptions?.noImplicitAny === false) {
-    // oxlint-disable-next-line unicorn/no-useless-undefined -- This how `modifyJSON()` works
     config.raw = modifyJSON(config.raw, ["compilerOptions", "noImplicitAny"], undefined);
   }
 
   if (config.json.compilerOptions?.noImplicitThis === false) {
-    // oxlint-disable-next-line unicorn/no-useless-undefined -- This how `modifyJSON()` works
     config.raw = modifyJSON(config.raw, ["compilerOptions", "noImplicitThis"], undefined);
   }
 
   if (config.json.compilerOptions?.strictBindCallApply === false) {
-    // oxlint-disable-next-line unicorn/no-useless-undefined -- This how `modifyJSON()` works
     config.raw = modifyJSON(config.raw, ["compilerOptions", "strictBindCallApply"], undefined);
   }
 
   if (config.json.compilerOptions?.strictFunctionTypes === false) {
-    // oxlint-disable-next-line unicorn/no-useless-undefined -- This how `modifyJSON()` works
     config.raw = modifyJSON(config.raw, ["compilerOptions", "strictFunctionTypes"], undefined);
   }
 
   if (config.json.compilerOptions?.strictNullChecks === false) {
-    // oxlint-disable-next-line unicorn/no-useless-undefined -- This how `modifyJSON()` works
     config.raw = modifyJSON(config.raw, ["compilerOptions", "strictNullChecks"], undefined);
   }
 
   if (config.json.compilerOptions?.strictPropertyInitialization === false) {
-    // oxlint-disable-next-line unicorn/no-useless-undefined -- This how `modifyJSON()` works
     config.raw = modifyJSON(config.raw, ["compilerOptions", "strictPropertyInitialization"], undefined);
   }
 

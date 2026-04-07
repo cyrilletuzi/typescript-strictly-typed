@@ -189,8 +189,6 @@
     "promise/catch-or-return": "deny",
     "promise/no-return-in-finally": "deny", // in "nursery"
     "promise/spec-only": "deny",
-    "typescript/consistent-return": "deny", // in "nursery"
-    "typescript/dot-notation": "deny", // in "nursery"
     "typescript/no-dynamic-delete": "deny",
     "typescript/no-empty-object-type": "deny",
     "typescript/no-invalid-void-type": "deny",
@@ -219,11 +217,12 @@
         ],
       },
     ],
+    "no-useless-assignment": "deny", // in "nursery"
     "jsdoc/empty-tags": "deny",
     "typescript/no-unnecessary-condition": "deny", // in "nursery"
     "typescript/no-unnecessary-qualifier": "deny", // in "nursery"
-    "typescript/no-unnecessary-type-conversion": "deny", // in "nursery"
     "typescript/no-unnecessary-type-parameters": "deny", // in "nursery"
     "typescript/no-useless-default-assignment": "deny", // in "nursery"
+    "unicorn/no-useless-iterator-to-array": "deny" // in "nursery"
   }
 }
