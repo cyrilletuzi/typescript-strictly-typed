@@ -60,6 +60,12 @@
     "import/named": "deny", // in "nursery"
     "import/no-cycle": "deny",
     "oxc/no-barrel-file": "deny",
+    "typescript/consistent-type-imports": [ // in "style"
+      "deny",
+      {
+        "fixStyle": "inline-type-imports"
+      }
+    ],
     "typescript/no-import-type-side-effects": "deny", // important when using TypeScript "isolatedModules" and "verbatimModuleSyntax" to prevent empty build files
     // Disable rules already managed by TypeScript directly
     "init-declarations": "allow", // in "style"
