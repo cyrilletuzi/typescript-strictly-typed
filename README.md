@@ -5,7 +5,7 @@ Configure TypeScript, ESLint, Deno and/or Angular to ensure fully typed code. Be
 A [posts series](https://dev.to/cyrilletuzi/typescript-strictly-typed-5fln) explains the motivation of this lib.
 
 > [!NOTE]
-> Find this library useful? I’m open to freelance & full-time opportunities.
+> Find this tool useful? I’m open to freelance & full-time opportunities.
 > Feel free to reach out on [LinkedIn](https://www.linkedin.com/in/cyrilletuzi/) or [Bluesky](https://bsky.app/profile/cyrilletuzi.com).
 
 ## Getting started
