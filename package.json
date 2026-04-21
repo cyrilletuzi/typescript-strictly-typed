@@ -16,7 +16,7 @@
     "npm": ">=11.6.0"
   },
   "scripts": {
-    "build": "rimraf dist && tsc && copyfiles package.json LICENSE bin/cli.js dist && copyfiles -f src/README.md dist",
+    "build": "rm -rf dist && tsc && copyfiles package.json LICENSE bin/cli.js dist && copyfiles -f src/README.md dist",
     "lint": "oxlint",
     "test": "echo \"Error: no test specified\" && exit 1",
     "release:major": "VERSION=major npm run release",
@@ -50,7 +50,6 @@
     "copyfiles": "^2.4.1",
     "oxlint": "^1.61.0",
     "oxlint-tsgolint": "^0.21.1",
-    "rimraf": "^6.1.3",
     "typescript": "~6.0.2"
   }
 }
