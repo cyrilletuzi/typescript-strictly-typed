@@ -151,13 +151,13 @@
         "allowString": false,
       }
     ],
-    "typescript/strict-void-return": "deny", // in "nursery"
+    "typescript/strict-void-return": "deny", // in "pedantic"
     "typescript/use-unknown-in-catch-callback-variable": "deny", // in "restriction"
     // Enforce immutability
     "no-shadow": "deny", // in "suspicious"
     "prefer-const": "deny", // in "style"
     "prefer-readonly": "deny", // in "style"
-    "typescript/prefer-readonly-parameter-types": [ // in "nursery"
+    "typescript/prefer-readonly-parameter-types": [ // in "pedantic"
       "deny",
       {
         "allow": [
@@ -226,9 +226,6 @@
     "no-useless-assignment": "deny", // in "nursery"
     "jsdoc/empty-tags": "deny",
     "typescript/no-unnecessary-condition": "deny", // in "nursery"
-    "typescript/no-unnecessary-qualifier": "deny", // in "nursery"
-    "typescript/no-unnecessary-type-parameters": "deny", // in "nursery"
-    "typescript/no-useless-default-assignment": "deny", // in "nursery"
     "unicorn/no-useless-iterator-to-array": "deny" // in "nursery"
   }
 }
