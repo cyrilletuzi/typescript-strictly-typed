@@ -66,10 +66,10 @@ export function enableESLintFlatStrict(cwd: string): boolean {
     const filePath = join(cwd, fileName);
     const fileContent = getSource(cwd, fileName);
 
-    const quoteMatch = /import .* from (['"])/.exec(fileContent);
+    const quoteMatch = /import .* from (['"])/u.exec(fileContent);
     const quote = quoteMatch?.[1] ?? `"`;
 
-    const spacesMatch = /defineConfig\(.*\n(\s)+/.exec(fileContent);
+    const spacesMatch = /defineConfig\(.*\n(\s)+/u.exec(fileContent);
     // oxlint-disable-next-line no-magic-numbers -- No need to store the value here
     const spaces = spacesMatch?.[1]?.length ?? 2;
 
@@ -87,7 +87,7 @@ export function enableESLintFlatStrict(cwd: string): boolean {
 
     const source = project.createSourceFile(filePath, fileContent);
 
-    const isCommonJS: boolean = (fileContent.includes("require(") || /require ?['"]/.exec(fileContent) !== null);
+    const isCommonJS: boolean = (fileContent.includes("require(") || /require ?['"]/u.exec(fileContent) !== null);
 
     const exportExpression = isCommonJS ?
       /* CommonJS */
@@ -213,7 +213,7 @@ export function enableESLintFlatStrict(cwd: string): boolean {
         const spacesReplaceValue = "".padStart(spaces);
         const initializer = ruleErrorConfig
           .replaceAll('"', quote)
-          .replaceAll(/\s{2}/g, spacesReplaceValue);
+          .replaceAll(/\s{2}/gu, spacesReplaceValue);
 
         rulesObject.addProperty({
           kind: StructureKind.PropertyAssignment,
@@ -256,7 +256,7 @@ export function enableESLintFlatStrict(cwd: string): boolean {
               const spacesReplaceValue = "".padStart(spaces);
               const initializer = ruleErrorConfig
                 .replaceAll('"', quote)
-                .replaceAll(/\s{2}/g, spacesReplaceValue);
+                .replaceAll(/\s{2}/gu, spacesReplaceValue);
 
               angularRulesObject.addProperty({
                 kind: StructureKind.PropertyAssignment,
