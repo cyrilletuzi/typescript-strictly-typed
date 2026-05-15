@@ -119,6 +119,7 @@
     "unicorn/prefer-number-properties": "deny",
     // Enforce strict typing
     "eqeqeq": "deny", // in "pedantic"
+    "prefer-arrow-callback": "deny",
     "prefer-template": "deny", // in "style"
     "typescript/explicit-function-return-type": "deny", // in "restriction"
     "typescript/explicit-module-boundary-types": "deny", // in "restriction"
