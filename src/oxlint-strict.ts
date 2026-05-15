@@ -6,8 +6,8 @@ type OxlintErrorLevel = "error" | "warn" | "off" | "deny" | "allow";
 
 interface OxlintRules {
   readonly "eqeqeq"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
-  // Missing from Oxlint for now
-  // Readonly "prefer-arrow-callback"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  // V1.65
+  readonly "prefer-arrow-callback"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   // V1.12
   readonly "prefer-template"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/no-explicit-any"?: OxlintErrorLevel | readonly [OxlintErrorLevel, {
@@ -52,8 +52,7 @@ function addRulesConfig(
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "eqeqeq"], "deny");
 
-  // Missing for now
-  // Config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-arrow-callback"], "deny");
+  config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-arrow-callback"], "deny");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-template"], "deny");
 

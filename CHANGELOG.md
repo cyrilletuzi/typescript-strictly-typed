@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.30.0 (2026-05-15)
+
+- add `prefer-arrow-callback` in oxlint (added in v1.65)
+
 ## 3.29.0 (2026-03-23)
 
 - Take into account `strict` is enabled by default in TypeScript version >= 6
