@@ -161,23 +161,8 @@
     "typescript/prefer-readonly-parameter-types": [ // in "pedantic"
       "deny",
       {
-        "allow": [
-          {
-            "from": "package",
-            "name": "ModificationOptions",
-            "package": "jsonc-parser"
-          },
-          {
-            "from": "package",
-            "name": "CodeBlockWriter",
-            "package": "ts-morph"
-          },
-          {
-            "from": "package",
-            "name": "ObjectLiteralExpression",
-            "package": "ts-morph"
-          },
-        ]
+        "ignoreInferredTypes": true,
+        "treatMethodsAsReadonly": true,
       }
     ],
     // "restriction" of error prone syntaxes

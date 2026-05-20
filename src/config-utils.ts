@@ -169,7 +169,13 @@ export function saveConfig(
 
 }
 
-export function modifyJSON(json: string, path: Readonly<JSONPath>, value: unknown, otherOptions?: ModificationOptions): string {
+export function modifyJSON(
+  json: string,
+  path: Readonly<JSONPath>,
+  value: unknown,
+  // oxlint-disable-next-line typescript/prefer-readonly-parameter-types
+  otherOptions?: ModificationOptions,
+): string {
 
   const options: ModificationOptions = {
     formattingOptions: {

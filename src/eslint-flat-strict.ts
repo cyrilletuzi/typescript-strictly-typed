@@ -45,7 +45,11 @@ function getAngularEslintTemplateRulesNames(cwd: string): readonly string[] {
   ];
 }
 
-function getProperty(objectLiteralExpression: ObjectLiteralExpression, propertyName: string): ObjectLiteralElementLike | undefined {
+function getProperty(
+  // oxlint-disable-next-line typescript/prefer-readonly-parameter-types
+  objectLiteralExpression: ObjectLiteralExpression,
+  propertyName: string,
+): ObjectLiteralElementLike | undefined {
   return objectLiteralExpression.getProperty(propertyName) ??
     objectLiteralExpression.getProperty(`"${propertyName}"`) ??
     objectLiteralExpression.getProperty(`'${propertyName}'`);
