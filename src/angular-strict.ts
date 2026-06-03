@@ -42,7 +42,9 @@ export async function enableAngularStrict(cwd: string): Promise<boolean> {
   }
 
   config.raw = modifyJSON(config.raw, ["angularCompilerOptions", "strictInjectionParameters"], true);
-  config.raw = modifyJSON(config.raw, ["angularCompilerOptions", "strictTemplates"], true);
+  if (checkDependencyVersion(cwd, "@angular/compiler", "<22.0.0")) {
+    config.raw = modifyJSON(config.raw, ["angularCompilerOptions", "strictTemplates"], true);
+  }
   config.raw = modifyJSON(config.raw, ["angularCompilerOptions", "strictInputAccessModifiers"], true);
 
   if (checkDependencyVersion(cwd, "@angular/compiler", ">=20.0.0") && checkDependencyVersion(cwd, "@angular/compiler", "<21.0.0")) {

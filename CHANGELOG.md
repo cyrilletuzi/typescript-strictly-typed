@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.31.0 (2026-06-03)
+
+- do not set `strictTemplates` in Angular >= 22 projects, as it is now the default
+
 ## 3.30.0 (2026-05-15)
 
 - add `prefer-arrow-callback` in oxlint (added in v1.65)
