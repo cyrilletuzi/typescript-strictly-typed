@@ -70,9 +70,11 @@ export function enableESLintFlatStrict(cwd: string): boolean {
     const filePath = join(cwd, fileName);
     const fileContent = getSource(cwd, fileName);
 
+    // oxlint-disable-next-line prefer-named-capture-group
     const quoteMatch = /import .* from (['"])/u.exec(fileContent);
     const quote = quoteMatch?.[1] ?? `"`;
 
+    // oxlint-disable-next-line prefer-named-capture-group
     const spacesMatch = /defineConfig\(.*\n(\s)+/u.exec(fileContent);
     // oxlint-disable-next-line no-magic-numbers -- No need to store the value here
     const spaces = spacesMatch?.[1]?.length ?? 2;
