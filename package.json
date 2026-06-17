@@ -47,7 +47,7 @@
     "@types/node": "~24.10.0",
     "@types/semver": "^7.7.1",
     "better-typescript-lib": "~2.12.0",
-    "oxlint": "^1.69.0",
+    "oxlint": "^1.70.0",
     "oxlint-tsgolint": "^0.23.0",
     "typescript": "~6.0.2"
   }
