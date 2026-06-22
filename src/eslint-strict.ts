@@ -211,7 +211,7 @@ export async function enableESLintStrict(cwd: string): Promise<boolean> {
   /* If there is an override, rules must be set inside it, or they won't be checked */
   for (const [index, override] of Object.entries(config.json.overrides ?? [])) {
 
-    const indexNumber = Number.parseInt(index, 10);
+    const indexNumber = Number(index);
 
     const files = normalizeConfigToArray(override.files);
 

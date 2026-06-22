@@ -43,6 +43,7 @@
     // Node project specific rules
     "import/extensions": "deny", // in "restriction"
     "import/no-nodejs-modules": "allow", // in "style", this is a Node project
+    "node/no-sync": "allow", // sync is OK in this project
     "node/no-new-require": "deny", // in "restriction"
     "node/no-process-env": "deny", // in "restriction"
     "unicorn/prefer-node-protocol": "deny", // in "restriction"
