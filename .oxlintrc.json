@@ -67,6 +67,10 @@
         "fixStyle": "inline-type-imports"
       }
     ],
+    "import/consistent-type-specifier-style": [
+      "deny",
+      "prefer-top-level-if-only-type-imports"
+    ],
     "typescript/no-import-type-side-effects": "deny", // important when using TypeScript "isolatedModules" and "verbatimModuleSyntax" to prevent empty build files
     // Disable rules already managed by TypeScript directly
     "init-declarations": "allow", // in "style"
@@ -75,7 +79,6 @@
     // Disable "style" formatting rules
     "sort-imports": "allow", // already managed by TypeScript and VS Code
     "sort-keys": "allow", // a logical order is often better
-    "import/consistent-type-specifier-style": "allow", // managed by TypeScript and VS Code
     // Disable or loosen some crazy "style" defaults
     "capitalized-comments": "allow",
     "func-style": [
