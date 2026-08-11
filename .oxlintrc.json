@@ -110,6 +110,7 @@
       }
     ],
     "no-ternary": "allow",
+    "one-var": "allow",
     "prefer-destructuring": "allow",
     "import/group-exports": "allow", // "import/exports-last" already ensures that exports are grouped, no need to complexify
     "unicorn/prefer-string-slice": "allow", // in "pedantic"
