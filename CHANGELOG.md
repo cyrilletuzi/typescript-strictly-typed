@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.31.1 (2026-08-19)
+
+- update js-yaml to 5.3.0 to fix vulnerability
+
 ## 3.31.0 (2026-06-03)
 
 - do not set `strictTemplates` in Angular >= 22 projects, as it is now the default
