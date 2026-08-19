@@ -23,4 +23,4 @@ jobs:
       - run: npm install -g npm@^12.0.0
       - run: npm ci
       - run: npm run build
-      - run: npm publish ./dist
+      - run: npm stage publish ./dist
