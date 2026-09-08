@@ -57,7 +57,7 @@ It modifies these configurations:
   - `@typescript-eslint/strict-void-return`
   - `@typescript-eslint/use-unknown-in-catch-callback-variable`
 - [Oxlint rules](https://oxc.rs/docs/guide/usage/linter/rules.html)
-  - same as ESLint rules + TypeScript ESlint rules (except the missing `prefer-arrow-callback` for now)
+  - same as ESLint rules + TypeScript ESlint rules
 - [Angular compiler options](https://angular.dev/reference/configs/angular-compiler-options)
   - `strictInjectionParameters`
   - `strictInputAccessModifiers`
