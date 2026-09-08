@@ -13,7 +13,7 @@ interface TSConfigAngular {
 /**
  * Enable the following Angular compiler options:
  * - `strictInjectionParameters`
- * - `strictTemplates`
+ * - `strictTemplates` (Angular < 22 only, enabled by default in Angular 22)
  * - `strictInputAccessModifiers`
  * - `typeCheckHostBindings` (Angular 20 only, enabled by default in Angular 21)
  * {@link https://angular.dev/reference/configs/angular-compiler-options}
