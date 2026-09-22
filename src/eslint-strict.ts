@@ -9,14 +9,13 @@ interface ESLintRules {
   readonly "eqeqeq"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "prefer-arrow-callback"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "prefer-template"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
-  readonly "@typescript-eslint/no-explicit-any"?: ESLintErrorLevel | readonly [ESLintErrorLevel, {
-    readonly fixToUnknown?: boolean;
-  }?];
   readonly "@typescript-eslint/explicit-function-return-type"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown];
   readonly "@typescript-eslint/prefer-for-of"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/prefer-nullish-coalescing"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/prefer-optional-chain"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
-  readonly "@typescript-eslint/use-unknown-in-catch-callback-variable"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  readonly "@typescript-eslint/no-explicit-any"?: ESLintErrorLevel | readonly [ESLintErrorLevel, {
+    readonly fixToUnknown?: boolean;
+  }?];
   readonly "@typescript-eslint/no-non-null-assertion"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   // In recommended-type-checked
   readonly "@typescript-eslint/no-unsafe-argument"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
@@ -33,6 +32,7 @@ interface ESLintRules {
   readonly "@typescript-eslint/restrict-template-expressions"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/strict-boolean-expressions"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/strict-void-return"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  readonly "@typescript-eslint/use-unknown-in-catch-callback-variable"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@angular-eslint/template/no-any"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@angular-eslint/template/no-non-null-assertion"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
 }
