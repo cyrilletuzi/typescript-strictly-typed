@@ -10,9 +10,6 @@ interface ESLintRules {
   readonly "prefer-arrow-callback"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "prefer-template"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/explicit-function-return-type"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown];
-  readonly "@typescript-eslint/prefer-for-of"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
-  readonly "@typescript-eslint/prefer-nullish-coalescing"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
-  readonly "@typescript-eslint/prefer-optional-chain"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/no-explicit-any"?: ESLintErrorLevel | readonly [ESLintErrorLevel, {
     readonly fixToUnknown?: boolean;
   }?];
@@ -28,6 +25,9 @@ interface ESLintRules {
   // In recommended-type-checked
   readonly "@typescript-eslint/no-unsafe-return"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/no-unsafe-type-assertion"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  readonly "@typescript-eslint/prefer-for-of"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  readonly "@typescript-eslint/prefer-nullish-coalescing"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  readonly "@typescript-eslint/prefer-optional-chain"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/restrict-plus-operands"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/restrict-template-expressions"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/strict-boolean-expressions"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
