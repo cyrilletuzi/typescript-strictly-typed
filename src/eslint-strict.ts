@@ -10,6 +10,7 @@ interface ESLintRules {
   readonly "prefer-arrow-callback"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "prefer-template"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/explicit-function-return-type"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown];
+  readonly "@typescript-eslint/method-signature-style"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown];
   readonly "@typescript-eslint/no-explicit-any"?: ESLintErrorLevel | readonly [ESLintErrorLevel, {
     readonly fixToUnknown?: boolean;
   }?];
@@ -75,6 +76,8 @@ function addTSConfig(
   config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-template"], "error");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/explicit-function-return-type"], "error");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/method-signature-style"], "error");
 
   if (Array.isArray(rules?.["@typescript-eslint/no-explicit-any"])) {
 

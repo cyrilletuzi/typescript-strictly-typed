@@ -14,6 +14,8 @@ interface OxlintRules {
     readonly fixToUnknown?: boolean;
   }?];
   readonly "typescript/explicit-function-return-type"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown];
+  // V1.68
+  readonly "typescript/method-signature-style"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown];
   readonly "typescript/prefer-for-of"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   // V1.33
   readonly "typescript/prefer-nullish-coalescing"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
@@ -57,6 +59,8 @@ function addRulesConfig(
   config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-template"], "deny");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/explicit-function-return-type"], "deny");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/method-signature-style"], "deny");
 
   if (Array.isArray(rules?.["typescript/no-explicit-any"])) {
 

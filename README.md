@@ -40,6 +40,7 @@ It modifies these configurations:
   - `prefer-template`
 - [TypeScript ESLint rules](https://typescript-eslint.io/rules/)
   - `@typescript-eslint/explicit-function-return-type`
+  - `@typescript-eslint/method-signature-style`
   - `@typescript-eslint/no-explicit-any`
   - `@typescript-eslint/no-non-null-assertion`
   - `@typescript-eslint/no-unsafe-argument`

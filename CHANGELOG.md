@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.32.0 (2026-09-22)
+
+- Add `@typescript-eslint/method-signature-style` in ESLint and its equivalent in Oxlint
+
 ## 3.31.1 (2026-08-19)
 
 - update js-yaml to 5.3.0 to fix vulnerability
