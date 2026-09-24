@@ -6,6 +6,7 @@ interface TSConfigAngular {
     readonly strictInjectionParameters?: boolean;
     readonly strictTemplates?: boolean;
     readonly strictInputAccessModifiers?: boolean;
+    readonly strictUnclaimedEventNames?: boolean;
     readonly typeCheckHostBindings?: boolean;
   };
 }
@@ -15,6 +16,7 @@ interface TSConfigAngular {
  * - `strictInjectionParameters`
  * - `strictTemplates` (Angular < 22 only, enabled by default in Angular 22)
  * - `strictInputAccessModifiers`
+ * - `strictUnclaimedEventNames` (Angular >= 22.2 only)
  * - `typeCheckHostBindings` (Angular 20 only, enabled by default in Angular 21)
  * {@link https://angular.dev/reference/configs/angular-compiler-options}
  *
@@ -46,6 +48,10 @@ export async function enableAngularStrict(cwd: string): Promise<boolean> {
     config.raw = modifyJSON(config.raw, ["angularCompilerOptions", "strictTemplates"], true);
   }
   config.raw = modifyJSON(config.raw, ["angularCompilerOptions", "strictInputAccessModifiers"], true);
+
+  if (checkDependencyVersion(cwd, "@angular/compiler", ">=22.2.0")) {
+    config.raw = modifyJSON(config.raw, ["angularCompilerOptions", "strictUnclaimedEventNames"], true);
+  }
 
   if (checkDependencyVersion(cwd, "@angular/compiler", ">=20.0.0") && checkDependencyVersion(cwd, "@angular/compiler", "<21.0.0")) {
     config.raw = modifyJSON(config.raw, ["angularCompilerOptions", "typeCheckHostBindings"], true);

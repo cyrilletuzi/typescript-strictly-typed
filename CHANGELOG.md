@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.33.0 (2026-09-24)
+
+- Add `strictUnclaimedEventNames` in Angular >= 22.2
+
 ## 3.32.0 (2026-09-22)
 
 - Add `@typescript-eslint/method-signature-style` in ESLint and its equivalent in Oxlint

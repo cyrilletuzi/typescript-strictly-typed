@@ -62,6 +62,7 @@ It modifies these configurations:
 - [Angular compiler options](https://angular.dev/reference/configs/angular-compiler-options)
   - `strictInjectionParameters`
   - `strictInputAccessModifiers`
+  - `strictUnclaimedEventNames`
 - [Angular ESLint options](https://github.com/angular-eslint/angular-eslint)
   - `@angular-eslint/template/no-any`
   - `@angular-eslint/template/no-non-null-assertion`
