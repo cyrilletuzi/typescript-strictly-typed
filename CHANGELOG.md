@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.34.0 (2026-10-10)
+
+- Remove Deno support as it has been [discontinued](https://deno.com/blog/cloudflare).
+
 ## 3.33.0 (2026-09-24)
 
 - Add `strictUnclaimedEventNames` in Angular >= 22.2

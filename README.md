@@ -1,6 +1,6 @@
-# TypeScript Strictly Typed
+# TypeScript strictly typed
 
-Configure TypeScript, ESLint, Deno and/or Angular to ensure fully typed code. Because `strict` mode is not enough.
+Configure TypeScript, linters (ESLint, Oxlint) and/or additional compilers (Angular) to enforce fully typed code.
 
 A [posts series](https://dev.to/cyrilletuzi/typescript-strictly-typed-5fln) explains the motivation of this lib.
 
@@ -66,9 +66,6 @@ It modifies these configurations:
 - [Angular ESLint options](https://github.com/angular-eslint/angular-eslint)
   - `@angular-eslint/template/no-any`
   - `@angular-eslint/template/no-non-null-assertion`
-- [Deno](https://lint.deno.land)
-  - add the same compiler options as for TypeScript
-  - add the same lint rules as for ESLint (the ones which exist in Deno)
 
 > [!NOTE]
 > For Oxlint, many of the rules require type-aware linting, which require:
@@ -76,7 +73,7 @@ It modifies these configurations:
 > - version >= 1.51
 
 > [!NOTE]
-> To keep configuration concise, not all TypeScript and Deno options may be added, if they are already enabled by an existing preset. All ESLint rules will be added, as ESLint configuration is too complex to detect presets.
+> To keep configuration concise, not all TypeScript options may be added, if they are already enabled by an existing preset. All ESLint rules will be added, as ESLint configuration is too complex to detect presets.
 
 > [!NOTE]
 > Why not Biome?
