@@ -1,6 +1,5 @@
 import { enableAngularStrict } from "./angular-strict.js";
 import { isGitStatusDirty } from "./check-git-status.js";
-import { enableDenoStrict } from "./deno-strict.js";
 import { enableESLintStrict } from "./eslint-strict.js";
 import { logError, logSuccess } from "./log-utils.js";
 import { enableOxlintStrict } from "./oxlint-strict.js";
@@ -33,10 +32,6 @@ export async function typescriptStrictlyTyped(cwd: string): Promise<void> {
 
   if (await enableOxlintStrict(cwd)) {
     success.push("Oxlint");
-  }
-
-  if (await enableDenoStrict(cwd)) {
-    success.push("Deno");
   }
 
   if (await enableAngularStrict(cwd)) {
