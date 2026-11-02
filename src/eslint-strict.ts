@@ -9,6 +9,7 @@ interface ESLintRules {
   readonly "eqeqeq"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "prefer-arrow-callback"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "prefer-template"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  readonly "@typescript-eslint/ban-ts-comment"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/explicit-function-return-type"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown];
   readonly "@typescript-eslint/method-signature-style"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown];
   readonly "@typescript-eslint/no-explicit-any"?: ESLintErrorLevel | readonly [ESLintErrorLevel, {
@@ -74,6 +75,8 @@ function addTSConfig(
   config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-arrow-callback"], "error");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-template"], "error");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/ban-ts-comment"], "error");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/explicit-function-return-type"], "error");
 

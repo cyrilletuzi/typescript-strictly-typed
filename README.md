@@ -39,6 +39,7 @@ It modifies these configurations:
   - `prefer-arrow-callback`
   - `prefer-template`
 - [TypeScript ESLint rules](https://typescript-eslint.io/rules/)
+  - `@typescript-eslint/ban-ts-comment`
   - `@typescript-eslint/explicit-function-return-type`
   - `@typescript-eslint/method-signature-style`
   - `@typescript-eslint/no-explicit-any`

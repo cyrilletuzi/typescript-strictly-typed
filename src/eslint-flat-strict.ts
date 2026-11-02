@@ -9,6 +9,7 @@ function getEslintRules(cwd: string): Record<string, string> {
     "eqeqeq": `"error"`,
     "prefer-arrow-callback": `"error"`,
     "prefer-template": `"error"`,
+    "@typescript-eslint/ban-ts-comment": `"error"`,
     "@typescript-eslint/explicit-function-return-type": `"error"`,
     "@typescript-eslint/method-signature-style": `"error"`,
     "@typescript-eslint/no-explicit-any": `"error"`,
