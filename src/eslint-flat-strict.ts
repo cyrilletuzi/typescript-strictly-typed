@@ -126,8 +126,10 @@ export function enableESLintFlatStrict(cwd: string): boolean {
       ?? [];
 
     if (configObjectsCheck.length === 0) {
-      configList?.addChildText((writer) => {
-        writer.conditionalWrite(configList.getChildAtIndexIfKind(configList.getChildren().length - 1, SyntaxKind.CommaToken) === undefined, ",").newLine().write("{}");
+      /* If `defineConfig()` contains an array, the object must be added inside it */
+      const configElementsList = configList?.getFirstChildByKind(SyntaxKind.ArrayLiteralExpression)?.getFirstChildByKind(SyntaxKind.SyntaxList) ?? configList;
+      configElementsList?.addChildText((writer) => {
+        writer.conditionalWrite(configElementsList.getChildAtIndexIfKind(configElementsList.getChildren().length - 1, SyntaxKind.CommaToken) === undefined, ",").newLine().write("{}");
       });
     }
 
