@@ -118,7 +118,15 @@ function addTSConfig(
     allowRegExp: false,
   }]);
 
-  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/restrict-template-expressions"], "error");
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/restrict-template-expressions"], ["error", {
+    allow: [],
+    allowAny: false,
+    allowBoolean: false,
+    allowNever: false,
+    allowNullish: false,
+    allowNumber: false,
+    allowRegExp: false,
+  }]);
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/strict-boolean-expressions"], ["error", {
     allowNumber: false,

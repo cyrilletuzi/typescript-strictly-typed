@@ -38,6 +38,7 @@
     // because it is not relevant for this project and it would require a refactor in classes
     "max-depth": "allow", // in "pedantic"
     "max-lines-per-function": "allow", // in "pedantic"
+    "max-lines": "allow",
     "max-params": "allow", // in "style"
     "max-statements": "allow", // in "style"
     // Node project specific rules

@@ -29,7 +29,15 @@ function getEslintRules(cwd: string): Record<string, string> {
     allowNumberAndString: false,
     allowRegExp: false,
   }]`,
-    "@typescript-eslint/restrict-template-expressions": `"error"`,
+    "@typescript-eslint/restrict-template-expressions": `["error", {
+    allow: [],
+    allowAny: false,
+    allowBoolean: false,
+    allowNever: false,
+    allowNullish: false,
+    allowNumber: false,
+    allowRegExp: false,
+  }]`,
     "@typescript-eslint/strict-boolean-expressions": `["error", {
     allowNumber: false,
     allowString: false,

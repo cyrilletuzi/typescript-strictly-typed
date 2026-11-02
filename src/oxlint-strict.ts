@@ -99,7 +99,15 @@ function addRulesConfig(
     allowRegExp: false,
   }]);
 
-  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/restrict-template-expressions"], "deny");
+  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/restrict-template-expressions"], ["deny", {
+    allow: [],
+    allowAny: false,
+    allowBoolean: false,
+    allowNever: false,
+    allowNullish: false,
+    allowNumber: false,
+    allowRegExp: false,
+  }]);
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/strict-boolean-expressions"], ["deny", {
     allowNumber: false,
