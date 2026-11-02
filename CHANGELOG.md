@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.35.0 (2026-11-02)
+
+- fix: `@typescript-eslint/method-signature-style` was not added in ESLint flat config
+
 ## 3.34.0 (2026-10-10)
 
 - Remove Deno support as it has been [discontinued](https://deno.com/blog/cloudflare).
