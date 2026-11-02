@@ -58,6 +58,7 @@ It modifies these configurations:
   - `@typescript-eslint/restrict-template-expressions`
   - `@typescript-eslint/strict-boolean-expressions`
   - `@typescript-eslint/strict-void-return`
+  - `@typescript-eslint/unbound-method`
   - `@typescript-eslint/use-unknown-in-catch-callback-variable`
 - [Oxlint rules](https://oxc.rs/docs/guide/usage/linter/rules.html)
   - same as ESLint rules + TypeScript ESlint rules

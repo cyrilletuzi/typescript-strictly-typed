@@ -37,6 +37,7 @@ interface OxlintRules {
   readonly "typescript/strict-boolean-expressions"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   // V.1.49
   readonly "typescript/strict-void-return"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  readonly "typescript/unbound-method"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
 }
 
 interface Oxlint {
@@ -120,6 +121,8 @@ function addRulesConfig(
   }]);
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/strict-void-return"], "deny");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/unbound-method"], "deny");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/use-unknown-in-catch-callback-variable"], "deny");
 

@@ -45,6 +45,7 @@ function getEslintRules(cwd: string): Record<string, string> {
     allowString: false,
   }]`,
     ...(checkTypescriptEslintVersion(cwd, ">=8.53.0") ? { "@typescript-eslint/strict-void-return": `"error"` } : {}),
+    "@typescript-eslint/unbound-method": `"error"`,
     "@typescript-eslint/use-unknown-in-catch-callback-variable": `"error"`,
   };
 }

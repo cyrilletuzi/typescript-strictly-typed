@@ -36,6 +36,8 @@ interface ESLintRules {
   readonly "@typescript-eslint/restrict-template-expressions"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/strict-boolean-expressions"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/strict-void-return"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  // In recommended-type-checked
+  readonly "@typescript-eslint/unbound-method"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/use-unknown-in-catch-callback-variable"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@angular-eslint/template/no-any"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@angular-eslint/template/no-non-null-assertion"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
@@ -142,6 +144,8 @@ function addTSConfig(
   if (checkTypescriptEslintVersion(cwd, ">=8.53.0")) {
     config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/strict-void-return"], "error");
   }
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/unbound-method"], "error");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/use-unknown-in-catch-callback-variable"], "error");
 
