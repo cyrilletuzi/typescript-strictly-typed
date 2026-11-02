@@ -28,6 +28,8 @@ interface OxlintRules {
   readonly "typescript/no-unsafe-assignment"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/no-unsafe-call"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/no-unsafe-declaration-merging"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  // V1.90
+  readonly "typescript/no-unsafe-enum-assignment"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/no-unsafe-member-access"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/no-unsafe-return"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/no-unsafe-type-assertion"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
@@ -49,6 +51,7 @@ interface Oxlint {
 }
 
 function addRulesConfig(
+  cwd: string,
   // oxlint-disable-next-line typescript/prefer-readonly-parameter-types -- Mutability wanted here
   config: Config<Oxlint>,
   path: Readonly<JSONPath>,
@@ -86,6 +89,12 @@ function addRulesConfig(
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-assignment"], "deny");
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-call"], "deny");
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-declaration-merging"], "deny");
+
+  /* Older versions fail on unknown rules */
+  if (checkDependencyVersion(cwd, "oxlint", ">=1.90.0")) {
+    config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-enum-assignment"], "deny");
+  }
+
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-member-access"], "deny");
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-return"], "deny");
 
@@ -171,7 +180,7 @@ export async function enableOxlintStrict(cwd: string): Promise<boolean> {
     logWarning(`Some Oxlint lint rules require the "typeAware" option, which requires "oxlint" version >= 1.51. The detected version appears to be lower, "oxlint" should be updated.`);
   }
 
-  addRulesConfig(config, [], config.json.rules);
+  addRulesConfig(cwd, config, [], config.json.rules);
 
   if (!dependencyExists(cwd, "oxlint-tsgolint")) {
     logWarning(`Some Oxlint lint rules require type-aware linting, and the "oxlint-tsgolint" dependency required for it seems to be missing. See https://oxc.rs/docs/guide/usage/linter/type-aware.html`);
