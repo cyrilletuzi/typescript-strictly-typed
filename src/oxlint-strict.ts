@@ -33,6 +33,7 @@ interface OxlintRules {
   readonly "typescript/no-unsafe-member-access"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/no-unsafe-return"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/no-unsafe-type-assertion"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  readonly "typescript/no-unsafe-unary-minus"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/restrict-plus-operands"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   // Enabled by default
   readonly "typescript/restrict-template-expressions"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
@@ -99,6 +100,8 @@ function addRulesConfig(
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-return"], "deny");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-type-assertion"], "deny");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-unary-minus"], "deny");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/prefer-for-of"], "deny");
 

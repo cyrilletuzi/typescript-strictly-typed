@@ -6,6 +6,7 @@
 - feat: add `@typescript-eslint/ban-ts-comment` (disallow `@ts-ignore` and `@ts-nocheck`, require a description for `@ts-expect-error`)
 - feat: add `@typescript-eslint/no-unsafe-declaration-merging`
 - feat: add `@typescript-eslint/no-unsafe-enum-assignment`
+- feat: add `@typescript-eslint/no-unsafe-unary-minus`
 - feat: add `@typescript-eslint/unbound-method`
 - feat: stricter `@typescript-eslint/restrict-template-expressions` options (disallow `any`, booleans, `never`, nullish values, numbers, regular expressions, and the default allowed types `Error`, `URL` and `URLSearchParams`)
 
