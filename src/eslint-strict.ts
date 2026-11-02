@@ -22,6 +22,8 @@ interface ESLintRules {
   readonly "@typescript-eslint/no-unsafe-assignment"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   // In recommended-type-checked
   readonly "@typescript-eslint/no-unsafe-call"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  // In recommended
+  readonly "@typescript-eslint/no-unsafe-declaration-merging"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   // In recommended-type-checked
   readonly "@typescript-eslint/no-unsafe-member-access"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   // In recommended-type-checked
@@ -100,6 +102,7 @@ function addTSConfig(
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-argument"], "error");
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-assignment"], "error");
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-call"], "error");
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-declaration-merging"], "error");
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-member-access"], "error");
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-return"], "error");
 

@@ -4,6 +4,7 @@
 
 - fix: `@typescript-eslint/method-signature-style` was not added in ESLint flat config
 - feat: add `@typescript-eslint/ban-ts-comment` (disallow `@ts-ignore` and `@ts-nocheck`, require a description for `@ts-expect-error`)
+- feat: add `@typescript-eslint/no-unsafe-declaration-merging`
 - feat: stricter `@typescript-eslint/restrict-template-expressions` options (disallow `any`, booleans, `never`, nullish values, numbers, regular expressions, and the default allowed types `Error`, `URL` and `URLSearchParams`)
 
 ## 3.34.0 (2026-10-10)

@@ -17,6 +17,7 @@ function getEslintRules(cwd: string): Record<string, string> {
     "@typescript-eslint/no-unsafe-argument": `"error"`,
     "@typescript-eslint/no-unsafe-assignment": `"error"`,
     "@typescript-eslint/no-unsafe-call": `"error"`,
+    "@typescript-eslint/no-unsafe-declaration-merging": `"error"`,
     "@typescript-eslint/no-unsafe-member-access": `"error"`,
     "@typescript-eslint/no-unsafe-return": `"error"`,
     ...(checkTypescriptEslintVersion(cwd, ">=8.15.0") ? { "@typescript-eslint/no-unsafe-type-assertion": `"error"` } : {}),

@@ -27,6 +27,7 @@ interface OxlintRules {
   readonly "typescript/no-unsafe-argument"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/no-unsafe-assignment"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/no-unsafe-call"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  readonly "typescript/no-unsafe-declaration-merging"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/no-unsafe-member-access"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/no-unsafe-return"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/no-unsafe-type-assertion"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
@@ -83,6 +84,7 @@ function addRulesConfig(
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-argument"], "deny");
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-assignment"], "deny");
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-call"], "deny");
+  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-declaration-merging"], "deny");
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-member-access"], "deny");
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-return"], "deny");
 
