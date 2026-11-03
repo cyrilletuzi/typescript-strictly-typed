@@ -42,7 +42,9 @@ It modifies these configurations:
   - `@typescript-eslint/ban-ts-comment`
   - `@typescript-eslint/explicit-function-return-type`
   - `@typescript-eslint/method-signature-style`
+  - `@typescript-eslint/no-empty-object-type`
   - `@typescript-eslint/no-explicit-any`
+  - `@typescript-eslint/no-generated-empty-object-type`
   - `@typescript-eslint/no-non-null-assertion`
   - `@typescript-eslint/no-unsafe-argument`
   - `@typescript-eslint/no-unsafe-assignment`

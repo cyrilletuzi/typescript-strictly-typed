@@ -12,9 +12,12 @@ interface ESLintRules {
   readonly "@typescript-eslint/ban-ts-comment"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/explicit-function-return-type"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown];
   readonly "@typescript-eslint/method-signature-style"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown];
+  // In recommended
+  readonly "@typescript-eslint/no-empty-object-type"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/no-explicit-any"?: ESLintErrorLevel | readonly [ESLintErrorLevel, {
     readonly fixToUnknown?: boolean;
   }?];
+  readonly "@typescript-eslint/no-generated-empty-object-type"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/no-non-null-assertion"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   // In recommended-type-checked
   readonly "@typescript-eslint/no-unsafe-argument"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
@@ -89,6 +92,12 @@ function addTSConfig(
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/method-signature-style"], "error");
 
+  if (checkTypescriptEslintVersion(cwd, ">=7.15.0")) {
+    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-empty-object-type"], ["error", {
+      allowInterfaces: "with-single-extends",
+    }]);
+  }
+
   if (Array.isArray(rules?.["@typescript-eslint/no-explicit-any"])) {
 
     // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Type is lost by Array.isArray()
@@ -100,6 +109,10 @@ function addTSConfig(
 
   } else {
     config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-explicit-any"], "error");
+  }
+
+  if (checkTypescriptEslintVersion(cwd, ">=8.70.0")) {
+    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-generated-empty-object-type"], "error");
   }
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-non-null-assertion"], "error");

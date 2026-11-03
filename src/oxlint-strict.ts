@@ -11,9 +11,12 @@ interface OxlintRules {
   // V1.12
   readonly "prefer-template"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/ban-ts-comment"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  readonly "typescript/no-empty-object-type"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/no-explicit-any"?: OxlintErrorLevel | readonly [OxlintErrorLevel, {
     readonly fixToUnknown?: boolean;
   }?];
+  // V1.86
+  readonly "typescript/no-generated-empty-object-type"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/explicit-function-return-type"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown];
   // V1.68
   readonly "typescript/method-signature-style"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown];
@@ -71,6 +74,10 @@ function addRulesConfig(
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/method-signature-style"], "deny");
 
+  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-empty-object-type"], ["deny", {
+    allowInterfaces: "with-single-extends",
+  }]);
+
   if (Array.isArray(rules?.["typescript/no-explicit-any"])) {
 
     // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Array.isArray() loses the type
@@ -82,6 +89,10 @@ function addRulesConfig(
 
   } else {
     config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-explicit-any"], "deny");
+  }
+
+  if (checkDependencyVersion(cwd, "oxlint", ">=1.86.0")) {
+    config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-generated-empty-object-type"], "deny");
   }
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-non-null-assertion"], "deny");

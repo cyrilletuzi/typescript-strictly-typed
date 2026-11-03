@@ -12,7 +12,11 @@ function getEslintRules(cwd: string): Record<string, string> {
     "@typescript-eslint/ban-ts-comment": `"error"`,
     "@typescript-eslint/explicit-function-return-type": `"error"`,
     "@typescript-eslint/method-signature-style": `"error"`,
+    ...(checkTypescriptEslintVersion(cwd, ">=7.15.0") ? { "@typescript-eslint/no-empty-object-type": `["error", {
+    allowInterfaces: "with-single-extends",
+  }]` } : {}),
     "@typescript-eslint/no-explicit-any": `"error"`,
+    ...(checkTypescriptEslintVersion(cwd, ">=8.70.0") ? { "@typescript-eslint/no-generated-empty-object-type": `"error"` } : {}),
     "@typescript-eslint/no-non-null-assertion": `"error"`,
     "@typescript-eslint/no-unsafe-argument": `"error"`,
     "@typescript-eslint/no-unsafe-assignment": `"error"`,
