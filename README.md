@@ -36,6 +36,7 @@ It modifies these configurations:
   - `noUncheckedIndexedAccess`
 - [ESLint rules](https://eslint.org/docs/latest/rules/)
   - `eqeqeq`
+  - `no-eval`
   - `prefer-arrow-callback`
   - `prefer-template`
 - [TypeScript ESLint rules](https://typescript-eslint.io/rules/)
@@ -45,6 +46,7 @@ It modifies these configurations:
   - `@typescript-eslint/no-empty-object-type`
   - `@typescript-eslint/no-explicit-any`
   - `@typescript-eslint/no-generated-empty-object-type`
+  - `@typescript-eslint/no-implied-eval`
   - `@typescript-eslint/no-non-null-assertion`
   - `@typescript-eslint/no-unsafe-argument`
   - `@typescript-eslint/no-unsafe-assignment`

@@ -7,6 +7,7 @@ type ESLintErrorLevel = "error" | "warn" | "off";
 
 interface ESLintRules {
   readonly "eqeqeq"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  readonly "no-eval"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "prefer-arrow-callback"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "prefer-template"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/ban-ts-comment"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
@@ -18,6 +19,8 @@ interface ESLintRules {
     readonly fixToUnknown?: boolean;
   }?];
   readonly "@typescript-eslint/no-generated-empty-object-type"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  // In recommended-type-checked
+  readonly "@typescript-eslint/no-implied-eval"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/no-non-null-assertion"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   // In recommended-type-checked
   readonly "@typescript-eslint/no-unsafe-argument"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
@@ -83,6 +86,8 @@ function addTSConfig(
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "eqeqeq"], "error");
 
+  config.raw = modifyJSON(config.raw, [...path, "rules", "no-eval"], "error");
+
   config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-arrow-callback"], "error");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-template"], "error");
@@ -115,6 +120,8 @@ function addTSConfig(
   if (checkTypescriptEslintVersion(cwd, ">=8.70.0")) {
     config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-generated-empty-object-type"], "error");
   }
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-implied-eval"], "error");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-non-null-assertion"], "error");
 

@@ -6,6 +6,7 @@ type OxlintErrorLevel = "error" | "warn" | "off" | "deny" | "allow";
 
 interface OxlintRules {
   readonly "eqeqeq"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  readonly "no-eval"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   // V1.65
   readonly "prefer-arrow-callback"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   // V1.12
@@ -17,6 +18,7 @@ interface OxlintRules {
   }?];
   // V1.86
   readonly "typescript/no-generated-empty-object-type"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  readonly "typescript/no-implied-eval"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/explicit-function-return-type"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown];
   // V1.68
   readonly "typescript/method-signature-style"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown];
@@ -65,6 +67,8 @@ function addRulesConfig(
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "eqeqeq"], "deny");
 
+  config.raw = modifyJSON(config.raw, [...path, "rules", "no-eval"], "deny");
+
   config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-arrow-callback"], "deny");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-template"], "deny");
@@ -95,6 +99,8 @@ function addRulesConfig(
   if (checkDependencyVersion(cwd, "oxlint", ">=1.86.0")) {
     config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-generated-empty-object-type"], "deny");
   }
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-implied-eval"], "deny");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-non-null-assertion"], "deny");
 
