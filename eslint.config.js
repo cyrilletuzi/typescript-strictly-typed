@@ -52,24 +52,25 @@ export default defineConfig(
       "@typescript-eslint/no-explicit-any": "error",
       "@typescript-eslint/use-unknown-in-catch-callback-variable": "error",
       "@typescript-eslint/no-non-null-assertion": "error",
-      "@typescript-eslint/restrict-plus-operands": [
-        "error",
-        {
-          "allowAny": false,
-          "allowBoolean": false,
-          "allowNullish": false,
-          "allowNumberAndString": false,
-          "allowRegExp": false
-        }
-      ],
-      "@typescript-eslint/restrict-template-expressions": "error",
-      "@typescript-eslint/strict-boolean-expressions": [
-        "error",
-        {
-          "allowNumber": false,
-          "allowString": false
-        }
-      ],
+      "@typescript-eslint/restrict-plus-operands": ["error", {
+          allowAny: false,
+          allowBoolean: false,
+          allowNullish: false,
+          allowNumberAndString: false,
+          allowRegExp: false,
+        }],
+      "@typescript-eslint/restrict-template-expressions": ["error", {
+          allow: [],
+          allowAny: false,
+          allowBoolean: false,
+          allowNullish: false,
+          allowNumber: false,
+          allowRegExp: false,
+        }],
+      "@typescript-eslint/strict-boolean-expressions": ["error", {
+          allowNumber: false,
+          allowString: false,
+        }],
       "@typescript-eslint/no-unsafe-type-assertion": "error",
       "@typescript-eslint/prefer-for-of": "error",
       "@typescript-eslint/prefer-optional-chain": "error",
@@ -132,7 +133,24 @@ export default defineConfig(
         "util",
         "vm",
         "zlib"
-      ]
+      ],
+      "no-var": "error",
+      "prefer-rest-params": "error",
+      "@typescript-eslint/ban-ts-comment": "error",
+      "@typescript-eslint/method-signature-style": "error",
+      "@typescript-eslint/no-array-constructor": "error",
+      "@typescript-eslint/no-base-to-string": "error",
+      "@typescript-eslint/no-implied-eval": "error",
+      "@typescript-eslint/no-invalid-void-type": "error",
+      "@typescript-eslint/no-unsafe-argument": "error",
+      "@typescript-eslint/no-unsafe-assignment": "error",
+      "@typescript-eslint/no-unsafe-call": "error",
+      "@typescript-eslint/no-unsafe-declaration-merging": "error",
+      "@typescript-eslint/no-unsafe-member-access": "error",
+      "@typescript-eslint/no-unsafe-return": "error",
+      "@typescript-eslint/no-unsafe-unary-minus": "error",
+      "@typescript-eslint/require-array-sort-compare": "error",
+      "@typescript-eslint/unbound-method": "error"
     },
   },
   {

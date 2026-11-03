@@ -127,6 +127,10 @@
     "eqeqeq": "deny", // in "pedantic"
     "prefer-arrow-callback": "deny",
     "prefer-template": "deny", // in "style"
+    "no-array-constructor": "deny",
+    "no-eval": "deny",
+    "no-new-wrappers": "deny",
+    "prefer-rest-params": "deny",
     "typescript/explicit-function-return-type": "deny", // in "restriction"
     "typescript/explicit-module-boundary-types": "deny", // in "restriction"
     "typescript/no-explicit-any": "deny", // in "restriction"
@@ -140,26 +144,55 @@
     "typescript/prefer-for-of": "deny", // in "style"
     "typescript/prefer-nullish-coalescing": "deny", // in "pedantic"
     "typescript/prefer-optional-chain": "deny", // in "nursery"
-    "typescript/restrict-plus-operands": [ // in "pedantic"
+    "typescript/restrict-plus-operands": [
       "deny",
       {
         "allowAny": false,
         "allowBoolean": false,
         "allowNullish": false,
         "allowNumberAndString": false,
-        "allowRegExp": false,
+        "allowRegExp": false
       }
     ],
-    "typescript/restrict-template-expressions": "deny", // in "correctness" and default
-    "typescript/strict-boolean-expressions": [ // in "pedantic"
+    "typescript/restrict-template-expressions": [
+      "deny",
+      {
+        "allow": [],
+        "allowAny": false,
+        "allowBoolean": false,
+        "allowNullish": false,
+        "allowNumber": false,
+        "allowRegExp": false
+      }
+    ], // in "correctness" and default
+    "typescript/strict-boolean-expressions": [
       "deny",
       {
         "allowNumber": false,
-        "allowString": false,
+        "allowString": false
       }
     ],
     "typescript/strict-void-return": "deny", // in "pedantic"
     "typescript/use-unknown-in-catch-callback-variable": "deny", // in "restriction"
+    "typescript/ban-ts-comment": "deny",
+    "typescript/method-signature-style": "deny",
+    "typescript/no-array-delete": "deny",
+    "typescript/no-base-to-string": "deny",
+    "typescript/no-generated-empty-object-type": "deny",
+    "typescript/no-implied-eval": "deny",
+    "typescript/no-unsafe-declaration-merging": "deny",
+    "typescript/no-unsafe-enum-assignment": "deny",
+    "typescript/no-unsafe-function-type": "deny",
+    "typescript/no-unsafe-unary-minus": "deny",
+    "typescript/no-wrapper-object-types": "deny",
+    "typescript/require-array-sort-compare": "deny",
+    "typescript/unbound-method": "deny",
+    "typescript/no-empty-object-type": [
+      "deny",
+      {
+        "allowInterfaces": "with-single-extends"
+      }
+    ],
     // Enforce immutability
     "no-shadow": "deny", // in "suspicious"
     "prefer-const": "deny", // in "style"
@@ -188,7 +221,6 @@
     "promise/no-return-in-finally": "deny", // in "nursery"
     "promise/spec-only": "deny",
     "typescript/no-dynamic-delete": "deny",
-    "typescript/no-empty-object-type": "deny",
     "typescript/no-invalid-void-type": "deny",
     "typescript/no-namespace": "deny",
     "typescript/non-nullable-type-assertion-style": "deny",
@@ -218,6 +250,6 @@
     "no-useless-assignment": "deny", // in "nursery"
     "jsdoc/empty-tags": "deny",
     "typescript/no-unnecessary-condition": "deny", // in "nursery"
-    "unicorn/no-useless-iterator-to-array": "deny" // in "nursery"
+    "unicorn/no-useless-iterator-to-array": "deny", // in "nursery"
   }
 }
