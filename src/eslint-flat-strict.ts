@@ -14,6 +14,7 @@ function getEslintRules(cwd: string): Record<string, string> {
     "@typescript-eslint/ban-ts-comment": `"error"`,
     "@typescript-eslint/explicit-function-return-type": `"error"`,
     "@typescript-eslint/method-signature-style": `"error"`,
+    "@typescript-eslint/no-array-constructor": `"error"`,
     ...(checkTypescriptEslintVersion(cwd, ">=6.19.0") ? { "@typescript-eslint/no-array-delete": `"error"` } : {}),
     "@typescript-eslint/no-base-to-string": `"error"`,
     ...(checkTypescriptEslintVersion(cwd, ">=7.15.0") ? { "@typescript-eslint/no-empty-object-type": `["error", {

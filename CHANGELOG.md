@@ -6,6 +6,7 @@
 - feat: add `no-eval`
 - feat: add `no-var`
 - feat: add `@typescript-eslint/ban-ts-comment` (disallow `@ts-ignore` and `@ts-nocheck`, require a description for `@ts-expect-error`)
+- feat: add `@typescript-eslint/no-array-constructor`
 - feat: add `@typescript-eslint/no-array-delete`
 - feat: add `@typescript-eslint/no-base-to-string`
 - feat: add `@typescript-eslint/no-empty-object-type` (allowing interfaces with a single `extends`)

@@ -6,6 +6,7 @@ type OxlintErrorLevel = "error" | "warn" | "off" | "deny" | "allow";
 
 interface OxlintRules {
   readonly "eqeqeq"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  readonly "no-array-constructor"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "no-eval"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "no-var"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   // V1.65
@@ -72,6 +73,8 @@ function addRulesConfig(
 ): void {
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "eqeqeq"], "deny");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "no-array-constructor"], "deny");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "no-eval"], "deny");
 
