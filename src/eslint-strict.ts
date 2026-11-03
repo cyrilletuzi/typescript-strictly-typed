@@ -167,7 +167,6 @@ function addTSConfig(
     allow: [],
     allowAny: false,
     allowBoolean: false,
-    allowNever: false,
     allowNullish: false,
     allowNumber: false,
     allowRegExp: false,

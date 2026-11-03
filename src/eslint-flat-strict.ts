@@ -45,7 +45,6 @@ function getEslintRules(cwd: string): Record<string, string> {
     allow: [],
     allowAny: false,
     allowBoolean: false,
-    allowNever: false,
     allowNullish: false,
     allowNumber: false,
     allowRegExp: false,
