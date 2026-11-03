@@ -36,26 +36,45 @@ It modifies these configurations:
   - `noUncheckedIndexedAccess`
 - [ESLint rules](https://eslint.org/docs/latest/rules/)
   - `eqeqeq`
+  - `no-eval`
+  - `no-new-wrappers`
+  - `no-var`
   - `prefer-arrow-callback`
+  - `prefer-rest-params`
   - `prefer-template`
 - [TypeScript ESLint rules](https://typescript-eslint.io/rules/)
+  - `@typescript-eslint/ban-ts-comment`
   - `@typescript-eslint/explicit-function-return-type`
   - `@typescript-eslint/method-signature-style`
+  - `@typescript-eslint/no-array-constructor`
+  - `@typescript-eslint/no-array-delete`
+  - `@typescript-eslint/no-base-to-string`
+  - `@typescript-eslint/no-empty-object-type`
   - `@typescript-eslint/no-explicit-any`
+  - `@typescript-eslint/no-generated-empty-object-type`
+  - `@typescript-eslint/no-implied-eval`
+  - `@typescript-eslint/no-invalid-void-type`
   - `@typescript-eslint/no-non-null-assertion`
   - `@typescript-eslint/no-unsafe-argument`
   - `@typescript-eslint/no-unsafe-assignment`
   - `@typescript-eslint/no-unsafe-call`
+  - `@typescript-eslint/no-unsafe-declaration-merging`
+  - `@typescript-eslint/no-unsafe-enum-assignment`
+  - `@typescript-eslint/no-unsafe-function-type`
   - `@typescript-eslint/no-unsafe-member-access`
   - `@typescript-eslint/no-unsafe-return`
   - `@typescript-eslint/no-unsafe-type-assertion`
+  - `@typescript-eslint/no-unsafe-unary-minus`
+  - `@typescript-eslint/no-wrapper-object-types`
   - `@typescript-eslint/prefer-for-of`
   - `@typescript-eslint/prefer-nullish-coalescing`
   - `@typescript-eslint/prefer-optional-chain`
+  - `@typescript-eslint/require-array-sort-compare`
   - `@typescript-eslint/restrict-plus-operands`
   - `@typescript-eslint/restrict-template-expressions`
   - `@typescript-eslint/strict-boolean-expressions`
   - `@typescript-eslint/strict-void-return`
+  - `@typescript-eslint/unbound-method`
   - `@typescript-eslint/use-unknown-in-catch-callback-variable`
 - [Oxlint rules](https://oxc.rs/docs/guide/usage/linter/rules.html)
   - same as ESLint rules + TypeScript ESlint rules

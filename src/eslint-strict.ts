@@ -7,13 +7,31 @@ type ESLintErrorLevel = "error" | "warn" | "off";
 
 interface ESLintRules {
   readonly "eqeqeq"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  readonly "no-eval"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  readonly "no-new-wrappers"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  readonly "no-var"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "prefer-arrow-callback"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  readonly "prefer-rest-params"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "prefer-template"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  readonly "@typescript-eslint/ban-ts-comment"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/explicit-function-return-type"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown];
   readonly "@typescript-eslint/method-signature-style"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown];
+  // In recommended
+  readonly "@typescript-eslint/no-array-constructor"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  // In recommended-type-checked
+  readonly "@typescript-eslint/no-array-delete"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  // In recommended-type-checked
+  readonly "@typescript-eslint/no-base-to-string"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  // In recommended
+  readonly "@typescript-eslint/no-empty-object-type"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/no-explicit-any"?: ESLintErrorLevel | readonly [ESLintErrorLevel, {
     readonly fixToUnknown?: boolean;
   }?];
+  readonly "@typescript-eslint/no-generated-empty-object-type"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  // In recommended-type-checked
+  readonly "@typescript-eslint/no-implied-eval"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  // In strict
+  readonly "@typescript-eslint/no-invalid-void-type"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/no-non-null-assertion"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   // In recommended-type-checked
   readonly "@typescript-eslint/no-unsafe-argument"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
@@ -21,18 +39,30 @@ interface ESLintRules {
   readonly "@typescript-eslint/no-unsafe-assignment"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   // In recommended-type-checked
   readonly "@typescript-eslint/no-unsafe-call"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  // In recommended
+  readonly "@typescript-eslint/no-unsafe-declaration-merging"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  readonly "@typescript-eslint/no-unsafe-enum-assignment"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  // In recommended
+  readonly "@typescript-eslint/no-unsafe-function-type"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   // In recommended-type-checked
   readonly "@typescript-eslint/no-unsafe-member-access"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   // In recommended-type-checked
   readonly "@typescript-eslint/no-unsafe-return"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/no-unsafe-type-assertion"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  // In recommended-type-checked
+  readonly "@typescript-eslint/no-unsafe-unary-minus"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  // In recommended
+  readonly "@typescript-eslint/no-wrapper-object-types"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/prefer-for-of"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/prefer-nullish-coalescing"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/prefer-optional-chain"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  readonly "@typescript-eslint/require-array-sort-compare"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/restrict-plus-operands"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/restrict-template-expressions"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/strict-boolean-expressions"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/strict-void-return"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  // In recommended-type-checked
+  readonly "@typescript-eslint/unbound-method"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/use-unknown-in-catch-callback-variable"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@angular-eslint/template/no-any"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@angular-eslint/template/no-non-null-assertion"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
@@ -71,13 +101,37 @@ function addTSConfig(
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "eqeqeq"], "error");
 
+  config.raw = modifyJSON(config.raw, [...path, "rules", "no-eval"], "error");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "no-new-wrappers"], "error");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "no-var"], "error");
+
   config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-arrow-callback"], "error");
 
+  config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-rest-params"], "error");
+
   config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-template"], "error");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/ban-ts-comment"], "error");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/explicit-function-return-type"], "error");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/method-signature-style"], "error");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-array-constructor"], "error");
+
+  if (checkTypescriptEslintVersion(cwd, ">=6.19.0")) {
+    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-array-delete"], "error");
+  }
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-base-to-string"], "error");
+
+  if (checkTypescriptEslintVersion(cwd, ">=7.15.0")) {
+    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-empty-object-type"], ["error", {
+      allowInterfaces: "with-single-extends",
+    }]);
+  }
 
   if (Array.isArray(rules?.["@typescript-eslint/no-explicit-any"])) {
 
@@ -92,11 +146,29 @@ function addTSConfig(
     config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-explicit-any"], "error");
   }
 
+  if (checkTypescriptEslintVersion(cwd, ">=8.70.0")) {
+    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-generated-empty-object-type"], "error");
+  }
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-implied-eval"], "error");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-invalid-void-type"], "error");
+
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-non-null-assertion"], "error");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-argument"], "error");
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-assignment"], "error");
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-call"], "error");
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-declaration-merging"], "error");
+
+  if (checkTypescriptEslintVersion(cwd, ">=8.71.0")) {
+    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-enum-assignment"], "error");
+  }
+
+  if (checkTypescriptEslintVersion(cwd, ">=7.17.0")) {
+    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-function-type"], "error");
+  }
+
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-member-access"], "error");
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-return"], "error");
 
@@ -104,11 +176,19 @@ function addTSConfig(
     config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-type-assertion"], "error");
   }
 
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-unary-minus"], "error");
+
+  if (checkTypescriptEslintVersion(cwd, ">=8.0.0")) {
+    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-wrapper-object-types"], "error");
+  }
+
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/prefer-for-of"], "error");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/prefer-nullish-coalescing"], "error");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/prefer-optional-chain"], "error");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/require-array-sort-compare"], "error");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/restrict-plus-operands"], ["error", {
     allowAny: false,
@@ -118,7 +198,14 @@ function addTSConfig(
     allowRegExp: false,
   }]);
 
-  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/restrict-template-expressions"], "error");
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/restrict-template-expressions"], ["error", {
+    allow: [],
+    allowAny: false,
+    allowBoolean: false,
+    allowNullish: false,
+    allowNumber: false,
+    allowRegExp: false,
+  }]);
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/strict-boolean-expressions"], ["error", {
     allowNumber: false,
@@ -128,6 +215,8 @@ function addTSConfig(
   if (checkTypescriptEslintVersion(cwd, ">=8.53.0")) {
     config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/strict-void-return"], "error");
   }
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/unbound-method"], "error");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/use-unknown-in-catch-callback-variable"], "error");
 

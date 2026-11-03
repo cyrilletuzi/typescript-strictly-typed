@@ -6,13 +6,26 @@ type OxlintErrorLevel = "error" | "warn" | "off" | "deny" | "allow";
 
 interface OxlintRules {
   readonly "eqeqeq"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  readonly "no-array-constructor"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  readonly "no-eval"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  readonly "no-new-wrappers"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  readonly "no-var"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   // V1.65
   readonly "prefer-arrow-callback"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  readonly "prefer-rest-params"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   // V1.12
   readonly "prefer-template"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  readonly "typescript/ban-ts-comment"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  readonly "typescript/no-array-delete"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  readonly "typescript/no-base-to-string"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  readonly "typescript/no-empty-object-type"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/no-explicit-any"?: OxlintErrorLevel | readonly [OxlintErrorLevel, {
     readonly fixToUnknown?: boolean;
   }?];
+  // V1.86
+  readonly "typescript/no-generated-empty-object-type"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  readonly "typescript/no-implied-eval"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  readonly "typescript/no-invalid-void-type"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/explicit-function-return-type"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown];
   // V1.68
   readonly "typescript/method-signature-style"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown];
@@ -26,15 +39,23 @@ interface OxlintRules {
   readonly "typescript/no-unsafe-argument"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/no-unsafe-assignment"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/no-unsafe-call"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  readonly "typescript/no-unsafe-declaration-merging"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  // V1.90
+  readonly "typescript/no-unsafe-enum-assignment"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  readonly "typescript/no-unsafe-function-type"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/no-unsafe-member-access"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/no-unsafe-return"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/no-unsafe-type-assertion"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  readonly "typescript/no-unsafe-unary-minus"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  readonly "typescript/no-wrapper-object-types"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  readonly "typescript/require-array-sort-compare"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/restrict-plus-operands"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   // Enabled by default
   readonly "typescript/restrict-template-expressions"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/strict-boolean-expressions"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   // V.1.49
   readonly "typescript/strict-void-return"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  readonly "typescript/unbound-method"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
 }
 
 interface Oxlint {
@@ -46,6 +67,7 @@ interface Oxlint {
 }
 
 function addRulesConfig(
+  cwd: string,
   // oxlint-disable-next-line typescript/prefer-readonly-parameter-types -- Mutability wanted here
   config: Config<Oxlint>,
   path: Readonly<JSONPath>,
@@ -54,13 +76,33 @@ function addRulesConfig(
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "eqeqeq"], "deny");
 
+  config.raw = modifyJSON(config.raw, [...path, "rules", "no-array-constructor"], "deny");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "no-eval"], "deny");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "no-new-wrappers"], "deny");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "no-var"], "deny");
+
   config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-arrow-callback"], "deny");
 
+  config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-rest-params"], "deny");
+
   config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-template"], "deny");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/ban-ts-comment"], "deny");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/explicit-function-return-type"], "deny");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/method-signature-style"], "deny");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-array-delete"], "deny");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-base-to-string"], "deny");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-empty-object-type"], ["deny", {
+    allowInterfaces: "with-single-extends",
+  }]);
 
   if (Array.isArray(rules?.["typescript/no-explicit-any"])) {
 
@@ -75,21 +117,44 @@ function addRulesConfig(
     config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-explicit-any"], "deny");
   }
 
+  if (checkDependencyVersion(cwd, "oxlint", ">=1.86.0")) {
+    config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-generated-empty-object-type"], "deny");
+  }
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-implied-eval"], "deny");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-invalid-void-type"], "deny");
+
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-non-null-assertion"], "deny");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-argument"], "deny");
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-assignment"], "deny");
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-call"], "deny");
+  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-declaration-merging"], "deny");
+
+  /* Older versions fail on unknown rules */
+  if (checkDependencyVersion(cwd, "oxlint", ">=1.90.0")) {
+    config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-enum-assignment"], "deny");
+  }
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-function-type"], "deny");
+
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-member-access"], "deny");
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-return"], "deny");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-type-assertion"], "deny");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-unary-minus"], "deny");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-wrapper-object-types"], "deny");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/prefer-for-of"], "deny");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/prefer-nullish-coalescing"], "deny");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/prefer-optional-chain"], "deny");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/require-array-sort-compare"], "deny");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/restrict-plus-operands"], ["deny", {
     allowAny: false,
@@ -99,7 +164,14 @@ function addRulesConfig(
     allowRegExp: false,
   }]);
 
-  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/restrict-template-expressions"], "deny");
+  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/restrict-template-expressions"], ["deny", {
+    allow: [],
+    allowAny: false,
+    allowBoolean: false,
+    allowNullish: false,
+    allowNumber: false,
+    allowRegExp: false,
+  }]);
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/strict-boolean-expressions"], ["deny", {
     allowNumber: false,
@@ -107,6 +179,8 @@ function addRulesConfig(
   }]);
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/strict-void-return"], "deny");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/unbound-method"], "deny");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/use-unknown-in-catch-callback-variable"], "deny");
 
@@ -155,7 +229,7 @@ export async function enableOxlintStrict(cwd: string): Promise<boolean> {
     logWarning(`Some Oxlint lint rules require the "typeAware" option, which requires "oxlint" version >= 1.51. The detected version appears to be lower, "oxlint" should be updated.`);
   }
 
-  addRulesConfig(config, [], config.json.rules);
+  addRulesConfig(cwd, config, [], config.json.rules);
 
   if (!dependencyExists(cwd, "oxlint-tsgolint")) {
     logWarning(`Some Oxlint lint rules require type-aware linting, and the "oxlint-tsgolint" dependency required for it seems to be missing. See https://oxc.rs/docs/guide/usage/linter/type-aware.html`);

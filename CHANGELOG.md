@@ -1,5 +1,29 @@
 # Changelog
 
+## 3.35.0 (2026-11-02)
+
+- fix: `@typescript-eslint/method-signature-style` was not added in ESLint flat config
+- feat: add `no-eval`
+- feat: add `no-new-wrappers`
+- feat: add `no-var`
+- feat: add `prefer-rest-params`
+- feat: add `@typescript-eslint/ban-ts-comment` (disallow `@ts-ignore` and `@ts-nocheck`, require a description for `@ts-expect-error`)
+- feat: add `@typescript-eslint/no-array-constructor`
+- feat: add `@typescript-eslint/no-array-delete`
+- feat: add `@typescript-eslint/no-base-to-string`
+- feat: add `@typescript-eslint/no-empty-object-type` (allowing interfaces with a single `extends`)
+- feat: add `@typescript-eslint/no-generated-empty-object-type`
+- feat: add `@typescript-eslint/no-implied-eval`
+- feat: add `@typescript-eslint/no-invalid-void-type`
+- feat: add `@typescript-eslint/no-unsafe-declaration-merging`
+- feat: add `@typescript-eslint/no-unsafe-enum-assignment`
+- feat: add `@typescript-eslint/no-unsafe-function-type`
+- feat: add `@typescript-eslint/no-unsafe-unary-minus`
+- feat: add `@typescript-eslint/no-wrapper-object-types`
+- feat: add `@typescript-eslint/require-array-sort-compare`
+- feat: add `@typescript-eslint/unbound-method`
+- feat: stricter `@typescript-eslint/restrict-template-expressions` options (disallow `any`, booleans, `never`, nullish values, numbers, regular expressions, and the default allowed types `Error`, `URL` and `URLSearchParams`)
+
 ## 3.34.0 (2026-10-10)
 
 - Remove Deno support as it has been [discontinued](https://deno.com/blog/cloudflare).

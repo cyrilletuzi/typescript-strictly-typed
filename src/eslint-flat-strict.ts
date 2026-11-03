@@ -7,20 +7,41 @@ import { logWarning } from "./log-utils.js";
 function getEslintRules(cwd: string): Record<string, string> {
   return {
     "eqeqeq": `"error"`,
+    "no-eval": `"error"`,
+    "no-new-wrappers": `"error"`,
+    "no-var": `"error"`,
     "prefer-arrow-callback": `"error"`,
+    "prefer-rest-params": `"error"`,
     "prefer-template": `"error"`,
+    "@typescript-eslint/ban-ts-comment": `"error"`,
     "@typescript-eslint/explicit-function-return-type": `"error"`,
+    "@typescript-eslint/method-signature-style": `"error"`,
+    "@typescript-eslint/no-array-constructor": `"error"`,
+    ...(checkTypescriptEslintVersion(cwd, ">=6.19.0") ? { "@typescript-eslint/no-array-delete": `"error"` } : {}),
+    "@typescript-eslint/no-base-to-string": `"error"`,
+    ...(checkTypescriptEslintVersion(cwd, ">=7.15.0") ? { "@typescript-eslint/no-empty-object-type": `["error", {
+    allowInterfaces: "with-single-extends",
+  }]` } : {}),
     "@typescript-eslint/no-explicit-any": `"error"`,
+    ...(checkTypescriptEslintVersion(cwd, ">=8.70.0") ? { "@typescript-eslint/no-generated-empty-object-type": `"error"` } : {}),
+    "@typescript-eslint/no-implied-eval": `"error"`,
+    "@typescript-eslint/no-invalid-void-type": `"error"`,
     "@typescript-eslint/no-non-null-assertion": `"error"`,
     "@typescript-eslint/no-unsafe-argument": `"error"`,
     "@typescript-eslint/no-unsafe-assignment": `"error"`,
     "@typescript-eslint/no-unsafe-call": `"error"`,
+    "@typescript-eslint/no-unsafe-declaration-merging": `"error"`,
+    ...(checkTypescriptEslintVersion(cwd, ">=8.71.0") ? { "@typescript-eslint/no-unsafe-enum-assignment": `"error"` } : {}),
+    ...(checkTypescriptEslintVersion(cwd, ">=7.17.0") ? { "@typescript-eslint/no-unsafe-function-type": `"error"` } : {}),
     "@typescript-eslint/no-unsafe-member-access": `"error"`,
     "@typescript-eslint/no-unsafe-return": `"error"`,
     ...(checkTypescriptEslintVersion(cwd, ">=8.15.0") ? { "@typescript-eslint/no-unsafe-type-assertion": `"error"` } : {}),
+    "@typescript-eslint/no-unsafe-unary-minus": `"error"`,
+    ...(checkTypescriptEslintVersion(cwd, ">=8.0.0") ? { "@typescript-eslint/no-wrapper-object-types": `"error"` } : {}),
     "@typescript-eslint/prefer-for-of": `"error"`,
     "@typescript-eslint/prefer-nullish-coalescing": `"error"`,
     "@typescript-eslint/prefer-optional-chain": `"error"`,
+    "@typescript-eslint/require-array-sort-compare": `"error"`,
     "@typescript-eslint/restrict-plus-operands": `["error", {
     allowAny: false,
     allowBoolean: false,
@@ -28,12 +49,20 @@ function getEslintRules(cwd: string): Record<string, string> {
     allowNumberAndString: false,
     allowRegExp: false,
   }]`,
-    "@typescript-eslint/restrict-template-expressions": `"error"`,
+    "@typescript-eslint/restrict-template-expressions": `["error", {
+    allow: [],
+    allowAny: false,
+    allowBoolean: false,
+    allowNullish: false,
+    allowNumber: false,
+    allowRegExp: false,
+  }]`,
     "@typescript-eslint/strict-boolean-expressions": `["error", {
     allowNumber: false,
     allowString: false,
   }]`,
     ...(checkTypescriptEslintVersion(cwd, ">=8.53.0") ? { "@typescript-eslint/strict-void-return": `"error"` } : {}),
+    "@typescript-eslint/unbound-method": `"error"`,
     "@typescript-eslint/use-unknown-in-catch-callback-variable": `"error"`,
   };
 }
@@ -116,8 +145,10 @@ export function enableESLintFlatStrict(cwd: string): boolean {
       ?? [];
 
     if (configObjectsCheck.length === 0) {
-      configList?.addChildText((writer) => {
-        writer.conditionalWrite(configList.getChildAtIndexIfKind(configList.getChildren().length - 1, SyntaxKind.CommaToken) === undefined, ",").newLine().write("{}");
+      /* If `defineConfig()` contains an array, the object must be added inside it */
+      const configElementsList = configList?.getFirstChildByKind(SyntaxKind.ArrayLiteralExpression)?.getFirstChildByKind(SyntaxKind.SyntaxList) ?? configList;
+      configElementsList?.addChildText((writer) => {
+        writer.conditionalWrite(configElementsList.getChildAtIndexIfKind(configElementsList.getChildren().length - 1, SyntaxKind.CommaToken) === undefined, ",").newLine().write("{}");
       });
     }
 
