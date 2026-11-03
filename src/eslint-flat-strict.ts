@@ -8,6 +8,7 @@ function getEslintRules(cwd: string): Record<string, string> {
   return {
     "eqeqeq": `"error"`,
     "no-eval": `"error"`,
+    "no-new-wrappers": `"error"`,
     "no-var": `"error"`,
     "prefer-arrow-callback": `"error"`,
     "prefer-rest-params": `"error"`,

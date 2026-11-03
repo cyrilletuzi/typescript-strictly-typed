@@ -8,6 +8,7 @@ type ESLintErrorLevel = "error" | "warn" | "off";
 interface ESLintRules {
   readonly "eqeqeq"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "no-eval"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  readonly "no-new-wrappers"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "no-var"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "prefer-arrow-callback"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "prefer-rest-params"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
@@ -101,6 +102,8 @@ function addTSConfig(
   config.raw = modifyJSON(config.raw, [...path, "rules", "eqeqeq"], "error");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "no-eval"], "error");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "no-new-wrappers"], "error");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "no-var"], "error");
 

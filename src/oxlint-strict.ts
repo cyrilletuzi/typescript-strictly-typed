@@ -8,6 +8,7 @@ interface OxlintRules {
   readonly "eqeqeq"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "no-array-constructor"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "no-eval"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  readonly "no-new-wrappers"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "no-var"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   // V1.65
   readonly "prefer-arrow-callback"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
@@ -78,6 +79,8 @@ function addRulesConfig(
   config.raw = modifyJSON(config.raw, [...path, "rules", "no-array-constructor"], "deny");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "no-eval"], "deny");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "no-new-wrappers"], "deny");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "no-var"], "deny");
 

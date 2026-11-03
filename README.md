@@ -37,6 +37,7 @@ It modifies these configurations:
 - [ESLint rules](https://eslint.org/docs/latest/rules/)
   - `eqeqeq`
   - `no-eval`
+  - `no-new-wrappers`
   - `no-var`
   - `prefer-arrow-callback`
   - `prefer-rest-params`

@@ -4,6 +4,7 @@
 
 - fix: `@typescript-eslint/method-signature-style` was not added in ESLint flat config
 - feat: add `no-eval`
+- feat: add `no-new-wrappers`
 - feat: add `no-var`
 - feat: add `prefer-rest-params`
 - feat: add `@typescript-eslint/ban-ts-comment` (disallow `@ts-ignore` and `@ts-nocheck`, require a description for `@ts-expect-error`)
