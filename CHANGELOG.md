@@ -1,6 +1,6 @@
 # Changelog
 
-## 3.35.0 (2026-11-02)
+## 3.35.0 (2026-11-03)
 
 - fix: `@typescript-eslint/method-signature-style` was not added in ESLint flat config
 - feat: add `no-eval`
