@@ -58,6 +58,7 @@ It modifies these configurations:
   - `@typescript-eslint/prefer-for-of`
   - `@typescript-eslint/prefer-nullish-coalescing`
   - `@typescript-eslint/prefer-optional-chain`
+  - `@typescript-eslint/require-array-sort-compare`
   - `@typescript-eslint/restrict-plus-operands`
   - `@typescript-eslint/restrict-template-expressions`
   - `@typescript-eslint/strict-boolean-expressions`

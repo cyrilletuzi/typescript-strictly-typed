@@ -30,6 +30,7 @@ function getEslintRules(cwd: string): Record<string, string> {
     "@typescript-eslint/prefer-for-of": `"error"`,
     "@typescript-eslint/prefer-nullish-coalescing": `"error"`,
     "@typescript-eslint/prefer-optional-chain": `"error"`,
+    "@typescript-eslint/require-array-sort-compare": `"error"`,
     "@typescript-eslint/restrict-plus-operands": `["error", {
     allowAny: false,
     allowBoolean: false,
