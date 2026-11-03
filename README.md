@@ -39,6 +39,7 @@ It modifies these configurations:
   - `no-eval`
   - `no-var`
   - `prefer-arrow-callback`
+  - `prefer-rest-params`
   - `prefer-template`
 - [TypeScript ESLint rules](https://typescript-eslint.io/rules/)
   - `@typescript-eslint/ban-ts-comment`

@@ -10,6 +10,7 @@ function getEslintRules(cwd: string): Record<string, string> {
     "no-eval": `"error"`,
     "no-var": `"error"`,
     "prefer-arrow-callback": `"error"`,
+    "prefer-rest-params": `"error"`,
     "prefer-template": `"error"`,
     "@typescript-eslint/ban-ts-comment": `"error"`,
     "@typescript-eslint/explicit-function-return-type": `"error"`,

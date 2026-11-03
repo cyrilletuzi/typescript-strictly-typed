@@ -10,6 +10,7 @@ interface ESLintRules {
   readonly "no-eval"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "no-var"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "prefer-arrow-callback"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  readonly "prefer-rest-params"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "prefer-template"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/ban-ts-comment"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/explicit-function-return-type"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown];
@@ -104,6 +105,8 @@ function addTSConfig(
   config.raw = modifyJSON(config.raw, [...path, "rules", "no-var"], "error");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-arrow-callback"], "error");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-rest-params"], "error");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-template"], "error");
 

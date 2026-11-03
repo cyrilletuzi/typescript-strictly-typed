@@ -11,6 +11,7 @@ interface OxlintRules {
   readonly "no-var"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   // V1.65
   readonly "prefer-arrow-callback"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  readonly "prefer-rest-params"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   // V1.12
   readonly "prefer-template"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/ban-ts-comment"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
@@ -81,6 +82,8 @@ function addRulesConfig(
   config.raw = modifyJSON(config.raw, [...path, "rules", "no-var"], "deny");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-arrow-callback"], "deny");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-rest-params"], "deny");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "prefer-template"], "deny");
 
