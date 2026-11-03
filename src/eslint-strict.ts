@@ -13,6 +13,8 @@ interface ESLintRules {
   readonly "@typescript-eslint/ban-ts-comment"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/explicit-function-return-type"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown];
   readonly "@typescript-eslint/method-signature-style"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown];
+  // In recommended-type-checked
+  readonly "@typescript-eslint/no-base-to-string"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   // In recommended
   readonly "@typescript-eslint/no-empty-object-type"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/no-explicit-any"?: ESLintErrorLevel | readonly [ESLintErrorLevel, {
@@ -97,6 +99,8 @@ function addTSConfig(
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/explicit-function-return-type"], "error");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/method-signature-style"], "error");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-base-to-string"], "error");
 
   if (checkTypescriptEslintVersion(cwd, ">=7.15.0")) {
     config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-empty-object-type"], ["error", {
