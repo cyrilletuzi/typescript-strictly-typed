@@ -11,6 +11,7 @@
 - feat: add `@typescript-eslint/no-empty-object-type` (allowing interfaces with a single `extends`)
 - feat: add `@typescript-eslint/no-generated-empty-object-type`
 - feat: add `@typescript-eslint/no-implied-eval`
+- feat: add `@typescript-eslint/no-invalid-void-type`
 - feat: add `@typescript-eslint/no-unsafe-declaration-merging`
 - feat: add `@typescript-eslint/no-unsafe-enum-assignment`
 - feat: add `@typescript-eslint/no-unsafe-function-type`

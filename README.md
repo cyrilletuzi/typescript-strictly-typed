@@ -50,6 +50,7 @@ It modifies these configurations:
   - `@typescript-eslint/no-explicit-any`
   - `@typescript-eslint/no-generated-empty-object-type`
   - `@typescript-eslint/no-implied-eval`
+  - `@typescript-eslint/no-invalid-void-type`
   - `@typescript-eslint/no-non-null-assertion`
   - `@typescript-eslint/no-unsafe-argument`
   - `@typescript-eslint/no-unsafe-assignment`

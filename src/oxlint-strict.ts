@@ -22,6 +22,7 @@ interface OxlintRules {
   // V1.86
   readonly "typescript/no-generated-empty-object-type"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/no-implied-eval"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  readonly "typescript/no-invalid-void-type"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/explicit-function-return-type"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown];
   // V1.68
   readonly "typescript/method-signature-style"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown];
@@ -112,6 +113,8 @@ function addRulesConfig(
   }
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-implied-eval"], "deny");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-invalid-void-type"], "deny");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-non-null-assertion"], "deny");
 

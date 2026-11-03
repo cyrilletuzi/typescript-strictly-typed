@@ -22,6 +22,7 @@ function getEslintRules(cwd: string): Record<string, string> {
     "@typescript-eslint/no-explicit-any": `"error"`,
     ...(checkTypescriptEslintVersion(cwd, ">=8.70.0") ? { "@typescript-eslint/no-generated-empty-object-type": `"error"` } : {}),
     "@typescript-eslint/no-implied-eval": `"error"`,
+    "@typescript-eslint/no-invalid-void-type": `"error"`,
     "@typescript-eslint/no-non-null-assertion": `"error"`,
     "@typescript-eslint/no-unsafe-argument": `"error"`,
     "@typescript-eslint/no-unsafe-assignment": `"error"`,

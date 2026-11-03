@@ -26,6 +26,8 @@ interface ESLintRules {
   readonly "@typescript-eslint/no-generated-empty-object-type"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   // In recommended-type-checked
   readonly "@typescript-eslint/no-implied-eval"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  // In strict
+  readonly "@typescript-eslint/no-invalid-void-type"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/no-non-null-assertion"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   // In recommended-type-checked
   readonly "@typescript-eslint/no-unsafe-argument"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
@@ -139,6 +141,8 @@ function addTSConfig(
   }
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-implied-eval"], "error");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-invalid-void-type"], "error");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-non-null-assertion"], "error");
 
