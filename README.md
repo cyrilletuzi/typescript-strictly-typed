@@ -37,6 +37,7 @@ It modifies these configurations:
 - [ESLint rules](https://eslint.org/docs/latest/rules/)
   - `eqeqeq`
   - `no-eval`
+  - `no-var`
   - `prefer-arrow-callback`
   - `prefer-template`
 - [TypeScript ESLint rules](https://typescript-eslint.io/rules/)

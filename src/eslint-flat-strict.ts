@@ -8,6 +8,7 @@ function getEslintRules(cwd: string): Record<string, string> {
   return {
     "eqeqeq": `"error"`,
     "no-eval": `"error"`,
+    "no-var": `"error"`,
     "prefer-arrow-callback": `"error"`,
     "prefer-template": `"error"`,
     "@typescript-eslint/ban-ts-comment": `"error"`,
