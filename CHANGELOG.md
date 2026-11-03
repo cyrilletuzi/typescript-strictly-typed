@@ -12,6 +12,7 @@
 - feat: add `@typescript-eslint/no-implied-eval`
 - feat: add `@typescript-eslint/no-unsafe-declaration-merging`
 - feat: add `@typescript-eslint/no-unsafe-enum-assignment`
+- feat: add `@typescript-eslint/no-unsafe-function-type`
 - feat: add `@typescript-eslint/no-unsafe-unary-minus`
 - feat: add `@typescript-eslint/no-wrapper-object-types`
 - feat: add `@typescript-eslint/require-array-sort-compare`

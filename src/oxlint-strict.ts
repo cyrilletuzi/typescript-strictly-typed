@@ -37,6 +37,7 @@ interface OxlintRules {
   readonly "typescript/no-unsafe-declaration-merging"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   // V1.90
   readonly "typescript/no-unsafe-enum-assignment"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  readonly "typescript/no-unsafe-function-type"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/no-unsafe-member-access"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/no-unsafe-return"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/no-unsafe-type-assertion"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
@@ -120,6 +121,8 @@ function addRulesConfig(
   if (checkDependencyVersion(cwd, "oxlint", ">=1.90.0")) {
     config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-enum-assignment"], "deny");
   }
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-function-type"], "deny");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-member-access"], "deny");
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-return"], "deny");

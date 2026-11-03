@@ -35,6 +35,8 @@ interface ESLintRules {
   // In recommended
   readonly "@typescript-eslint/no-unsafe-declaration-merging"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/no-unsafe-enum-assignment"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  // In recommended
+  readonly "@typescript-eslint/no-unsafe-function-type"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   // In recommended-type-checked
   readonly "@typescript-eslint/no-unsafe-member-access"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   // In recommended-type-checked
@@ -144,6 +146,10 @@ function addTSConfig(
 
   if (checkTypescriptEslintVersion(cwd, ">=8.71.0")) {
     config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-enum-assignment"], "error");
+  }
+
+  if (checkTypescriptEslintVersion(cwd, ">=7.17.0")) {
+    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-function-type"], "error");
   }
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-member-access"], "error");
