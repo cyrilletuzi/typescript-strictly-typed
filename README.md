@@ -43,6 +43,7 @@ It modifies these configurations:
   - `@typescript-eslint/ban-ts-comment`
   - `@typescript-eslint/explicit-function-return-type`
   - `@typescript-eslint/method-signature-style`
+  - `@typescript-eslint/no-array-delete`
   - `@typescript-eslint/no-base-to-string`
   - `@typescript-eslint/no-empty-object-type`
   - `@typescript-eslint/no-explicit-any`

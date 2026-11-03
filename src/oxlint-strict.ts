@@ -12,6 +12,7 @@ interface OxlintRules {
   // V1.12
   readonly "prefer-template"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/ban-ts-comment"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  readonly "typescript/no-array-delete"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/no-base-to-string"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/no-empty-object-type"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/no-explicit-any"?: OxlintErrorLevel | readonly [OxlintErrorLevel, {
@@ -79,6 +80,8 @@ function addRulesConfig(
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/explicit-function-return-type"], "deny");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/method-signature-style"], "deny");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-array-delete"], "deny");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-base-to-string"], "deny");
 

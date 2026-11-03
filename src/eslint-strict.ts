@@ -14,6 +14,8 @@ interface ESLintRules {
   readonly "@typescript-eslint/explicit-function-return-type"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown];
   readonly "@typescript-eslint/method-signature-style"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown];
   // In recommended-type-checked
+  readonly "@typescript-eslint/no-array-delete"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  // In recommended-type-checked
   readonly "@typescript-eslint/no-base-to-string"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   // In recommended
   readonly "@typescript-eslint/no-empty-object-type"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
@@ -99,6 +101,10 @@ function addTSConfig(
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/explicit-function-return-type"], "error");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/method-signature-style"], "error");
+
+  if (checkTypescriptEslintVersion(cwd, ">=6.19.0")) {
+    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-array-delete"], "error");
+  }
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-base-to-string"], "error");
 
