@@ -31,6 +31,7 @@ function getEslintRules(cwd: string): Record<string, string> {
     "@typescript-eslint/no-unsafe-return": `"error"`,
     ...(checkTypescriptEslintVersion(cwd, ">=8.15.0") ? { "@typescript-eslint/no-unsafe-type-assertion": `"error"` } : {}),
     "@typescript-eslint/no-unsafe-unary-minus": `"error"`,
+    ...(checkTypescriptEslintVersion(cwd, ">=8.0.0") ? { "@typescript-eslint/no-wrapper-object-types": `"error"` } : {}),
     "@typescript-eslint/prefer-for-of": `"error"`,
     "@typescript-eslint/prefer-nullish-coalescing": `"error"`,
     "@typescript-eslint/prefer-optional-chain": `"error"`,

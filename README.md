@@ -59,6 +59,7 @@ It modifies these configurations:
   - `@typescript-eslint/no-unsafe-return`
   - `@typescript-eslint/no-unsafe-type-assertion`
   - `@typescript-eslint/no-unsafe-unary-minus`
+  - `@typescript-eslint/no-wrapper-object-types`
   - `@typescript-eslint/prefer-for-of`
   - `@typescript-eslint/prefer-nullish-coalescing`
   - `@typescript-eslint/prefer-optional-chain`

@@ -13,6 +13,7 @@
 - feat: add `@typescript-eslint/no-unsafe-declaration-merging`
 - feat: add `@typescript-eslint/no-unsafe-enum-assignment`
 - feat: add `@typescript-eslint/no-unsafe-unary-minus`
+- feat: add `@typescript-eslint/no-wrapper-object-types`
 - feat: add `@typescript-eslint/require-array-sort-compare`
 - feat: add `@typescript-eslint/unbound-method`
 - feat: stricter `@typescript-eslint/restrict-template-expressions` options (disallow `any`, booleans, `never`, nullish values, numbers, regular expressions, and the default allowed types `Error`, `URL` and `URLSearchParams`)

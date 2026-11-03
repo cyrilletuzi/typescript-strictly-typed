@@ -42,6 +42,8 @@ interface ESLintRules {
   readonly "@typescript-eslint/no-unsafe-type-assertion"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   // In recommended-type-checked
   readonly "@typescript-eslint/no-unsafe-unary-minus"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
+  // In recommended
+  readonly "@typescript-eslint/no-wrapper-object-types"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/prefer-for-of"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/prefer-nullish-coalescing"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
   readonly "@typescript-eslint/prefer-optional-chain"?: ESLintErrorLevel | readonly [ESLintErrorLevel, unknown?];
@@ -152,6 +154,10 @@ function addTSConfig(
   }
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-unsafe-unary-minus"], "error");
+
+  if (checkTypescriptEslintVersion(cwd, ">=8.0.0")) {
+    config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/no-wrapper-object-types"], "error");
+  }
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "@typescript-eslint/prefer-for-of"], "error");
 

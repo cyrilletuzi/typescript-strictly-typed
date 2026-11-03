@@ -41,6 +41,7 @@ interface OxlintRules {
   readonly "typescript/no-unsafe-return"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/no-unsafe-type-assertion"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/no-unsafe-unary-minus"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  readonly "typescript/no-wrapper-object-types"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/require-array-sort-compare"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/restrict-plus-operands"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   // Enabled by default
@@ -126,6 +127,8 @@ function addRulesConfig(
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-type-assertion"], "deny");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-unary-minus"], "deny");
+
+  config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-wrapper-object-types"], "deny");
 
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/prefer-for-of"], "deny");
 
