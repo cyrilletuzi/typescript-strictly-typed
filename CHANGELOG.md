@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.35.1 (2026-11-06)
+
+- check for `tsrs` too for oxlint configuration
+
 ## 3.35.0 (2026-11-03)
 
 - fix: `@typescript-eslint/method-signature-style` was not added in ESLint flat config
