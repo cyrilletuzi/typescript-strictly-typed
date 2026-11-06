@@ -231,8 +231,8 @@ export async function enableOxlintStrict(cwd: string): Promise<boolean> {
 
   addRulesConfig(cwd, config, [], config.json.rules);
 
-  if (!dependencyExists(cwd, "oxlint-tsgolint")) {
-    logWarning(`Some Oxlint lint rules require type-aware linting, and the "oxlint-tsgolint" dependency required for it seems to be missing. See https://oxc.rs/docs/guide/usage/linter/type-aware.html`);
+  if (!dependencyExists(cwd, "tsrs") && !dependencyExists(cwd, "oxlint-tsgolint")) {
+    logWarning(`Some Oxlint lint rules require type-aware linting, and the "tsrs" or "oxlint-tsgolint" dependency required for it seems to be missing. See https://oxc.rs/docs/guide/usage/linter/type-aware.html`);
   }
 
   const saveFile: string = file === "oxlint.config.ts" || file === undefined ? ".oxlintrc.json" : file;
