@@ -58,6 +58,7 @@ It modifies these configurations:
   - `@typescript-eslint/no-unsafe-argument`
   - `@typescript-eslint/no-unsafe-assignment`
   - `@typescript-eslint/no-unsafe-call`
+  - `@typescript-eslint/no-unsafe-class-instance-assignment`
   - `@typescript-eslint/no-unsafe-declaration-merging`
   - `@typescript-eslint/no-unsafe-enum-assignment`
   - `@typescript-eslint/no-unsafe-function-type`

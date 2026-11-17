@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.36.0 (2026-11-17)
+
+- feat: add `@typescript-eslint/no-unsafe-class-instance-assignment`
+
 ## 3.35.1 (2026-11-06)
 
 - check for `tsrs` too for oxlint configuration
