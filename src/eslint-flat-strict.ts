@@ -30,6 +30,7 @@ function getEslintRules(cwd: string): Record<string, string> {
     "@typescript-eslint/no-unsafe-argument": `"error"`,
     "@typescript-eslint/no-unsafe-assignment": `"error"`,
     "@typescript-eslint/no-unsafe-call": `"error"`,
+    ...(checkTypescriptEslintVersion(cwd, ">=8.73.0") ? { "@typescript-eslint/no-unsafe-class-instance-assignment": `"error"` } : {}),
     "@typescript-eslint/no-unsafe-declaration-merging": `"error"`,
     ...(checkTypescriptEslintVersion(cwd, ">=8.71.0") ? { "@typescript-eslint/no-unsafe-enum-assignment": `"error"` } : {}),
     ...(checkTypescriptEslintVersion(cwd, ">=7.17.0") ? { "@typescript-eslint/no-unsafe-function-type": `"error"` } : {}),
