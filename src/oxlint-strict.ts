@@ -39,6 +39,8 @@ interface OxlintRules {
   readonly "typescript/no-unsafe-argument"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/no-unsafe-assignment"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/no-unsafe-call"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
+  // V1.95
+  readonly "typescript/no-unsafe-class-instance-assignment"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   readonly "typescript/no-unsafe-declaration-merging"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
   // V1.90
   readonly "typescript/no-unsafe-enum-assignment"?: OxlintErrorLevel | readonly [OxlintErrorLevel, unknown?];
@@ -130,6 +132,12 @@ function addRulesConfig(
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-argument"], "deny");
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-assignment"], "deny");
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-call"], "deny");
+
+  /* Older versions fail on unknown rules */
+  if (checkDependencyVersion(cwd, "oxlint", ">=1.95.0")) {
+    config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-class-instance-assignment"], "deny");
+  }
+
   config.raw = modifyJSON(config.raw, [...path, "rules", "typescript/no-unsafe-declaration-merging"], "deny");
 
   /* Older versions fail on unknown rules */

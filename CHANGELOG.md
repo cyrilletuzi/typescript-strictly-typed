@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.37.0 (2026-11-23)
+
+- feat: add `typescript/no-unsafe-class-instance-assignment` in Oxlint
+
 ## 3.36.0 (2026-11-17)
 
 - feat: add `@typescript-eslint/no-unsafe-class-instance-assignment`
